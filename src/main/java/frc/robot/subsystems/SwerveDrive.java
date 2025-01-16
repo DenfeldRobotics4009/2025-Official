@@ -23,7 +23,7 @@ import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveSubsystem extends SubsystemBase implements DriveSubsystem {
+public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
@@ -61,7 +61,7 @@ public class DriveSubsystem extends SubsystemBase implements DriveSubsystem {
       });
 
   /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {
+  public SwerveDrive() {
     // Usage reporting for MAXSwerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
   }

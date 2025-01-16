@@ -4,8 +4,10 @@
 
 package frc.library.auto.pathing;
 
+import edu.wpi.first.math.estimator.PoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 
 /**
@@ -19,7 +21,8 @@ public interface DriveSubsystem extends Subsystem {
      * oriented direction
      * @param speeds units in meters/sec and rad/sec
      */
-    void drive(ChassisSpeeds speeds);
+    void Pose2d(ChassisSpeeds speeds);
+    //void drive(ChassisSpeeds speeds);
 
     /**
      * @return the current most accurate field
