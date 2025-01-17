@@ -21,8 +21,8 @@ public interface DriveSubsystem extends Subsystem {
      * oriented direction
      * @param speeds units in meters/sec and rad/sec
      */
-    void Pose2d(ChassisSpeeds speeds);
-    //void drive(ChassisSpeeds speeds);
+
+    void drive(ChassisSpeeds speeds);
 
     /**
      * @return the current most accurate field
