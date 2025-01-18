@@ -18,7 +18,7 @@ public class FunnelSubsystem extends SubsystemBase{
         this.shortFunnelSensor = new AnalogInput(Constants.FunnelConstants.shortFunnelSensorChannel);
         this.dropPiston =  new Solenoid(null, Constants.FunnelConstants.dropPistonChannel);
     }
-//
+    //Voltage for the lazer sensors
     public boolean getShortFunnelSensor() {
         return shortFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
