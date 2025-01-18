@@ -4,8 +4,9 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+// "Tanner is stinky" -Luke
 public class FunnelSubsystem extends SubsystemBase{
+    //objects
     SparkMax agitatorMotor;
     AnalogInput wideFunnelSensor;
     AnalogInput shortFunnelSensor;
@@ -18,7 +19,7 @@ public class FunnelSubsystem extends SubsystemBase{
         this.shortFunnelSensor = new AnalogInput(Constants.FunnelConstants.shortFunnelSensorChannel);
         this.dropPiston =  new Solenoid(null, Constants.FunnelConstants.dropPistonChannel);
     }
-    //Voltage for the lazer sensors
+    //tests for if object in lazers way
     public boolean getShortFunnelSensor() {
         return shortFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
@@ -39,3 +40,9 @@ public class FunnelSubsystem extends SubsystemBase{
             dropPiston.set(!dropPistonDown);
     }
 } 
+
+/*
+ * if (codeWorks == false){
+ * isCrying = True
+ * }
+ */

@@ -108,4 +108,8 @@ public final class Constants {
     public static final double laserSensorVoltageHigh = 0.58;
     public static final double agitatorMotorSpeed = 0.5;
   }
+  public static final class ManipulatorConstants{
+    public static final int manipulatorMotorID = 0;
+    public static final int manipulatorSensorChanel = 0;
+  }
 }
