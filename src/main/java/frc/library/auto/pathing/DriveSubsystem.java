@@ -22,7 +22,7 @@ public interface DriveSubsystem extends Subsystem {
      * @param speeds units in meters/sec and rad/sec
      */
 
-    void drive(ChassisSpeeds speeds);
+    void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative);
 
     /**
      * @return the current most accurate field

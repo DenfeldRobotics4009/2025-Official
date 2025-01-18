@@ -24,7 +24,8 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
-import frc.library.auto.pathing.AutoShuffleboardTab;  
+import frc.library.auto.pathing.AutoShuffleboardTab;
+import frc.library.auto.pathing.PurePursuitController;  
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -45,6 +46,10 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    PurePursuitController.setMaxVelocityMeters(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
+    // PurePursuitController.setTurningPID(5, 0, 0);
+    PurePursuitController.setMaxAccelerationMeters(Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared); //TODO: Tune constant
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(

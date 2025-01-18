@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import frc.library.auto.pathing.DriveSubsystem;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -84,7 +85,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    *
    * @return The pose.
    */
-  public Pose2d getPose() {
+  public Pose2d getPosition() {
     return m_odometry.getPoseMeters();
   }
 
@@ -93,7 +94,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    *
    * @param pose The pose to which to set the odometry.
    */
-  public void resetOdometry(Pose2d pose) {
+  public void setPosition(Pose2d pose) {
     m_odometry.resetPosition(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
@@ -105,12 +106,13 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
         pose);
   }
 
+
   /**
    * Method to drive the robot using joystick info.
    *
-   * @param xSpeed        Speed of the robot in the x direction (forward).
-   * @param ySpeed        Speed of the robot in the y direction (sideways).
-   * @param rot           Angular rate of the robot.
+   * @param xSpeed        Speed of the robot in the x direction on a 0-1 scale (forward).
+   * @param ySpeed        Speed of the robot in the y direction on a 0-1 scale (sideways).
+   * @param rot           Angular rate of the robot on a 0-1 scale.
    * @param fieldRelative Whether the provided x and y speeds are relative to the
    *                      field.
    */

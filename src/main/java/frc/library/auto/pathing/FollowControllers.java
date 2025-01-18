@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.library.auto.pathing.controllers.RotationController;
 import frc.library.auto.pathing.controllers.TranslationController;
+import frc.robot.Constants;
 
 /**
  * Drives the robot from one or two given commands that may
@@ -111,7 +112,10 @@ public class FollowControllers extends Command {
     );
 
     driveSubsystem.drive(
-      new ChassisSpeeds(poseSpeeds.getX(), poseSpeeds.getY(), poseSpeeds.getRotation().getRadians())
+      poseSpeeds.getX()/Constants.DriveConstants.kMaxSpeedMetersPerSecond, 
+      poseSpeeds.getY()/Constants.DriveConstants.kMaxSpeedMetersPerSecond, 
+      poseSpeeds.getRotation().getRadians()/Constants.DriveConstants.kMaxAngularSpeed, 
+      true
     );
   }
 
