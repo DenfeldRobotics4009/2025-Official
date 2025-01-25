@@ -39,6 +39,10 @@ public class FunnelSubsystem extends SubsystemBase{
     public void dropPiston(boolean dropPistonDown){
             dropPiston.set(!dropPistonDown);
     }
+
+    public boolean pistonValue(){
+        return dropPiston.get();
+    }
 } 
 
 /*
