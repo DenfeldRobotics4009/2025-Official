@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FunnelSubsystem;
 
 public class ToggleFunnelCommand extends Command {
-boolean down;
 private FunnelSubsystem subsystem;
   public ToggleFunnelCommand(FunnelSubsystem subsystem) {
     this.subsystem = subsystem;

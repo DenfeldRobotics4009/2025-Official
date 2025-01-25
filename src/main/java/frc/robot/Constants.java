@@ -116,4 +116,7 @@ public final class Constants {
     public static final int deployMotorD = 0;
     public static final int dutyCycleEncoderChannel = 3;
   }
+  public static final class ManipulatorCommandConstants{
+    public static final double manipulatorMotorSpeed = 0;
+  }
 }
