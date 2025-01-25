@@ -15,7 +15,7 @@ public class ManipulatorSubsystem extends SubsystemBase{
     SparkMax deployMotor;
     AnalogInput pieceInManipulatorSensor;
     PIDController pid;
-    DutyCycleEncoder pidEncoder = new DutyCycleEncoder(3);
+    DutyCycleEncoder pidEncoder = new DutyCycleEncoder(Constants.ManipulatorConstants.dutyCycleEncoderChannel);
 
     //constructor
     public ManipulatorSubsystem() {

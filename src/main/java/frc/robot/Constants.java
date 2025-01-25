@@ -114,5 +114,6 @@ public final class Constants {
     public static final int deployMotorP = 0;
     public static final int deployMotorI = 0;
     public static final int deployMotorD = 0;
+    public static final int dutyCycleEncoderChannel = 3;
   }
 }
