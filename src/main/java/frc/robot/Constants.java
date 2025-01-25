@@ -111,5 +111,8 @@ public final class Constants {
   public static final class ManipulatorConstants{
     public static final int manipulatorMotorID = 0;
     public static final int manipulatorSensorChanel = 0;
+    public static final int deployMotorP = 0;
+    public static final int deployMotorI = 0;
+    public static final int deployMotorD = 0;
   }
 }
