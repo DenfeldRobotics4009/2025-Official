@@ -32,6 +32,7 @@ public class ManipulatorSubsystem extends SubsystemBase{
     public boolean getShortFunnelSensor() {
         return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
+
     public void setPIDTarget(double pidTarget) {
         pid.setSetpoint(pidTarget);
     }
