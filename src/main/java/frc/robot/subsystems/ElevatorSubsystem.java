@@ -6,7 +6,7 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.ElevatorController;
+import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax shaftMotor;
@@ -28,7 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorEncoder = new DutyCycleEncoder(0); //TODO: Find actual channel
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
-        setDefaultCommand(new ElevatorController(this));
+        setDefaultCommand(new ElevatorControllerCommand(this));
     }
     
     public void setTarget(setpoint var){

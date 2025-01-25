@@ -3,9 +3,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorController extends Command{
+public class ElevatorControllerCommand extends Command{
     private final ElevatorSubsystem m_elevator;
-    public ElevatorController(ElevatorSubsystem elevator){
+    public ElevatorControllerCommand(ElevatorSubsystem elevator){
         m_elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(elevator);
