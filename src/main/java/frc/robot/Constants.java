@@ -99,4 +99,21 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
+
+  public static final class FunnelConstants{
+    public static final int agitatorMotorID = 0;
+    public static final int wideFunnelSensorChannel = 0;
+    public static final int shortFunnelSensorChannel = 1;
+    public static final int dropPistonChannel = 0;
+    public static final double laserSensorVoltageHigh = 0.58;
+    public static final double agitatorMotorSpeed = 0.5;
+  }
+  public static final class ManipulatorConstants{
+    public static final int manipulatorMotorID = 0;
+    public static final int manipulatorSensorChanel = 0;
+    public static final int deployMotorP = 0;
+    public static final int deployMotorI = 0;
+    public static final int deployMotorD = 0;
+    public static final int dutyCycleEncoderChannel = 3;
+  }
 }
