@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.IntakeOverrideCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.subsystems.Controls;
@@ -82,8 +83,12 @@ public class RobotContainer {
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kTouchpad.value)
         .onTrue(new ToggleFunnelCommand(m_funnelSubsystem));
+        
         new JoystickButton(m_controlsSubsystem.operateController, Button.kR1.value)
         .whileTrue(new ManipulatorOutputCommand(m_manipulatorSubsystem));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kR2.value)
+        .whileTrue(new IntakeOverrideCommand(m_manipulatorSubsystem));
     }
 
     /**
