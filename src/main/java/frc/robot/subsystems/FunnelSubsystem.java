@@ -1,5 +1,4 @@
 package frc.robot.subsystems;
-import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -10,14 +9,14 @@ import frc.robot.commands.IntakeCommand;
 // "Tanner is stinky" -Luke
 public class FunnelSubsystem extends SubsystemBase{
     //objects
-    SparkMax agitatorMotor;
+    
     AnalogInput wideFunnelSensor;
    
     Solenoid dropPiston;
 
 //Constructor
     public FunnelSubsystem() {
-        this.agitatorMotor = new SparkMax(Constants.FunnelConstants.agitatorMotorID, null);
+       
         this.wideFunnelSensor = new AnalogInput(Constants.FunnelConstants.wideFunnelSensorChannel);
        
         this.dropPiston =  new Solenoid(null, Constants.FunnelConstants.dropPistonChannel);
@@ -29,14 +28,7 @@ public class FunnelSubsystem extends SubsystemBase{
         
     }
 
-    //agitator on / off
-    public void agitatorMoterToggle(boolean agitatorOn){
-        if (agitatorOn == true) {
-            agitatorMotor.set(Constants.FunnelConstants.agitatorMotorSpeed);
-        } else {
-            agitatorMotor.set(0);
-        } 
-    }  
+  
     //Droppiston on / off
     public void dropPiston(boolean dropPistonDown){
       
