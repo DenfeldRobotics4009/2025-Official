@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.IntakeOverrideCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.subsystems.Controls;
@@ -41,7 +41,7 @@ public class RobotContainer {
   // The robot's subsystems
     private final DriveSubsystem m_robotDrive = new DriveSubsystem();
     private final FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
-    private final ManipulatorSubsystem m_manipulatorSubsystem = new ManipulatorSubsystem();
+    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
     // The driver's controller
     
@@ -88,7 +88,7 @@ public class RobotContainer {
         .whileTrue(new ManipulatorOutputCommand(m_manipulatorSubsystem));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kR2.value)
-        .whileTrue(new IntakeOverrideCommand(m_manipulatorSubsystem));
+        .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
     }
 
     /**

@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
-public class IntakeOverrideCommand extends Command {
+public class IntakeCommand extends Command {
   private ManipulatorSubsystem subsystem;
-    public IntakeOverrideCommand(ManipulatorSubsystem subsystem) {
+    public IntakeCommand(ManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -19,7 +19,7 @@ public class IntakeOverrideCommand extends Command {
 
     @Override
     public void execute() {
-        // TODO Auto-generated method stub
+        
         super.execute();
     }
 

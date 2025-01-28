@@ -2,8 +2,11 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.commands.IntakeCommand;
 // "Tanner is stinky" -Luke
 public class FunnelSubsystem extends SubsystemBase{
     //objects
@@ -23,6 +26,7 @@ public class FunnelSubsystem extends SubsystemBase{
    
     public boolean getWideFunnelSensor() {
         return wideFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
+        
     }
 
     //agitator on / off
@@ -35,11 +39,19 @@ public class FunnelSubsystem extends SubsystemBase{
     }  
     //Droppiston on / off
     public void dropPiston(boolean dropPistonDown){
+      
             dropPiston.set(!dropPistonDown);
     }
 
     public boolean pistonValue(){
         return dropPiston.get();
+    }
+IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
+    @Override
+    public void periodic() {
+        if (getWideFunnelSensor() && !runIntakeCommand.isScheduled()) {
+            CommandScheduler.getInstance().schedule(runIntakeCommand);
+        }
     }
 } 
 
