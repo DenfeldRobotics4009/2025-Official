@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.commands.IntakeCommand;
 // "Tanner is stinky" -Luke
 public class FunnelSubsystem extends SubsystemBase{
