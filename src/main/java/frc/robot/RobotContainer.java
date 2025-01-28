@@ -14,17 +14,20 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
+import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem.setpoint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
@@ -42,6 +45,7 @@ public class RobotContainer {
     private final DriveSubsystem m_robotDrive = new DriveSubsystem();
     private final FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
     public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+    private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
     private final Controls m_controlsSubsystem = new Controls();
     // The driver's controller
     
@@ -76,12 +80,12 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
-    new JoystickButton(m_controlsSubsystem.driveController, Button.kR1.value)
+    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kTouchpad.value)
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
         .onTrue(new ToggleFunnelCommand(m_funnelSubsystem));
         
         new JoystickButton(m_controlsSubsystem.operateController, Button.kR1.value)
@@ -89,6 +93,18 @@ public class RobotContainer {
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kR2.value)
         .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P4));
     }
 
     /**
