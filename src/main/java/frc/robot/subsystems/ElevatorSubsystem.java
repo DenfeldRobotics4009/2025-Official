@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.ElevatorControllerCommand;
@@ -29,6 +29,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
         setDefaultCommand(new ElevatorControllerCommand(this));
+        // DigitalInput zeroLimitSwitch = new DigitalInput(0);
     }
     
     public void setTarget(setpoint var){
