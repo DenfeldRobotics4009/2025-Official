@@ -32,6 +32,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import java.util.List;
 
 /*
@@ -88,10 +90,11 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
         .onTrue(new ToggleFunnelCommand(m_funnelSubsystem));
         
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kR1.value)
-        .whileTrue(new ManipulatorOutputCommand(m_manipulatorSubsystem));
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        (new ManipulatorOutputCommand(m_manipulatorSubsystem))
+        );
 
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kR2.value)
+        m_controlsSubsystem.getOperatePOVTrigger(90)
         .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)

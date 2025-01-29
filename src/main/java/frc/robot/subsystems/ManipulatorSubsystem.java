@@ -56,6 +56,6 @@ public class ManipulatorSubsystem extends SubsystemBase{
        double speed = pid.calculate(pidEncoder.get());
        deployMotor.set(speed);
     }
-    
+  
     
 }
