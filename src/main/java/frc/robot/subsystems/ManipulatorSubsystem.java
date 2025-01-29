@@ -56,6 +56,17 @@ public class ManipulatorSubsystem extends SubsystemBase{
        double speed = pid.calculate(pidEncoder.get());
        deployMotor.set(speed);
     }
-  
+    public enum deployMotorPoints{
+        Start(0), //TODO: Add Constants in for the levels
+        Up(1),
+        Down(2);
+        double encoderValue;
+        deployMotorPoints(double val){
+            this.encoderValue = val;
+        }
+        public double getEncoderValue(){
+            return encoderValue;
+        }
+    }
     
 }
