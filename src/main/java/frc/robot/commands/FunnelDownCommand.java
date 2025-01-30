@@ -19,6 +19,7 @@ private FunnelSubsystem subsystem;
 
     @Override
     public void initialize() {
+        //when activated makes funnel drop so we can climb
         subsystem.dropPiston(true);
         
     }

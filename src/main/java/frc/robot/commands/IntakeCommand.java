@@ -13,6 +13,7 @@ public class IntakeCommand extends Command {
   }
     @Override
     public void end(boolean interrupted) {
+      //when let go it stops the intake wheel
         subsystem.manipulatorMotorSpeed(0);
     }
     
@@ -25,11 +26,13 @@ public class IntakeCommand extends Command {
 
     @Override
     public void initialize() {
+      //when activated starts spinning the intake wheels
       subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
     }
 
     @Override
     public boolean isFinished() {
+      //when lazer sensor in the manipulator is tripped it stops the program
         return subsystem.getShortFunnelSensor();
     }
     
