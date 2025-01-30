@@ -5,7 +5,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
 public class ManipulatorOutputCommand extends Command {
-    private ManipulatorSubsystem subsystem;
+    private final ManipulatorSubsystem subsystem;
     public ManipulatorOutputCommand(ManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
