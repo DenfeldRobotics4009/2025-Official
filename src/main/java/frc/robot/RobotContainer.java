@@ -21,7 +21,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
-import frc.robot.commands.ToggleFunnelCommand;
+import frc.robot.commands.FunnelDownCommand;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -88,7 +88,7 @@ public class RobotContainer {
             m_robotDrive));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
-        .onTrue(new ToggleFunnelCommand(m_funnelSubsystem));
+        .onTrue(new FunnelDownCommand(m_funnelSubsystem));
         
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
         (new ManipulatorOutputCommand(m_manipulatorSubsystem))

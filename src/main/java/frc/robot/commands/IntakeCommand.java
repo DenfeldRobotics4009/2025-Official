@@ -5,7 +5,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
 public class IntakeCommand extends Command {
-  private ManipulatorSubsystem subsystem;
+  private final ManipulatorSubsystem subsystem;
     public IntakeCommand(ManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -13,6 +13,7 @@ public class IntakeCommand extends Command {
   }
     @Override
     public void end(boolean interrupted) {
+      //when let go it stops the intake wheel
         subsystem.manipulatorMotorSpeed(0);
     }
     
@@ -25,11 +26,13 @@ public class IntakeCommand extends Command {
 
     @Override
     public void initialize() {
+      //when activated starts spinning the intake wheels
       subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
     }
 
     @Override
     public boolean isFinished() {
+      //when lazer sensor in the manipulator is tripped it stops the program
         return subsystem.getShortFunnelSensor();
     }
     
