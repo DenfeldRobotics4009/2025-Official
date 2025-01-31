@@ -10,6 +10,7 @@ import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax shaftMotor;
+    private DigitalInput zeroLimitSwitch;
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }
@@ -29,7 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
         setDefaultCommand(new ElevatorControllerCommand(this));
-        // DigitalInput zeroLimitSwitch = new DigitalInput(0);
+        DigitalInput zeroLimitSwitch = new DigitalInput(0);
     }
     
     public void setTarget(setpoint var){
@@ -55,6 +56,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public void resetOffset(){
         this.offset = 0;
+    }
+    public boolean getZeroLimitSwitch(){
+        return zeroLimitSwitch.get();
+    }
+    public void moveElevatorDown(){
+        shaftMotor.set(-1);
     }
     @Override
     public void periodic() {
