@@ -12,9 +12,13 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.function.Supplier;
 
+import org.json.simple.parser.ParseException;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.networktables.BooleanSubscriber;
@@ -26,11 +30,14 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.GameField;
+import frc.robot.Constants;
 
+import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
+import com.pathplanner.lib.util.FileVersionException;
 
 public class Path implements Iterable<PathPoint> {
 
@@ -55,12 +62,21 @@ public class Path implements Iterable<PathPoint> {
      * @param originAlliance The alliance this path is built for.
      * @param pathName The path planner file name.
      * @return A new path that matches the path planner path.
+     * @throws ParseException 
+     * @throws IOException 
+     * @throws FileVersionException 
      */
-    public static Path getFromPathPlanner(PurePursuitSettings config, Alliance originAlliance, String pathName) {
-        PathPlannerPath pathPlannerPath = PathPlannerPath.fromPathFile(pathName);   
+    public static Path getFromPathPlanner(PurePursuitSettings config, Alliance originAlliance, String pathName) throws FileVersionException, IOException, ParseException {
+        PathPlannerPath pathPlannerPath = PathPlannerPath.fromPathFile(pathName);  
+        SwerveModulePosition[] sp = new SwerveModulePosition[4];
+        Constants.DriveConstants.kDriveKinematics.copy(sp);
+        Translation2d[] mPos = new Translation2d[4];
+        for (int i = 0; i < mPos.length; i++) {
+            mPos[i] = new Translation2d(sp[i].distanceMeters, sp[i].angle);
+        }
         PathPlannerTrajectory trajectory = pathPlannerPath.generateTrajectory(
             new ChassisSpeeds(), pathPlannerPath.getStartingHolonomicPose().get().getRotation(),
-            new RobotConfig());
+            new RobotConfig(7, 16, new ModuleConfig(null, null, 0, null, null, 0),mPos));
         return new Path(config, originAlliance, trajectory);
     }
 
@@ -71,7 +87,20 @@ public class Path implements Iterable<PathPoint> {
      * @return A new path that matches the path planner path.
      */
     public static Path getFromPathPlanner(PurePursuitSettings config, String pathName) {
-        return Path.getFromPathPlanner(config, config.originAlliance, pathName);
+        try {
+            return Path.getFromPathPlanner(config, config.originAlliance, pathName);
+        } catch (FileVersionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     /**
