@@ -115,8 +115,22 @@ public final class Constants {
     public static final int deployMotorI = 0;
     public static final int deployMotorD = 0;
     public static final int dutyCycleEncoderChannel = 3;
+    public static final int deployMotorStart = 0;
+    public static final int deployMotorUp = 1;
+    public static final int deployMotorDown = 2;
   }
   public static final class ManipulatorCommandConstants{
     public static final double manipulatorMotorSpeed = 0;
   }
+  public static final class ClimberSubsystemConstants{
+    public static final int winchMotorDeviceID = 0;
+    public static final int climberUplimitSwitchID = 0;
+  }
+  public static final class ElevatorSubsystemConstants{
+    public static final int enumPointZero = 0;
+    public static final int enumP2 = 1;
+    public static final int enumP3 = 2;
+    public static final int enumP4 = 3;
+  }
+  
 }
