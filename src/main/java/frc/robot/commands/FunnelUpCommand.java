@@ -5,6 +5,12 @@ import frc.robot.subsystems.FunnelSubsystem;
 
 public class FunnelUpCommand extends Command {
 private FunnelSubsystem subsystem;
+public FunnelUpCommand(FunnelSubsystem subsystem) {
+    this.subsystem = subsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
+  }
+
     @Override
     public void end(boolean interrupted) {
         
