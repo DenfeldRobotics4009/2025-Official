@@ -18,17 +18,22 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ManipulatorOutputCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
-import frc.robot.commands.ToggleFunnelCommand;
+import frc.robot.commands.FunnelDownCommand;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
+import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.setpoint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 import java.util.List;
 
 /*
@@ -41,6 +46,7 @@ public class RobotContainer {
   // The robot's subsystems
     private final DriveSubsystem m_robotDrive = new DriveSubsystem();
     private final FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
+    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
     private final Controls m_controlsSubsystem = new Controls();
     // The driver's controller
@@ -82,7 +88,14 @@ public class RobotContainer {
             m_robotDrive));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
-        .onTrue(new ToggleFunnelCommand(m_funnelSubsystem));
+        .onTrue(new FunnelDownCommand(m_funnelSubsystem));
+        
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        (new ManipulatorOutputCommand(m_manipulatorSubsystem))
+        );
+
+        m_controlsSubsystem.getOperatePOVTrigger(90)
+        .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
