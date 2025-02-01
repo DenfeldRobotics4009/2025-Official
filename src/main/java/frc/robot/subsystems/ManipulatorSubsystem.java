@@ -6,7 +6,6 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -57,9 +56,9 @@ public class ManipulatorSubsystem extends SubsystemBase{
        deployMotor.set(speed);
     }
     public enum deployMotorPoints{
-        Start(0), //TODO: Add Constants in for the levels
-        Up(1),
-        Down(2);
+        Start(Constants.ManipulatorConstants.deployMotorStart), 
+        Up(Constants.ManipulatorConstants.deployMotorUp),
+        Down(Constants.ManipulatorConstants.deployMotorDown);
         double encoderValue;
         deployMotorPoints(double val){
             this.encoderValue = val;

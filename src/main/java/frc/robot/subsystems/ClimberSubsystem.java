@@ -5,23 +5,31 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.DigitalInput;
 // import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase{
    private SparkMax winchMotor;
-   private DigitalInput climberLimitSwitch;
+   private DigitalInput climberUpLimitSwitch;
+   private DigitalInput climberDownLimitSwitch;
 //    private Solenoid climberSolenoid;
 
    public ClimberSubsystem(){
-    this.winchMotor = new SparkMax(0, null); //TODO: find actual device IDs
-    this.climberLimitSwitch = new DigitalInput(0);
+    this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, null); 
+    this.climberUpLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberUplimitSwitchID);
    }
-public boolean getLimitSwitchHit(){
-    return climberLimitSwitch.get();
+public boolean getUpLimitSwitchHit(){
+    return climberUpLimitSwitch.get();
+}
+public boolean getDownLimitSwitchHit(){
+    return climberDownLimitSwitch.get();
 }
 public void moveClimberUp(){
     winchMotor.set(1);
 }
 public void moveClimberDown(){
     winchMotor.set(-1);
+}
+public void winchMotorOff(){
+    winchMotor.set(0);
 }
 }
