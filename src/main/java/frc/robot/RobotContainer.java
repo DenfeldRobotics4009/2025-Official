@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import java.util.List;
-//import frc.library.auto.pathing.AutoShuffleboardTab;
 import frc.library.auto.pathing.PurePursuitController;  
 
 /*
@@ -46,10 +45,6 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-
-    // PurePursuitController.setMaxVelocityMeters(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
-    // // PurePursuitController.setTurningPID(5, 0, 0);
-    // PurePursuitController.setMaxAccelerationMeters(Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared); //TODO: Tune constant
 
     // Configure default commands
     m_robotDrive.setDefaultCommand(
@@ -87,6 +82,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;//AutoShuffleboardTab.getInstance().getSelectedAuto();
+    return AutoShuffleboardTab.getInstance().getSelectedAuto();
   }
 }
