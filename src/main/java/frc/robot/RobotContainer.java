@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -13,6 +14,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
@@ -27,7 +29,7 @@ import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Controls;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
 import frc.robot.subsystems.ManipulatorSubsystem;
@@ -39,8 +41,12 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+import java.io.IOException;
 import java.util.List;
-import frc.library.auto.pathing.PurePursuitController;  
+import frc.library.auto.pathing.PurePursuitController;
+import frc.library.auto.pathing.PurePursuitSettings;
+import frc.library.auto.pathing.field.FieldMirrorType;
+import frc.library.auto.pathing.field.GameField;  
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -50,7 +56,7 @@ import frc.library.auto.pathing.PurePursuitController;
  */
 public class RobotContainer {
   // The robot's subsystems
-    private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+    private final SwerveDrive m_robotDrive = new SwerveDrive();
     private final FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
     public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
@@ -64,19 +70,34 @@ public class RobotContainer {
      */
     public RobotContainer() {
     // Configure the button bindings
-    configureButtonBindings();
-    
-    // Configure default commands
-    m_robotDrive.setDefaultCommand(
-        // The left stick controls translation of the robot.
-        // Turning is controlled by the X axis of the right stick.
-        new RunCommand(
-            () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftY(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftX(), OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getRightX(), OIConstants.kDriveDeadband),
-                true),
-            m_robotDrive));
+        configureButtonBindings();
+        
+        // Configure default commands
+        m_robotDrive.setDefaultCommand(
+            // The left stick controls translation of the robot.
+            // Turning is controlled by the X axis of the right stick.
+            new RunCommand(
+                () -> m_robotDrive.drive(
+                    -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftY(), OIConstants.kDriveDeadband),
+                    -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftX(), OIConstants.kDriveDeadband),
+                    -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getRightX(), OIConstants.kDriveDeadband),
+                    true),
+                m_robotDrive));
+
+                GameField gameField = null;
+        try {
+        gameField = new GameField(AprilTagFields.k2025Reefscape.loadAprilTagLayoutField(), FieldMirrorType.Mirrored);
+        } catch (IOException e) {
+        // AprilTagFields file not found
+        e.printStackTrace();
+        }
+
+        PurePursuitSettings config = new PurePursuitSettings(gameField, Alliance.Blue)
+        .setLookAheadScalar(0.2)
+        .setDistanceToGoalTolerance(0.1)
+        .setDefaultEndpointTolerance(0.1);
+
+        //populateSendable
     }
 
     /**
