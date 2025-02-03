@@ -82,9 +82,9 @@ public final class Constants {
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxSpeedMetersPerSecond = Constants.DriveConstants.kMaxSpeedMetersPerSecond;
     public static final double kMaxAccelerationMetersPerSecondSquared = 0.5;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+    public static final double kMaxAngularSpeedRadiansPerSecond = Constants.DriveConstants.kMaxAngularSpeed;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
     public static final double kPXController = 1;
