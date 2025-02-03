@@ -20,7 +20,7 @@
         "y": 5.253499999999999
       },
       "prevControl": {
-        "x": 3.242388982142271,
+        "x": 3.2423889821422707,
         "y": 5.877831409804526
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": -59.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Andrew auto 2 paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -55.0
