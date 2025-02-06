@@ -11,12 +11,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
+    //Positive value is up
     private SparkMax shaftMotor;
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }
     private RelativeEncoder elevatorEncoder;
-    public RelativeEncoder gRelativeEncoder(){
+    public RelativeEncoder getRelativeEncoder(){
         return elevatorEncoder;
     }
     private PIDController pid;
@@ -26,7 +27,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double offset;
 
     public ElevatorSubsystem(){
-        shaftMotor = new SparkMax(22, MotorType.kBrushless); //TODO: get Spark IDs
+        shaftMotor = new SparkMax(11, MotorType.kBrushless); //TODO: get Spark IDs
         elevatorEncoder = shaftMotor.getEncoder();
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
@@ -51,6 +52,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         public double getEncoderValue(){
             return encoderValue;
         }
+    }
+    public void runMotor(double speed){
+        shaftMotor.set(speed);
+
     }
     public void setOffset(double newOffset){
         this.offset = newOffset;
