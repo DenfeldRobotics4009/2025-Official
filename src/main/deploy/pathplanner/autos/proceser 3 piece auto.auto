@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path Start"
+            "pathName": "proceser 3 piece auto path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Part 2"
+            "pathName": "proceser 3 piece auto path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Coral to dropoff"
+            "pathName": "proceser 3 piece auto path 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Dropoff to coral"
+            "pathName": "proceser 3 piece auto path 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Dropoff to coral 2"
+            "pathName": "proceser 3 piece auto path 5"
           }
         }
       ]
