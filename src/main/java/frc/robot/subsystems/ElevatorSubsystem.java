@@ -11,6 +11,21 @@ import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax shaftMotor;
+
+    private static ElevatorSubsystem instance;
+
+    /**
+     * Returns the Scheduler instance.
+     *
+     * @return the instance
+     */
+    public static  ElevatorSubsystem getInstance() {
+      if (instance == null) {
+        instance = new ElevatorSubsystem();
+      }
+      return instance;
+      }
+
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }

@@ -56,12 +56,12 @@ import frc.library.auto.pathing.field.GameField;
  */
 public class RobotContainer {
   // The robot's subsystems
-    private final SwerveDrive m_robotDrive = new SwerveDrive();
-    // private final FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
-    // public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
-    // private final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
+    private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
+    private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+    private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
-    // private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
+    private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     // The driver's controller
     
 

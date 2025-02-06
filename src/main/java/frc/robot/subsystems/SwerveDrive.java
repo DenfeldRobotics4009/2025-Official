@@ -25,6 +25,19 @@ import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
+  private static SwerveDrive instance;
+
+  /**
+   * Returns the Scheduler instance.
+   *
+   * @return the instance
+   */
+  public static  SwerveDrive getInstance() {
+    if (instance == null) {
+      instance = new SwerveDrive();
+    }
+    return instance;
+    }
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
