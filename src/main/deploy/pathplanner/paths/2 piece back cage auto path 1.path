@@ -20,7 +20,7 @@
         "y": 4.181
       },
       "prevControl": {
-        "x": 2.1742500000000002,
+        "x": 2.17425,
         "y": 8.508249999999997
       },
       "nextControl": null,
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "New Folder",
+  "folder": "2 piece back cage auto",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
