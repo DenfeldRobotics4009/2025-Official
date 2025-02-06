@@ -29,7 +29,7 @@ public class OnePieceCageAuto extends SequentialCommandGroup {
         super(
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage Start")), drivetrain),
             new IntakeCommand(ManipulatorSubsystem.getInstance()),
-            new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage End")), drivetrain),
+            new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage End")), drivetrain)
 
        );
 
