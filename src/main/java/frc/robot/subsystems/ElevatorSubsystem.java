@@ -14,7 +14,7 @@ import frc.robot.commands.ElevatorControllerCommand;
 public class ElevatorSubsystem extends SubsystemBase {
     //Positive value is up
     private SparkMax shaftMotor;
-
+    private DigitalInput bottomLimitSwitch;
     private static ElevatorSubsystem instance;
 
     /**
@@ -43,12 +43,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double offset;
 
     public ElevatorSubsystem(){
+        bottomLimitSwitch = new DigitalInput(9);
         shaftMotor = new SparkMax(11, MotorType.kBrushless); //TODO: get Spark IDs
         elevatorEncoder = shaftMotor.getEncoder();
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
         setDefaultCommand(new ElevatorControllerCommand(this));
-        // DigitalInput zeroLimitSwitch = new DigitalInput(0);
+    }
+
+    public boolean isAtBottom(){
+        return bottomLimitSwitch.get();
     }
     
     public void setTarget(setpoint var){
