@@ -13,6 +13,20 @@ public class FunnelSubsystem extends SubsystemBase{
    
     Solenoid dropPiston;
 
+    private static FunnelSubsystem instance;
+
+    /**
+     * Returns the Scheduler instance.
+     *
+     * @return the instance
+     */
+    public static  FunnelSubsystem getInstance() {
+      if (instance == null) {
+        instance = new FunnelSubsystem();
+      }
+      return instance;
+      }
+
 //Constructor
     public FunnelSubsystem() {
        

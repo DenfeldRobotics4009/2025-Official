@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5394736842105263,
-        "y": 0.6381578947368428
+        "x": 1.6185000000000003,
+        "y": 0.7197499999999991
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1167763157894735,
-        "y": 1.6099506578947365
+        "x": 2.888697399736788,
+        "y": 0.9843677749040463
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Corral station"
     },
     {
       "anchor": {
-        "x": 3.165542763157894,
-        "y": 3.9287828947368424
+        "x": 3.94875,
+        "y": 2.7769999999999992
       },
       "prevControl": {
-        "x": 3.2437463533561868,
-        "y": 3.6913293235274427
+        "x": 3.468547905675075,
+        "y": 2.2050013306345666
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Dropoff end"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 59.99999999999999
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Processer 3 piece auto paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 55.007979801441294
+    "rotation": 55.0
   },
   "useDefaultConstraints": true
 }

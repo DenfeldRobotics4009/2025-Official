@@ -7,43 +7,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "Auto 2 path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New New Path"
+            "pathName": "auto 2 path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New New New Path"
+            "pathName": "Auto 2 path 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New New New New Path"
+            "pathName": "Auto 2 path 4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New New New New New Path"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "New New New New New New New Path"
+            "pathName": "Auto 2 path 5"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "New Folder",
   "choreoAuto": false
 }

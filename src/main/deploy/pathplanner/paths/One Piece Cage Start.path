@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.3208059210526315,
-        "y": 2.9377467105263158
+        "x": 7.264549180327867,
+        "y": 4.1748463114754095
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.281661184210526,
-        "y": 2.370065789473685
+        "x": 7.767794191461836,
+        "y": 4.175113465010005
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.549095394736842,
-        "y": 0.7055098684210531
+        "x": 5.814036885245901,
+        "y": 4.1748463114754095
       },
       "prevControl": {
-        "x": 2.338075657894737,
-        "y": 1.1384868421052636
+        "x": 5.552485851197323,
+        "y": 4.174832264722258
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Auto 3 Path 1 end"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 56.76828893202063
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "cage One piece auto paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 119.39605285494332
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

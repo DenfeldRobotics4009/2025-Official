@@ -7,19 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New "
+            "pathName": "2 piece back cage auto path 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New New Path"
+            "pathName": "2 piece back cage auto path 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 piece back cage auto path 3"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "New Folder",
   "choreoAuto": false
 }
