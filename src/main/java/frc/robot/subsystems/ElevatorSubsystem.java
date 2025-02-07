@@ -8,11 +8,27 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
     //Positive value is up
     private SparkMax shaftMotor;
+
+    private static ElevatorSubsystem instance;
+
+    /**
+     * Returns the Scheduler instance.
+     *
+     * @return the instance
+     */
+    public static  ElevatorSubsystem getInstance() {
+      if (instance == null) {
+        instance = new ElevatorSubsystem();
+      }
+      return instance;
+      }
+
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }
@@ -41,10 +57,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     //Creates setpoints for the elevator to reach
     public enum setpoint{
-        ZERO(0), //TODO: Add Constants in for the levels
-        P2(1),
-        P3(2),
-        P4(3);
+        ZERO(Constants.ElevatorSubsystemConstants.enumPointZero), 
+        P2(Constants.ElevatorSubsystemConstants.enumP2),
+        P3(Constants.ElevatorSubsystemConstants.enumP3),
+        P4(Constants.ElevatorSubsystemConstants.enumP4);
         double encoderValue;
         setpoint(double val){
             this.encoderValue = val;
@@ -65,6 +81,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        // TODO Auto-generated method stub
+        
     }
 }
