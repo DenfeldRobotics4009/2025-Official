@@ -19,10 +19,25 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
+import frc.library.auto.pathing.DriveSubsystem;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class DriveSubsystem extends SubsystemBase {
+public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
+  private static SwerveDrive instance;
+
+  /**
+   * Returns the Scheduler instance.
+   *
+   * @return the instance
+   */
+  public static  SwerveDrive getInstance() {
+    if (instance == null) {
+      instance = new SwerveDrive();
+    }
+    return instance;
+    }
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
@@ -60,7 +75,7 @@ public class DriveSubsystem extends SubsystemBase {
       });
 
   /** Creates a new DriveSubsystem. */
-  public DriveSubsystem() {
+  public SwerveDrive() {
     // Usage reporting for MAXSwerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
   }
@@ -83,7 +98,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return The pose.
    */
-  public Pose2d getPose() {
+  public Pose2d getPosition() {
     return m_odometry.getPoseMeters();
   }
 
@@ -92,7 +107,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @param pose The pose to which to set the odometry.
    */
-  public void resetOdometry(Pose2d pose) {
+  public void setPosition(Pose2d pose) {
     m_odometry.resetPosition(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
@@ -104,15 +119,17 @@ public class DriveSubsystem extends SubsystemBase {
         pose);
   }
 
+
   /**
    * Method to drive the robot using joystick info.
    *
-   * @param xSpeed        Speed of the robot in the x direction (forward).
-   * @param ySpeed        Speed of the robot in the y direction (sideways).
-   * @param rot           Angular rate of the robot.
+   * @param xSpeed        Speed of the robot in the x direction on a 0-1 scale (forward).
+   * @param ySpeed        Speed of the robot in the y direction on a 0-1 scale (sideways).
+   * @param rot           Angular rate of the robot on a 0-1 scale.
    * @param fieldRelative Whether the provided x and y speeds are relative to the
    *                      field.
    */
+  @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;

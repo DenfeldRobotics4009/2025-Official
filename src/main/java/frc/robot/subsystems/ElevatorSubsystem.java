@@ -6,11 +6,26 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax shaftMotor;
-    private DigitalInput zeroLimitSwitch;
+
+    private static ElevatorSubsystem instance;
+
+    /**
+     * Returns the Scheduler instance.
+     *
+     * @return the instance
+     */
+    public static  ElevatorSubsystem getInstance() {
+      if (instance == null) {
+        instance = new ElevatorSubsystem();
+      }
+      return instance;
+      }
+
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }
@@ -30,7 +45,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
         setDefaultCommand(new ElevatorControllerCommand(this));
-        DigitalInput zeroLimitSwitch = new DigitalInput(0);
+        // DigitalInput zeroLimitSwitch = new DigitalInput(0);
     }
     
     public void setTarget(setpoint var){
@@ -39,10 +54,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     //Creates setpoints for the elevator to reach
     public enum setpoint{
-        ZERO(0), //TODO: Add Constants in for the levels
-        P2(1),
-        P3(2),
-        P4(3);
+        ZERO(Constants.ElevatorSubsystemConstants.enumPointZero), 
+        P2(Constants.ElevatorSubsystemConstants.enumP2),
+        P3(Constants.ElevatorSubsystemConstants.enumP3),
+        P4(Constants.ElevatorSubsystemConstants.enumP4);
         double encoderValue;
         setpoint(double val){
             this.encoderValue = val;
@@ -57,14 +72,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     public void resetOffset(){
         this.offset = 0;
     }
-    public boolean getZeroLimitSwitch(){
-        return zeroLimitSwitch.get();
-    }
-    public void moveElevatorDown(){
-        shaftMotor.set(-1);
-    }
     @Override
     public void periodic() {
-        // TODO Auto-generated method stub
+        
     }
 }

@@ -17,6 +17,19 @@ public class ManipulatorSubsystem extends SubsystemBase{
     PIDController pid;
     DutyCycleEncoder pidEncoder = new DutyCycleEncoder(Constants.ManipulatorConstants.dutyCycleEncoderChannel);
 
+      private static ManipulatorSubsystem instance;
+
+  /**
+   * Returns the Scheduler instance.
+   *
+   * @return the instance
+   */
+  public static  ManipulatorSubsystem getInstance() {
+    if (instance == null) {
+      instance = new ManipulatorSubsystem();
+    }
+    return instance;
+    }
     //constructor
     public ManipulatorSubsystem() {
         this.manipulatorMotor = new SparkMax(Constants.ManipulatorConstants.manipulatorMotorID, null);
@@ -42,6 +55,17 @@ public class ManipulatorSubsystem extends SubsystemBase{
        double speed = pid.calculate(pidEncoder.get());
        deployMotor.set(speed);
     }
-    
+    public enum deployMotorPoints{
+        Start(Constants.ManipulatorConstants.deployMotorStart), 
+        Up(Constants.ManipulatorConstants.deployMotorUp),
+        Down(Constants.ManipulatorConstants.deployMotorDown);
+        double encoderValue;
+        deployMotorPoints(double val){
+            this.encoderValue = val;
+        }
+        public double getEncoderValue(){
+            return encoderValue;
+        }
+    }
     
 }
