@@ -5,8 +5,10 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RunElevator extends Command{
     private final ElevatorSubsystem m_elevator;
-    public RunElevator(ElevatorSubsystem elevator){
-        m_elevator = elevator;
+        private double m_speed;
+        public RunElevator(ElevatorSubsystem elevator, double speed){
+            m_elevator = elevator;
+            m_speed = speed;
     }
     @Override
     public void end(boolean interrupted) {
@@ -14,7 +16,7 @@ public class RunElevator extends Command{
     }
     @Override
     public void execute() {
-        m_elevator.runMotor(1);
+        m_elevator.runMotor(m_speed);
     }
     @Override
     public void initialize() {

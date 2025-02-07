@@ -21,12 +21,12 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.RunElevator;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
+import frc.robot.commands.RunElevator;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
@@ -142,11 +142,16 @@ public class RobotContainer {
         m_controlsSubsystem.getOperatePOVTrigger(180)
         .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
 
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem));
+      //  new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
+        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
 
+        //new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
+        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
+        .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.5));
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+        .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.5));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
