@@ -115,7 +115,7 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
-    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value)
+    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value);
     new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
