@@ -16,12 +16,12 @@ public class RunElevator extends Command{
     }
     @Override
     public void execute() {
-        if (m_speed > 0 || !m_elevator.isAtBottom()){
+        // if (m_speed > 0 || !m_elevator.isAtBottom()){
             
         
-        } else {
-            m_elevator.runMotor(0);
-        }
+        // } else {
+            m_elevator.runMotor(m_speed);
+       // }
     }
     @Override
     public void initialize() {

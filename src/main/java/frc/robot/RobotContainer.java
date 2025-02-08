@@ -149,9 +149,9 @@ public class RobotContainer {
         //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.5));
+        .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.25));
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.5));
+        .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.25));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
