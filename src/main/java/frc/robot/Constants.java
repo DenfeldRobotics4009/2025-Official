@@ -124,7 +124,11 @@ public final class Constants {
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;
-    public static final int climberUplimitSwitchID = 0;
+    public static final int climberDownlimitSwitchID = 0;
+    public static final double climberUpSpeed = 1;
+    public static final double climberDownSpeed = -1;
+    public static final double climberOffSpeed = 0;
+    public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;

@@ -1,12 +1,13 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimberSubsystem;
 
 
 public class ClimberUpCommand extends Command{
     private ClimberSubsystem climberSubsystem;
-    public ClimberUpCommand(ClimberSubsystem climber){
+    public ClimberUpCommand(ClimberSubsystem climber, double speed){
         climberSubsystem = climber;
     }
     @Override
@@ -19,11 +20,12 @@ public class ClimberUpCommand extends Command{
     }
     @Override
     public boolean isFinished() {
-        return climberSubsystem.getUpLimitSwitchHit();
+    
+        return true;
     }
     @Override
     public void execute() {
-        
+
     }
 
 }
