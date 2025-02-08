@@ -13,6 +13,20 @@ public class ClimberSubsystem extends SubsystemBase{
    private DigitalInput climberDownLimitSwitch;
 //    private Solenoid climberSolenoid;
 
+private static ClimberSubsystem instance;
+
+/**
+ * Returns the Scheduler instance.
+ *
+ * @return the instance
+ */
+public static  ClimberSubsystem getInstance() {
+  if (instance == null) {
+    instance = new ClimberSubsystem();
+  }
+  return instance;
+  }
+
    public ClimberSubsystem(){
     this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, null); 
     this.climberUpLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberUplimitSwitchID);
