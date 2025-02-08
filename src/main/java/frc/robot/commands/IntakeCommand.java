@@ -33,7 +33,7 @@ public class IntakeCommand extends Command {
     @Override
     public boolean isFinished() {
       //when lazer sensor in the manipulator is tripped it stops the program
-        return subsystem.getShortFunnelSensor();
+        return !subsystem.getManipulatorSensor();
     }
     
 }

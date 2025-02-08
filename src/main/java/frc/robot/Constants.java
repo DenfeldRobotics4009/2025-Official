@@ -101,12 +101,13 @@ public final class Constants {
   }
 
   public static final class FunnelConstants{
-    public static final int agitatorMotorID = 0;
     public static final int wideFunnelSensorChannel = 0;
-    public static final int shortFunnelSensorChannel = 1;
-    public static final int dropPistonChannel = 0;
+    public static final int dropMotorID = 0;
     public static final double laserSensorVoltageHigh = 0.58;
     public static final double agitatorMotorSpeed = 0.5;
+    public static final double dropFunnelMotorSpeed = 1;
+    public static final double maxFunnelAngle = 0;
+    public static final double minFunnelAngle = 0;
   }
   public static final class ManipulatorConstants{
     public static final int manipulatorMotorID = 0;

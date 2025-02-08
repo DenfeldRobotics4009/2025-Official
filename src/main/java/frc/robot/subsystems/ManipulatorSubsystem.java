@@ -1,13 +1,13 @@
 package frc.robot.subsystems;
 
-
-
 import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.IntakeCommand;
 
 public class ManipulatorSubsystem extends SubsystemBase{
    //objects
@@ -42,19 +42,24 @@ public class ManipulatorSubsystem extends SubsystemBase{
         manipulatorMotor.set(motorSpeed);
     }
     //tests for if object in lazers way
-    public boolean getShortFunnelSensor() {
+    public boolean getManipulatorSensor() {
         return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
 
     public void setPIDTarget(double pidTarget) {
         pid.setSetpoint(pidTarget);
     }
+    IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
     @Override
     public void periodic() {
-        
+        if (getManipulatorSensor() && !runIntakeCommand.isScheduled()) {
+              CommandScheduler.getInstance().schedule(runIntakeCommand);
+        }
        double speed = pid.calculate(pidEncoder.get());
        deployMotor.set(speed);
     }
+    
+
     public enum deployMotorPoints{
         Start(Constants.ManipulatorConstants.deployMotorStart), 
         Up(Constants.ManipulatorConstants.deployMotorUp),
