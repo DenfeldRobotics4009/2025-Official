@@ -3,6 +3,8 @@ package frc.robot.subsystems;
 
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -32,7 +34,7 @@ public class ManipulatorSubsystem extends SubsystemBase{
     }
     //constructor
     public ManipulatorSubsystem() {
-        this.manipulatorMotor = new SparkMax(Constants.ManipulatorConstants.manipulatorMotorID, null);
+        this.manipulatorMotor = new SparkMax(Constants.ManipulatorConstants.manipulatorMotorID, MotorType.kBrushless);
         this.pieceInManipulatorSensor = new AnalogInput(Constants.ManipulatorConstants.manipulatorSensorChanel); 
         this.pid = new PIDController(Constants.ManipulatorConstants.deployMotorP, Constants.ManipulatorConstants.deployMotorI, Constants.ManipulatorConstants.deployMotorD);
         

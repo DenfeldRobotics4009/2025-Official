@@ -17,7 +17,10 @@ public class RunElevator extends Command{
     @Override
     public void execute() {
         if (m_speed > 0 || !m_elevator.isAtBottom()){
-        m_elevator.runMotor(m_speed);
+            
+        
+        } else {
+            m_elevator.runMotor(0);
         }
     }
     @Override
@@ -27,10 +30,8 @@ public class RunElevator extends Command{
     }
     @Override
     public boolean isFinished() {
-        if (m_speed > 0 || !m_elevator.isAtBottom()){
-        return m_elevator.isAtBottom();
-        } else {
+      
             return false;
-        }
+        
     }
 }

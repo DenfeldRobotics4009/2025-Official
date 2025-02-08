@@ -62,11 +62,11 @@ import frc.library.auto.pathing.field.GameField;
 public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
-    private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+   // private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+   // public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
-    private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
+  //  private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     // The driver's controller
     
 
@@ -121,26 +121,26 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-        m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new SequentialCommandGroup(
-                new FunnelDownCommand(m_funnelSubsystem),
-                new ClimberUpCommand(m_ClimberSubsystem)
-            )
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
+        //     new SequentialCommandGroup(
+        //         new FunnelDownCommand(m_funnelSubsystem),
+        //         new ClimberUpCommand(m_ClimberSubsystem)
+        //     )
+        // );
 
-        m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new SequentialCommandGroup(
-                new ClimberDownCommand(m_ClimberSubsystem),
-                new FunnelUpCommand(m_funnelSubsystem)
-            )
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
+        //     new SequentialCommandGroup(
+        //         new ClimberDownCommand(m_ClimberSubsystem),
+        //         new FunnelUpCommand(m_funnelSubsystem)
+        //     )
+        // );
         
-        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        (new ManipulatorOutputCommand(m_manipulatorSubsystem))
-        );
+        // new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        // (new ManipulatorOutputCommand(m_manipulatorSubsystem))
+        // );
 
-        m_controlsSubsystem.getOperatePOVTrigger(180)
-        .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
+        // m_controlsSubsystem.getOperatePOVTrigger(180)
+        // .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
 
       //  new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
         //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));

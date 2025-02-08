@@ -48,7 +48,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorEncoder = shaftMotor.getEncoder();
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
-        setDefaultCommand(new ElevatorControllerCommand(this));
+      //  setDefaultCommand(new ElevatorControllerCommand(this));
     }
 
     public boolean isAtBottom(){
@@ -85,6 +85,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        
+        System.out.println(isAtBottom());
     }
 }
