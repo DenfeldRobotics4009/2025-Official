@@ -26,7 +26,7 @@ public FunnelUpCommand(FunnelSubsystem subsystem) {
     @Override
     public void initialize() {
         //when activated makes funnel go up so we can intake
-        subsystem.dropPiston(false);
+        subsystem.funnelDropMotorUp();
     }
 
     @Override
