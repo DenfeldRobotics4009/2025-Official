@@ -14,7 +14,7 @@ public class ClimberDownCommand extends Command{
     }
     @Override
     public void initialize() {
-        climberSubsystem.moveClimberDown();
+        
     }
     @Override
     public boolean isFinished() {
@@ -22,6 +22,6 @@ public class ClimberDownCommand extends Command{
     }
     @Override
     public void execute() {
-        
+        climberSubsystem.moveClimberDown();
     }
 }
