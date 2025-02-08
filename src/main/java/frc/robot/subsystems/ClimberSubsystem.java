@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
-// import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,7 +10,6 @@ public class ClimberSubsystem extends SubsystemBase{
    private SparkMax winchMotor;
    private DigitalInput climberDownLimitSwitch;
    
-//    private Solenoid climberSolenoid;
 
 private static ClimberSubsystem instance;
 
@@ -34,9 +31,6 @@ public static  ClimberSubsystem getInstance() {
     }
     public double getRelativeEncoderValue(){
         return winchMotor.getAlternateEncoder().getPosition();
-    }
-    public void runMotor(double speed){
-        winchMotor.set(speed);
     }
     public boolean getDownLimitSwitchHit(){
         return climberDownLimitSwitch.get();

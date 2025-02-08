@@ -12,6 +12,7 @@ import frc.robot.Constants;
 import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
+    //Creates components of the Elevator
     //Positive value is up
     private SparkMax shaftMotor;
     private DigitalInput bottomLimitSwitch;
