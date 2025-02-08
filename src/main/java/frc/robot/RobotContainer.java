@@ -20,7 +20,6 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
-import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
@@ -110,9 +109,6 @@ public class RobotContainer {
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
         (new ManipulatorOutputCommand(m_manipulatorSubsystem))
         );
-
-        m_controlsSubsystem.getOperatePOVTrigger(180)
-        .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
