@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -10,8 +12,9 @@ import frc.robot.Constants;
 import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
+    //Positive value is up
     private SparkMax shaftMotor;
-
+    private DigitalInput bottomLimitSwitch;
     private static ElevatorSubsystem instance;
 
     /**
@@ -29,8 +32,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }
-    private DutyCycleEncoder elevatorEncoder;
-    public DutyCycleEncoder getElevatorEncoder() {
+    private RelativeEncoder elevatorEncoder;
+    public RelativeEncoder getRelativeEncoder(){
         return elevatorEncoder;
     }
     private PIDController pid;
@@ -40,12 +43,16 @@ public class ElevatorSubsystem extends SubsystemBase {
     private double offset;
 
     public ElevatorSubsystem(){
-        shaftMotor = new SparkMax(0, null); //TODO: get Spark IDs
-        elevatorEncoder = new DutyCycleEncoder(0); //TODO: Find actual channel
+        bottomLimitSwitch = new DigitalInput(9);
+        shaftMotor = new SparkMax(11, MotorType.kBrushless); //TODO: get Spark IDs
+        elevatorEncoder = shaftMotor.getEncoder();
         pid = new PIDController(offset, offset, offset);
         setTarget(setpoint.ZERO);
-        setDefaultCommand(new ElevatorControllerCommand(this));
-        // DigitalInput zeroLimitSwitch = new DigitalInput(0);
+      //  setDefaultCommand(new ElevatorControllerCommand(this));
+    }
+
+    public boolean isAtBottom(){
+        return bottomLimitSwitch.get();
     }
     
     public void setTarget(setpoint var){
@@ -66,6 +73,10 @@ public class ElevatorSubsystem extends SubsystemBase {
             return encoderValue;
         }
     }
+    public void runMotor(double speed){
+        shaftMotor.set(speed);
+
+    }
     public void setOffset(double newOffset){
         this.offset = newOffset;
     }
@@ -74,6 +85,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        
+        System.out.println(isAtBottom());
     }
 }

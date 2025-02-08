@@ -12,7 +12,7 @@ public class ElevatorControllerCommand extends Command{
     }
     @Override
     public void execute() {
-        double speed = m_elevator.getPid().calculate(m_elevator.getElevatorEncoder().get());
+        double speed = m_elevator.getPid().calculate(m_elevator.getRelativeEncoder().getPosition());
         m_elevator.getShaftMotor().set(speed);
     }
 

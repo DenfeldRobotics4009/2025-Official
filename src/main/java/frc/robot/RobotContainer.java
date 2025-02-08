@@ -15,15 +15,19 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
+import frc.robot.commands.RunElevator;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
@@ -31,7 +35,9 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem.setpoint;
 import frc.robot.subsystems.ManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.setpoint;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -57,11 +63,11 @@ import frc.library.auto.pathing.field.GameField;
 public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
-    private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+   // private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+   // public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
-    private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
+  //  private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     // The driver's controller
     
 
@@ -110,37 +116,43 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
+    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value);
     new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-        m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new SequentialCommandGroup(
-                new FunnelDownCommand(m_funnelSubsystem),
-                new ClimberUpCommand(m_ClimberSubsystem)
-            )
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
+        //     new SequentialCommandGroup(
+        //         new FunnelDownCommand(m_funnelSubsystem),
+        //         new ClimberUpCommand(m_ClimberSubsystem)
+        //     )
+        // );
 
-        m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new SequentialCommandGroup(
-                new ClimberDownCommand(m_ClimberSubsystem),
-                new FunnelUpCommand(m_funnelSubsystem)
-            )
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
+        //     new SequentialCommandGroup(
+        //         new ClimberDownCommand(m_ClimberSubsystem),
+        //         new FunnelUpCommand(m_funnelSubsystem)
+        //     )
+        // );
         
-        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        (new ManipulatorOutputCommand(m_manipulatorSubsystem))
-        );
+        // new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        // (new ManipulatorOutputCommand(m_manipulatorSubsystem))
+        // );
 
-        m_controlsSubsystem.getOperatePOVTrigger(180)
-        .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
+        // m_controlsSubsystem.getOperatePOVTrigger(180)
+        // .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
+
+      //  new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
+        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
+
+        //new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
+        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
-
+        .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.25));
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+        .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.25));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));

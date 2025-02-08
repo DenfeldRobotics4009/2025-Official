@@ -46,15 +46,15 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 8;
-    public static final int kRearLeftDrivingCanId = 7;
-    public static final int kFrontRightDrivingCanId = 9;
-    public static final int kRearRightDrivingCanId = 6;
+    public static final int kFrontLeftDrivingCanId = 4;
+    public static final int kRearLeftDrivingCanId = 3;
+    public static final int kFrontRightDrivingCanId = 5;
+    public static final int kRearRightDrivingCanId = 2;
 
-    public static final int kFrontLeftTurningCanId = 21;
-    public static final int kRearLeftTurningCanId = 32;
-    public static final int kFrontRightTurningCanId = 40;
-    public static final int kRearRightTurningCanId = 22;
+    public static final int kFrontLeftTurningCanId = 8;
+    public static final int kRearLeftTurningCanId = 7;
+    public static final int kFrontRightTurningCanId = 9;
+    public static final int kRearRightTurningCanId = 6;
 
     public static final boolean kGyroReversed = false;
   }
@@ -123,14 +123,19 @@ public final class Constants {
     public static final double manipulatorMotorSpeed = 0;
   }
   public static final class ClimberSubsystemConstants{
-    public static final int winchMotorDeviceID = 0;
-    public static final int climberUplimitSwitchID = 0;
+    public static final int winchMotorDeviceID = 13;
+    public static final int climberDownlimitSwitchID = 0;
+    public static final double climberUpSpeed = 1;
+    public static final double climberDownSpeed = -1;
+    public static final double climberOffSpeed = 0;
+    public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;
     public static final int enumP2 = 1;
     public static final int enumP3 = 2;
     public static final int enumP4 = 3;
+    public static final int ElevatormotorID = 11;
   }
   
 }
