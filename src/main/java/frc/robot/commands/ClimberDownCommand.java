@@ -23,5 +23,6 @@ public class ClimberDownCommand extends Command{
     @Override
     public void execute() {
         climberSubsystem.moveClimberDown();
+        climberSubsystem.pistonIsPowered(false);
     }
 }
