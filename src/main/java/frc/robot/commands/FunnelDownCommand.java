@@ -13,14 +13,14 @@ private FunnelSubsystem subsystem;
 
     @Override
     public void execute() {
-        
+          //when activated makes funnel go up so we can intake
+          subsystem.pistonIsPowered(false);
         super.execute();
     }
 
     @Override
     public void initialize() {
-        //when activated makes funnel drop so we can climb
-        subsystem.dropPiston(true);
+    
         
     }
 
