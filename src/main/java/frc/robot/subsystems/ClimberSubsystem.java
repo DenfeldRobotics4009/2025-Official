@@ -3,14 +3,16 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase{
    private SparkMax winchMotor;
    private DigitalInput climberDownLimitSwitch;
-   Solenoid climbPiston;
+   DoubleSolenoid climbPiston;
    
 
 private static ClimberSubsystem instance;
@@ -30,7 +32,7 @@ public static  ClimberSubsystem getInstance() {
     public ClimberSubsystem(){
         this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, null); 
         this.climberDownLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberDownlimitSwitchID);
-        this.climbPiston = new Solenoid(null, 0);
+        this.climbPiston = new DoubleSolenoid(null, 0, 0);
     }
 
     public double getRelativeEncoderValue(){
@@ -54,9 +56,13 @@ public static  ClimberSubsystem getInstance() {
     }
 
     public void pistonIsPowered(boolean pistonOn){
-        climbPiston.set(pistonOn);
+        if(pistonOn){
+            climbPiston.set(Value.kForward);
+        }
+        else{
+            climbPiston.set(Value.kOff);
+        }
     }
-
 
     @Override
     public void periodic() {
