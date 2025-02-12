@@ -19,14 +19,14 @@ public FunnelUpCommand(FunnelSubsystem subsystem) {
 
     @Override
     public void execute() {
+          //when activated makes funnel go up so we can intake
+          subsystem.pistonIsPowered(true);
         
-        super.execute();
     }
 
     @Override
     public void initialize() {
-        //when activated makes funnel go up so we can intake
-        subsystem.dropPiston(false);
+      
     }
 
     @Override

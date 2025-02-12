@@ -1,5 +1,9 @@
 package frc.robot.subsystems;
+import static edu.wpi.first.units.Units.Value;
+
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,7 +15,7 @@ public class FunnelSubsystem extends SubsystemBase{
     
     AnalogInput wideFunnelSensor;
    
-    Solenoid dropPiston;
+    DoubleSolenoid dropPiston;
 
     private static FunnelSubsystem instance;
 
@@ -32,7 +36,7 @@ public class FunnelSubsystem extends SubsystemBase{
        
         this.wideFunnelSensor = new AnalogInput(Constants.FunnelConstants.wideFunnelSensorChannel);
        
-        this.dropPiston =  new Solenoid(null, Constants.FunnelConstants.dropPistonChannel);
+        this.dropPiston =  new DoubleSolenoid(null, 0, 0);
     }
     //tests for if object in lazers way
    
@@ -43,19 +47,21 @@ public class FunnelSubsystem extends SubsystemBase{
 
   
     //Droppiston on / off
-    public void dropPiston(boolean dropPistonDown){
-      
-            dropPiston.set(!dropPistonDown);
-    }
+ 
 
-    public boolean pistonValue(){
-        return dropPiston.get();
-    }
 IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
     @Override
     public void periodic() {
         if (getWideFunnelSensor() && !runIntakeCommand.isScheduled()) {
             CommandScheduler.getInstance().schedule(runIntakeCommand);
+        }
+    }
+     public void pistonIsPowered(boolean pistonOn){
+        if(pistonOn){
+            dropPiston.set(DoubleSolenoid.Value.kForward);
+        }
+        else{
+            dropPiston.set(DoubleSolenoid.Value.kOff);
         }
     }
 } 
