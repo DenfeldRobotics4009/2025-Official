@@ -62,11 +62,11 @@ import frc.library.auto.pathing.field.GameField;
 public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
-   // private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-   // public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+   private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+   public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
-  //  private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
+   private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     // The driver's controller
     
 
@@ -121,37 +121,39 @@ public class RobotContainer {
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-        // m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-        //     new SequentialCommandGroup(
-        //         new FunnelDownCommand(m_funnelSubsystem),
-        //         new ClimberUpCommand(m_ClimberSubsystem)
-        //     )
-        // );
-
-        // m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-        //     new SequentialCommandGroup(
-        //         new ClimberDownCommand(m_ClimberSubsystem),
-        //         new FunnelUpCommand(m_funnelSubsystem)
-        //     )
-        // );
+        //Makes funnel go down and climber go up when up dpad is pressed
+        m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
+            new SequentialCommandGroup(
+                new FunnelDownCommand(m_funnelSubsystem),
+                new ClimberUpCommand(m_ClimberSubsystem, 1)
+            )
+        );
+        //Makes climber go down and funnel go up when up dpad is pressed
+        m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
+            new SequentialCommandGroup(
+                new ClimberDownCommand(m_ClimberSubsystem),
+                new FunnelUpCommand(m_funnelSubsystem)
+            )
+        );
         
-        // new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        // (new ManipulatorOutputCommand(m_manipulatorSubsystem))
-        // );
+        //Makes manipulator output coral
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        (new ManipulatorOutputCommand(m_manipulatorSubsystem))
+        );
 
-        // m_controlsSubsystem.getOperatePOVTrigger(180)
-        // .whileTrue(new IntakeCommand(m_manipulatorSubsystem));
+        //Makes the elevator go up and down for testing
+        // new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
+        // .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.25));
 
-      //  new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
+        // new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
+        // .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.25));
 
-        //new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+        // Moves elevator to height for each reef level
+       new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO)); //Zero is the same as L1
 
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.25));
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.25));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
