@@ -7,6 +7,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.ElevatorControllerCommand;
@@ -15,7 +16,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     //Creates components of the Elevator
     //Positive value is up
     private SparkMax shaftMotor;
+    private SparkMax shaftMotortest;
     private DigitalInput bottomLimitSwitch;
+    private Encoder encoder;
     private static ElevatorSubsystem instance;
 
     /**
@@ -33,9 +36,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     public SparkMax getShaftMotor() {
         return shaftMotor;
     }
-    private RelativeEncoder elevatorEncoder;
-    public RelativeEncoder getRelativeEncoder(){
-        return elevatorEncoder;
+    public double getRelativeEncoderValue(){
+        return encoder.getDistance();
     }
     private PIDController pid;
     public PIDController getPid() {
@@ -46,8 +48,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     public ElevatorSubsystem(){
         bottomLimitSwitch = new DigitalInput(9);
         shaftMotor = new SparkMax(11, MotorType.kBrushless); //TODO: get Spark IDs
-        elevatorEncoder = shaftMotor.getEncoder();
-        pid = new PIDController(offset, offset, offset);
+        pid = new PIDController(0, 0, 0);
+        encoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
         setTarget(setpoint.ZERO);
       //  setDefaultCommand(new ElevatorControllerCommand(this));
     }
@@ -86,6 +88,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        System.out.println(isAtBottom());
+       // System.out.println(isAtBottom());
+        System.out.println(encoder.getDistance());
     }
 }
