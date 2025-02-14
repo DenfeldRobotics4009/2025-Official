@@ -83,6 +83,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
+    //System.out.println("Angle: " + m_gyro.getAngle());
     m_odometry.update(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {

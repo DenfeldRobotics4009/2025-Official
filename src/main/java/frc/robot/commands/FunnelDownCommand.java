@@ -5,6 +5,7 @@ import frc.robot.subsystems.FunnelSubsystem;
 
 public class FunnelDownCommand extends Command {
 private FunnelSubsystem subsystem;
+private boolean isDone =false;
   public FunnelDownCommand(FunnelSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -15,7 +16,7 @@ private FunnelSubsystem subsystem;
     public void execute() {
           //when activated makes funnel go up so we can intake
           subsystem.pistonIsPowered(false);
-        super.execute();
+          isDone = true;
     }
 
     @Override
@@ -26,7 +27,7 @@ private FunnelSubsystem subsystem;
 
     @Override
     public boolean isFinished() {
-        return true;
+        return isDone;
     }
     
 }

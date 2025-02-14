@@ -14,7 +14,9 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -63,18 +65,19 @@ import frc.library.auto.pathing.field.GameField;
 public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
-//    private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+   private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
 //    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
-//    private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
+   private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     // The driver's controller
-    
+    public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        m_compressor.enableDigital();
     // Configure the button bindings
         configureButtonBindings();
         
@@ -123,19 +126,19 @@ public class RobotContainer {
             m_robotDrive));
 
         //Makes funnel go down and climber go up when up dpad is pressed
-        // m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-        //     new SequentialCommandGroup(
-        //         new FunnelDownCommand(m_funnelSubsystem),
-        //         new ClimberUpCommand(m_ClimberSubsystem, 1)
-        //     )
-        // );
+        m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
+            new SequentialCommandGroup(
+                new FunnelDownCommand(m_funnelSubsystem)//,
+                //new ClimberUpCommand(m_ClimberSubsystem, 1)
+            )
+        );
         //Makes climber go down and funnel go up when up dpad is pressed
-        // m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-        //     new SequentialCommandGroup(
-        //         new ClimberDownCommand(m_ClimberSubsystem),
-        //         new FunnelUpCommand(m_funnelSubsystem)
-        //     )
-        // );
+        m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
+            new SequentialCommandGroup(
+            // new ClimberDownCommand(m_ClimberSubsystem),
+                new FunnelUpCommand(m_funnelSubsystem)
+            )
+        );
         
         //Makes manipulator output coral
         // new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
@@ -157,10 +160,12 @@ public class RobotContainer {
     //     .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
+        .whileTrue(new ClimberUpCommand(m_ClimberSubsystem));
+        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P4));
+        .whileTrue(new ClimberDownCommand(m_ClimberSubsystem));
+        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P4));
     }
 
     public Command getAutonomousCommand() {

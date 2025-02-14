@@ -19,6 +19,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax shaftMotortest;
     private DigitalInput bottomLimitSwitch;
     private Encoder encoder;
+    private double offset = 0;
     private static ElevatorSubsystem instance;
 
     /**
@@ -37,25 +38,24 @@ public class ElevatorSubsystem extends SubsystemBase {
         return shaftMotor;
     }
     public double getRelativeEncoderValue(){
-        return encoder.getDistance();
+        return encoder.getDistance()-offset;
     }
     private PIDController pid;
     public PIDController getPid() {
         return pid;
     }
-    private double offset;
 
     public ElevatorSubsystem(){
         bottomLimitSwitch = new DigitalInput(9);
         shaftMotor = new SparkMax(11, MotorType.kBrushless); //TODO: get Spark IDs
-        pid = new PIDController(0, 0, 0);
+        pid = new PIDController(.1, 0, 0);
         encoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
         setTarget(setpoint.ZERO);
-      //  setDefaultCommand(new ElevatorControllerCommand(this));
+        //setDefaultCommand(new ElevatorControllerCommand(this));
     }
 
     public boolean isAtBottom(){
-        return bottomLimitSwitch.get();
+        return !bottomLimitSwitch.get();
     }
     
     public void setTarget(setpoint var){
@@ -88,7 +88,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-       // System.out.println(isAtBottom());
-        System.out.println(encoder.getDistance());
+    //    System.out.println(isAtBottom());
+        System.out.println(getRelativeEncoderValue());
+        if(isAtBottom()){
+            setOffset(getRelativeEncoderValue());
+        }
     }
 }

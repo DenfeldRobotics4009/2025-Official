@@ -7,7 +7,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimberUpCommand extends Command{
     private ClimberSubsystem climberSubsystem;
-    public ClimberUpCommand(ClimberSubsystem climber, double speed){
+    public ClimberUpCommand(ClimberSubsystem climber){
         climberSubsystem = climber;
     }
     @Override
@@ -20,12 +20,12 @@ public class ClimberUpCommand extends Command{
     }
     @Override
     public boolean isFinished() {
-        return climberSubsystem.getRelativeEncoderValue()>Constants.ClimberSubsystemConstants.climberUpEncoderVal;
+        return false;// climberSubsystem.getRelativeEncoderValue()>Constants.ClimberSubsystemConstants.climberUpEncoderVal;
     }
     @Override
     public void execute() {
         climberSubsystem.moveClimberUp();
-        climberSubsystem.pistonIsPowered(true);
+        //climberSubsystem.pistonIsPowered(true);
     }
 
 }

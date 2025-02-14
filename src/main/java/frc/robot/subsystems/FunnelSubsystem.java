@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.Value;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,14 +35,15 @@ public class FunnelSubsystem extends SubsystemBase{
 //Constructor
     public FunnelSubsystem() {
        
-        this.wideFunnelSensor = new AnalogInput(Constants.FunnelConstants.wideFunnelSensorChannel);
+        //this.wideFunnelSensor = new AnalogInput(Constants.FunnelConstants.wideFunnelSensorChannel);
        
-        this.dropPiston =  new DoubleSolenoid(null, 0, 0);
+        this.dropPiston =  new DoubleSolenoid(20,PneumaticsModuleType.REVPH, 0, 1);
     }
     //tests for if object in lazers way
    
     public boolean getWideFunnelSensor() {
-        return wideFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
+        return false;
+        //return wideFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
         
     }
 
@@ -49,19 +51,20 @@ public class FunnelSubsystem extends SubsystemBase{
     //Droppiston on / off
  
 
-IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
+// IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
     @Override
     public void periodic() {
-        if (getWideFunnelSensor() && !runIntakeCommand.isScheduled()) {
-            CommandScheduler.getInstance().schedule(runIntakeCommand);
-        }
+        //System.out.println(dropPiston.get());
+        // if (getWideFunnelSensor() && !runIntakeCommand.isScheduled()) {
+        //     CommandScheduler.getInstance().schedule(runIntakeCommand);
+        // }
     }
      public void pistonIsPowered(boolean pistonOn){
         if(pistonOn){
             dropPiston.set(DoubleSolenoid.Value.kForward);
         }
         else{
-            dropPiston.set(DoubleSolenoid.Value.kOff);
+            dropPiston.set(DoubleSolenoid.Value.kReverse);
         }
     }
 } 

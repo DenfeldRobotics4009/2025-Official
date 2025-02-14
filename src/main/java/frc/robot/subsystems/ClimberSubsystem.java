@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -30,17 +31,17 @@ public static  ClimberSubsystem getInstance() {
     }
 
     public ClimberSubsystem(){
-        this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, null); 
-        this.climberDownLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberDownlimitSwitchID);
-        this.climbPiston = new DoubleSolenoid(null, 0, 0);
+        this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, MotorType.kBrushless); 
+        //this.climberDownLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberDownlimitSwitchID);
+        //this.climbPiston = new DoubleSolenoid(null, 0, 0);
     }
 
     public double getRelativeEncoderValue(){
-        return winchMotor.getAlternateEncoder().getPosition();
+        return 0; // winchMotor.getAlternateEncoder().getPosition();
     }
 
     public boolean getDownLimitSwitchHit(){
-        return climberDownLimitSwitch.get();
+        return false; // climberDownLimitSwitch.get();
     }
     
     public void moveClimberUp(){
@@ -66,6 +67,6 @@ public static  ClimberSubsystem getInstance() {
 
     @Override
     public void periodic() {
-        System.out.println(getRelativeEncoderValue());
+       // System.out.println(getRelativeEncoderValue());
     }
 }
