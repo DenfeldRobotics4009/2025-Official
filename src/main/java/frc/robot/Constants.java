@@ -132,8 +132,8 @@ public final class Constants {
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;
-    public static final int enumP2 = 5000;
-    public static final int enumP3 = 9000;
+    public static final int enumP2 = 6500;
+    public static final int enumP3 = 12500;
     public static final int enumP4 = 10000;
 
 
