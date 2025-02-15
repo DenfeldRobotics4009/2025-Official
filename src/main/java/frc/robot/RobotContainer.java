@@ -27,6 +27,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
+import frc.robot.commands.ElevatorControllerCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
 import frc.robot.commands.RunElevator;
@@ -67,16 +68,25 @@ public class RobotContainer {
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
    private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
 //    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
-    private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
-    private final Controls m_controlsSubsystem = new Controls();
-   private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
-    // The driver's controller
-    public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
-
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
-    public RobotContainer() {
+    private ElevatorSubsystem m_ElevatorSubsystem;
+        private final Controls m_controlsSubsystem = new Controls();
+       private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
+        // The driver's controller
+        public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
+    
+        /**
+         * The container for the robot. Contains subsystems, OI devices, and commands.
+         */
+        public RobotContainer() {
+    
+    
+            try {
+                m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                m_ElevatorSubsystem = null;
+        }
         m_compressor.enableDigital();
     // Configure the button bindings
         configureButtonBindings();
@@ -151,7 +161,10 @@ public class RobotContainer {
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
         .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.25));
-
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSubsystem.setpoint.P2));
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
+        .whileTrue(new ElevatorControllerCommand(m_ElevatorSubsystem));
         // Moves elevator to height for each reef level
     //    new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
     //     .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO)); //Zero is the same as L1

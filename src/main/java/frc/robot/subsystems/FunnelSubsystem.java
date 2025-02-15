@@ -37,6 +37,7 @@ public class FunnelSubsystem extends SubsystemBase{
        
         //this.wideFunnelSensor = new AnalogInput(Constants.FunnelConstants.wideFunnelSensorChannel);
        
+        //Pnumatics hub is module 20, and is a REVPH hub. the piston is plugged into 0 and 1 on the REVPH
         this.dropPiston =  new DoubleSolenoid(20,PneumaticsModuleType.REVPH, 0, 1);
     }
     //tests for if object in lazers way
