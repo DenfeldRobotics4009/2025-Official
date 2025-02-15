@@ -139,10 +139,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
     //    System.out.println(isAtBottom());
-
         //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
         if(isAtBottom()){
             encoder.reset();
         } 
+        System.out.println("encoder: "
+        +getRelativeEncoderValue());
     }
 }
