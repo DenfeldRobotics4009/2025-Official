@@ -14,9 +14,9 @@ private boolean isDone =false;
 
     @Override
     public void execute() {
-          //when activated makes funnel go up so we can intake
-          subsystem.pistonIsPowered(false);
-          isDone = true;
+      //when activated makes funnel go up so we can intake
+      subsystem.pistonIsPowered(false);
+      isDone = true;
     }
 
     @Override

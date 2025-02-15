@@ -30,7 +30,7 @@ import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
-import frc.robot.commands.RunElevator;
+import frc.robot.commands.SetElevatorOffset;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
@@ -138,47 +138,41 @@ public class RobotContainer {
         //Makes funnel go down and climber go up when up dpad is pressed
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
             new SequentialCommandGroup(
-                new FunnelDownCommand(m_funnelSubsystem)//,
-                //new ClimberUpCommand(m_ClimberSubsystem, 1)
+                new FunnelDownCommand(m_funnelSubsystem),
+                new ClimberUpCommand(m_ClimberSubsystem)
             )
         );
         //Makes climber go down and funnel go up when up dpad is pressed
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new SequentialCommandGroup(
-            // new ClimberDownCommand(m_ClimberSubsystem),
-                new FunnelUpCommand(m_funnelSubsystem)
-            )
+            new ClimberDownCommand(m_ClimberSubsystem)
+
         );
-        
+        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+            new FunnelUpCommand(m_funnelSubsystem)
+        );
         //Makes manipulator output coral
         // new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
         // (new ManipulatorOutputCommand(m_manipulatorSubsystem))
-        // );
+        // )
 
-        //Makes the elevator go up and down for testing
+        //
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
+        .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, 10));
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
+        .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, -10));
+        
+        // Moves elevator to height for each reef level
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem, 0.25));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO)); //Zero is the same as L1
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        .whileTrue(new RunElevator(m_ElevatorSubsystem, -0.25));
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSubsystem.setpoint.P2));
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
-        .whileTrue(new ElevatorControllerCommand(m_ElevatorSubsystem));
-        // Moves elevator to height for each reef level
-    //    new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-    //     .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO)); //Zero is the same as L1
-
-    //     new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-    //     .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
-        .whileTrue(new ClimberUpCommand(m_ClimberSubsystem));
-        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
-        .whileTrue(new ClimberDownCommand(m_ClimberSubsystem));
-        //.onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P4));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P4));
     }
 
     public Command getAutonomousCommand() {

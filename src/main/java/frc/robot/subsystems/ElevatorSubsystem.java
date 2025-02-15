@@ -18,6 +18,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private SparkMax shaftMotor;
     private DigitalInput bottomLimitSwitch;
     private Encoder encoder;
+    //this is a offset value to move all setpoints up or down
     private double offset = 0;
     private static ElevatorSubsystem instance;
 
@@ -38,18 +39,24 @@ public class ElevatorSubsystem extends SubsystemBase {
         return shaftMotor;
     }
     public double getRelativeEncoderValue(){
-        return encoder.getDistance()-offset;
+        return encoder.getDistance();
     }
     private PIDController pid;
     public PIDController getPid() {
         return pid;
     }
 
+    /**
+     * 
+     * @throws Exception if our motors are not set up correctly in REV client
+     */
     public ElevatorSubsystem() throws Exception{
+        
         //plugged into DIO 9 on roborio
         bottomLimitSwitch = new DigitalInput(9);
         
-        shaftMotor = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorID, MotorType.kBrushless); //TODO: get Spark IDs
+        shaftMotor = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorID, MotorType.kBrushless); 
+        
         //get the elevator follower for sanity checks
         SparkMax shaftMotorFollower = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorFollowerID, MotorType.kBrushless); 
         
@@ -61,20 +68,22 @@ public class ElevatorSubsystem extends SubsystemBase {
         && shaftMotor.configAccessor.getInverted())){
             throw new Exception("Evelator Motors not set up");
         }
+
         //The PID controller setup. 
         //kp is how much to multiply speed by the farther it is away. 
         //Example: 1 tick away is .0005 faster than the previous tick.
         //ki is how much to speed up the longer it takes to get there
         //example: every loop add .0001 to the speed untill we reach our target
         //kd is to slow down the faster we go
-        pid = new PIDController(.0005, 0, 0);
+        pid = new PIDController(.001, 0, .0003);
         encoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
+        
         setTarget(setpoint.ZERO);
-        //setDefaultCommand(new ElevatorControllerCommand(this));
+        setDefaultCommand(new ElevatorControllerCommand(this));
     }
 
     public boolean isAtBottom(){
-        //bottom is false
+        //bottom is false 
         return !bottomLimitSwitch.get();
     }
     
@@ -101,16 +110,28 @@ public class ElevatorSubsystem extends SubsystemBase {
         if(encoder.getDistance() >= Constants.ElevatorSubsystemConstants.maxHeight && speed > 0){
             speed = 0;
         }
+
+        //if limit switch is hit, you can't go down
+        if(isAtBottom() && speed < 0){
+            speed = 0;
+        }
         //get a temp variable to hold max speed
         double maxSpeed = Constants.ElevatorSubsystemConstants.maxSpeed;
         //make sure we only send -1 to 1
         speed = Math.max(-maxSpeed, speed);
         speed = Math.min(maxSpeed, speed);
+        System.out.println("motor speed" + speed);
+        System.out.println( "encoder: " +getRelativeEncoderValue());
+        System.out.println("pid "+pid.calculate (getRelativeEncoderValue()));
         shaftMotor.set(speed);
 
     }
-    private void setOffset(double newOffset){
+    public void setOffset(double newOffset){
         this.offset = newOffset;
+    }
+
+    public double getOffset(){
+        return offset;
     }
     public void resetOffset(){
         this.offset = 0;
@@ -118,12 +139,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
     //    System.out.println(isAtBottom());
-        System.out.println( "encoder: " +getRelativeEncoderValue());
-        System.out.println("pid "+pid.calculate (getRelativeEncoderValue()));
 
         //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
         if(isAtBottom()){
-            setOffset(encoder.getDistance());
+            encoder.reset();
         } 
     }
 }

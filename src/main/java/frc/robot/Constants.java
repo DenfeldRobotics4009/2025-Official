@@ -136,8 +136,7 @@ public final class Constants {
     public static final int enumP3 = 4000;
     public static final int enumP4 = 8000;
     public static int maxHeight = 8000;
-    public static double resetSpeed = 0.1;
-    public static double maxSpeed = 0.5;
+    public static double maxSpeed = 0.6;
     public static final int ElevatormotorID = 11;
     public static final int ElevatormotorFollowerID = 10;
   }
