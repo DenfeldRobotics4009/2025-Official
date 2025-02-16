@@ -19,6 +19,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -83,7 +84,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
-    //System.out.println("Angle: " + m_gyro.getAngle());
+    SmartDashboard.putNumber("gyro:", getHeading());
+    System.out.println("Angle: " + m_gyro.getAngle());
     m_odometry.update(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
@@ -132,10 +134,24 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    if(xSpeed>0.5){
+      xSpeed = 0.5;
+    }
+    if(xSpeed<-0.5){
+      xSpeed = -0.5;
+    }
+    if(ySpeed>0.5){
+      ySpeed = 0.5;
+    }
+    if(ySpeed<-0.5){
+      ySpeed = -0.5;
+    }
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;
+
+System.out.println("gyro angle: "+m_gyro.getAngle());
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative

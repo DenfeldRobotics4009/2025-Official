@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -109,8 +110,8 @@ public final class Constants {
     public static final double agitatorMotorSpeed = 0.5;
   }
   public static final class ManipulatorConstants{
-    public static final int manipulatorMotorID = 0;
-    public static final int manipulatorSensorChanel = 0;
+    public static final int manipulatorMotorID = 14;
+    public static final int manipulatorSensorChannel = 0;
     public static final int deployMotorP = 0;
     public static final int deployMotorI = 0;
     public static final int deployMotorD = 0;
@@ -120,28 +121,44 @@ public final class Constants {
     public static final int deployMotorDown = 2;
   }
   public static final class ManipulatorCommandConstants{
-    public static final double manipulatorMotorSpeed = 0;
+    public static final double manipulatorMotorSpeed = -0.35;
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;
-    public static final int climberDownlimitSwitchID = 0;
-    public static final double climberUpSpeed = 1;
-    public static final double climberDownSpeed = -1;
+    public static final int climberDownlimitSwitchPort = 2;
+    public static final double climberUpSpeed = 0.3;
+    public static final double climberDownSpeed = -0.3;
     public static final double climberOffSpeed = 0;
     public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;
-    public static final int enumP2 = 6500;
-    public static final int enumP3 = 12500;
-    public static final int enumP4 = 10000;
+    public static final int enumP2 = 3500;
+    public static final int enumP3 = 9500;
+    public static final int enumP4 = 11000;
 
-
-
-    public static int maxHeight = 8000;
+    public static int maxHeight = 11500;
     public static double maxSpeed = 0.6;
     public static final int ElevatormotorID = 11;
     public static final int ElevatormotorFollowerID = 10;
+    public static final int ElevatorLimitSwitchPort = 9;
+
+    public static final double Elevatorp = .001;
+    public static final double Elevatori = 0;
+    public static final double Elevatord = .0001;
+
+    public static final int wristMotorID = 31; //TODO: find actual ID
+    public static final double wristUp = 0.469;
+    public static final double wristDown = 0.096;
+    public static final double wristMoving = 0.2;
+
+    public static final double wristMinAngle = 0.096; //TODO: find actual value
+    public static final double wristMaxAngle = 0.492; //TODO: find actual value
+
+    public static final double Wristp = 1.5; //TODO: tune
+    public static final double Wristi = 0; //TODO: tune
+    public static final double Wristd = 0; //TODO: tune
+    public static final double WristF = .15; //TODO: tune
   }
   
 }

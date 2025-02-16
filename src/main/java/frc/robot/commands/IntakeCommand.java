@@ -20,14 +20,13 @@ public class IntakeCommand extends Command {
 
     @Override
     public void execute() {
-        
-        super.execute();
+        //when activated starts spinning the intake wheels
+      subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
     }
 
     @Override
     public void initialize() {
-      //when activated starts spinning the intake wheels
-      subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
+      
     }
 
     @Override

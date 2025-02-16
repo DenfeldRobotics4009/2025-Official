@@ -13,9 +13,11 @@ public class ElevatorControllerCommand extends Command{
     }
     @Override
     public void execute() {
-        double speed = m_elevator.getPid().calculate(m_elevator.getRelativeEncoderValue());
+        double elevatorSpeed = m_elevator.getElevatorPid().calculate(m_elevator.getElevatorRelativeEncoderValue());
+        double wristSpeed = m_elevator.getWristPid().calculate(m_elevator.getWristAbsoluteEncoderValue());
         
-        m_elevator.runMotor(speed);
+        m_elevator.runElevatorMotor(elevatorSpeed);
+        m_elevator.runWristMotor(wristSpeed);
     }
 
     @Override
@@ -32,7 +34,8 @@ public class ElevatorControllerCommand extends Command{
     @Override
     public void end(boolean interrupted) {
         // TODO Auto-generated method stub
-        m_elevator.runMotor(0);
+        m_elevator.runElevatorMotor(0);
+        m_elevator.runWristMotor(0);
     }
     
 }

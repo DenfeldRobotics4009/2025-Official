@@ -16,8 +16,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     //Creates components of the Elevator
     //Positive value is up
     private SparkMax shaftMotor;
+    private SparkMax wristMotor;
+
     private DigitalInput bottomLimitSwitch;
-    private Encoder encoder;
+    private Encoder elevatorEncoder;
+
     //this is a offset value to move all setpoints up or down
     private double offset = 0;
     private static ElevatorSubsystem instance;
@@ -35,17 +38,22 @@ public class ElevatorSubsystem extends SubsystemBase {
       return instance;
       }
 
-    public SparkMax getShaftMotor() {
-        return shaftMotor;
+    public double getElevatorRelativeEncoderValue(){
+        return elevatorEncoder.getDistance();
     }
-    public double getRelativeEncoderValue(){
-        return encoder.getDistance();
+    public double getWristAbsoluteEncoderValue(){
+        return wristMotor.getAbsoluteEncoder().getPosition();
     }
-    private PIDController pid;
-    public PIDController getPid() {
-        return pid;
+    private PIDController Elevatorpid;
+    public PIDController getElevatorPid() {
+        return Elevatorpid;
+    }
+    private PIDController Wristpid;
+    public PIDController getWristPid() {
+        return Wristpid;
     }
 
+    Boolean ERROR = false;
     /**
      * 
      * @throws Exception if our motors are not set up correctly in REV client
@@ -53,9 +61,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     public ElevatorSubsystem() throws Exception{
         
         //plugged into DIO 9 on roborio
-        bottomLimitSwitch = new DigitalInput(9);
+        bottomLimitSwitch = new DigitalInput(Constants.ElevatorSubsystemConstants.ElevatorLimitSwitchPort);
         
-        shaftMotor = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorID, MotorType.kBrushless); 
+        shaftMotor = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorID, MotorType.kBrushless);
+        wristMotor = new SparkMax(Constants.ElevatorSubsystemConstants.wristMotorID, MotorType.kBrushless); 
         
         //get the elevator follower for sanity checks
         SparkMax shaftMotorFollower = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorFollowerID, MotorType.kBrushless); 
@@ -66,19 +75,31 @@ public class ElevatorSubsystem extends SubsystemBase {
         &&shaftMotorFollower.configAccessor.getFollowerModeLeaderId() == Constants.ElevatorSubsystemConstants.ElevatormotorID
         && shaftMotorFollower.configAccessor.getFollowerModeInverted() 
         && shaftMotor.configAccessor.getInverted())){
-            throw new Exception("Evelator Motors not set up");
+            ERROR = true;
+            //throw new Exception("Evelator Motors not set up");
         }
-
+        
         //The PID controller setup. 
         //kp is how much to multiply speed by the farther it is away. 
         //Example: 1 tick away is .0005 faster than the previous tick.
         //ki is how much to speed up the longer it takes to get there
         //example: every loop add .0001 to the speed untill we reach our target
         //kd is to slow down the faster we go
-        pid = new PIDController(.001, 0, .0003);
-        encoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
+        Elevatorpid = new PIDController(
+            Constants.ElevatorSubsystemConstants.Elevatorp, 
+            Constants.ElevatorSubsystemConstants.Elevatori, 
+            Constants.ElevatorSubsystemConstants.Elevatord
+        );
+        Wristpid = new PIDController(
+            Constants.ElevatorSubsystemConstants.Wristp, 
+            Constants.ElevatorSubsystemConstants.Wristi, 
+            Constants.ElevatorSubsystemConstants.Wristd
+        );
+        Wristpid.enableContinuousInput(0, 2* Math.PI);
+        elevatorEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
         
-        setTarget(setpoint.ZERO);
+        setTarget(ElevatorSetpoint.ZERO);
+        setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
     }
 
@@ -87,27 +108,56 @@ public class ElevatorSubsystem extends SubsystemBase {
         return !bottomLimitSwitch.get();
     }
     
-    public void setTarget(setpoint var){
-        pid.setSetpoint(offset+var.encoderValue);
+    public void setTarget(ElevatorSetpoint var){
+        Elevatorpid.setSetpoint(offset+var.elevatorEncoderValue);
+    }
+    public void setWristTarget(WristAngle var){
+        Wristpid.setSetpoint(var.wristEncoderValue);
     }
 
     //Creates setpoints for the elevator to reach
-    public enum setpoint{
+    public enum ElevatorSetpoint{
         ZERO(Constants.ElevatorSubsystemConstants.enumPointZero), 
         P2(Constants.ElevatorSubsystemConstants.enumP2),
         P3(Constants.ElevatorSubsystemConstants.enumP3),
         P4(Constants.ElevatorSubsystemConstants.enumP4);
-        double encoderValue;
-        setpoint(double val){
-            this.encoderValue = val;
+        double elevatorEncoderValue;
+        ElevatorSetpoint(int val){
+            this.elevatorEncoderValue = val;
         }
         public double getEncoderValue(){
-            return encoderValue;
+            return elevatorEncoderValue;
         }
     }
-    public void runMotor(double speed){
+
+    public enum WristAngle{
+        DOWN(Constants.ElevatorSubsystemConstants.wristDown), 
+        UP(Constants.ElevatorSubsystemConstants.wristUp),
+        MOVING(Constants.ElevatorSubsystemConstants.wristMoving);
+        double wristEncoderValue;
+        WristAngle(double val){
+            this.wristEncoderValue = val;
+        }
+        public double getEncoderValue(){
+            return wristEncoderValue;
+        }
+    }
+    public void runWristMotor(double speed){
         //Check to see that if we are  above our max height and going up, we stop. If we are above and going down that is ok
-        if(encoder.getDistance() >= Constants.ElevatorSubsystemConstants.maxHeight && speed > 0){
+        if(getWristAbsoluteEncoderValue() >= Constants.ElevatorSubsystemConstants.wristMaxAngle && speed > 0){
+            speed = 0;
+        }
+        if(getWristAbsoluteEncoderValue() <= Constants.ElevatorSubsystemConstants.wristMinAngle && speed < 0){
+            speed = 0;
+        }
+        wristMotor.set(-speed-Constants.ElevatorSubsystemConstants.WristF * Math.sin(getWristAbsoluteEncoderValue()));
+        double minAngle = Constants.ElevatorSubsystemConstants.wristMinAngle;
+        double maxAngle = Constants.ElevatorSubsystemConstants.wristMaxAngle;
+    }
+    
+    public void runElevatorMotor(double speed){
+        //Check to see that if we are  above our max height and going up, we stop. If we are above and going down that is ok
+        if(getElevatorRelativeEncoderValue() >= Constants.ElevatorSubsystemConstants.maxHeight && speed > 0){
             speed = 0;
         }
 
@@ -120,11 +170,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         //make sure we only send -1 to 1
         speed = Math.max(-maxSpeed, speed);
         speed = Math.min(maxSpeed, speed);
-        System.out.println("motor speed" + speed);
-        System.out.println( "encoder: " +getRelativeEncoderValue());
-        System.out.println("pid "+pid.calculate (getRelativeEncoderValue()));
+        // System.out.println("motor speed" + speed);
+        // System.out.println( "elevator encoder: " +getElevatorRelativeEncoderValue());
+        // System.out.println("elevator pid "+Elevatorpid.calculate (getElevatorRelativeEncoderValue()));
         shaftMotor.set(speed);
-
     }
     public void setOffset(double newOffset){
         this.offset = newOffset;
@@ -141,9 +190,18 @@ public class ElevatorSubsystem extends SubsystemBase {
     //    System.out.println(isAtBottom());
         //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
         if(isAtBottom()){
-            encoder.reset();
+            elevatorEncoder.reset();
         } 
-        System.out.println("encoder: "
-        +getRelativeEncoderValue());
+        // System.out.println("elevatorEncoder: "
+        // +getElevatorRelativeEncoderValue());
+        System.out.println("wristEncoder: "
+        +getWristAbsoluteEncoderValue());
+
+        System.out.println("wrist pid "+Wristpid.calculate (getWristAbsoluteEncoderValue()));
+        System.out.println("pid target: "+Wristpid.getSetpoint());
+
+        if(ERROR){
+            System.out.println("ABORT ERRROR HELP ELVEVATOR");
+        }
     }
 }

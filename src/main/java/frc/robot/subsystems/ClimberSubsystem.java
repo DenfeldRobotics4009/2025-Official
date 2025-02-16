@@ -32,7 +32,7 @@ public static  ClimberSubsystem getInstance() {
 
     public ClimberSubsystem(){
         this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, MotorType.kBrushless); 
-        //this.climberDownLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberDownlimitSwitchID);
+        this.climberDownLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberDownlimitSwitchPort);
         //this.climbPiston = new DoubleSolenoid(null, 0, 0);
     }
 
@@ -40,8 +40,9 @@ public static  ClimberSubsystem getInstance() {
         return 0; // winchMotor.getAlternateEncoder().getPosition();
     }
 
-    public boolean getDownLimitSwitchHit(){
-        return false; // climberDownLimitSwitch.get();
+    public boolean isAtBottom(){
+        //bottom is false 
+        return !climberDownLimitSwitch.get();
     }
     
     public void moveClimberUp(){
@@ -49,7 +50,13 @@ public static  ClimberSubsystem getInstance() {
     }
 
     public void moveClimberDown(){
-        winchMotor.set(Constants.ClimberSubsystemConstants.climberDownSpeed);
+        //if limit switch is hit, you can't go down
+        if(isAtBottom()){
+            winchMotor.set(0);
+        }
+        else{
+            winchMotor.set(Constants.ClimberSubsystemConstants.climberDownSpeed);
+        }
     }
 
     public void winchMotorOff(){
@@ -67,6 +74,6 @@ public static  ClimberSubsystem getInstance() {
 
     @Override
     public void periodic() {
-       // System.out.println(getRelativeEncoderValue());
+        
     }
 }
