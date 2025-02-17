@@ -47,5 +47,7 @@ public class ManipulatorSubsystem extends SubsystemBase{
     public void periodic() {
         System.out.println(getShortFunnelSensor());
     }
-    
+    public double getManipulatorMotorEncoder() {
+        return manipulatorMotor.getAbsoluteEncoder().getPosition();
+    }
 }
