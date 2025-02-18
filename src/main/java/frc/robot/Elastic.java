@@ -12,6 +12,7 @@ public class Elastic extends SubsystemBase {
     public void periodic() {
         SmartDashboard.putBoolean("Manipulator Motor Tripped", ManipulatorSubsystem.getInstance().getShortFunnelSensor());
         SmartDashboard.putNumber("Manipulator Motor Encoder Value", ManipulatorSubsystem.getInstance().getManipulatorMotorEncoder());
+ System.out.println("elastic periodic running");
     }
   
 }
