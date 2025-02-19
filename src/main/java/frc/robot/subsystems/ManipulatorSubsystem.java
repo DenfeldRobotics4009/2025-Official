@@ -5,9 +5,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -38,16 +36,19 @@ public class ManipulatorSubsystem extends SubsystemBase{
     public void manipulatorMotorSpeed(double motorSpeed){
         manipulatorMotor.set(motorSpeed);
     }
-    //tests for if object in lazers way
-    public boolean getShortFunnelSensor() {
-        return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
-    }
-
     @Override
     public void periodic() {
         System.out.println(getShortFunnelSensor());
     }
+
+    //get commands for Elastic
     public double getManipulatorMotorEncoder() {
         return manipulatorMotor.getAbsoluteEncoder().getPosition();
+    }
+    public boolean getShortFunnelSensor() {
+        return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
+    }
+    public double getManipulatorMotorSpeed() {
+        return manipulatorMotor.get();
     }
 }
