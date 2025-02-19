@@ -46,7 +46,7 @@ public class OldOdometry extends SubsystemBase {
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
     public PhotonCamera backCam = new PhotonCamera("BackCam");
 
-    int speakerID = 0;
+    int coralStationID = 0;
 
     /**
      * Creates an april tag odometry source relating to a 
@@ -67,12 +67,12 @@ public class OldOdometry extends SubsystemBase {
         this.backCam = backCam;
         try {
 
-            aprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(
+            AprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(
                 AprilTagFields.k2025Reefscape.m_resourceFile
             );
 
             photonPoseEstimator = new PhotonPoseEstimator(
-                aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, Constants.AprilTagOdometry.cameraPose);
+                aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, Constants.AprilTagOdometry.frontCamPose, Constants.AprilTagOdometry.backCamPose);
 
         } catch (IOException e) {
             // Id be quite surprised if this is an error, handle nonetheless
@@ -145,18 +145,19 @@ public class OldOdometry extends SubsystemBase {
      */
     public double getDistanceToSpeaker() {
 
-        // Grab speaker id based on alliance position
+        // Grab Coral Station id based on alliance position
+        //The AprilTags may be different on an Andymark field so keep that in mind
         if (Field.isRedAlliance()) {
-            speakerID = 4;
+            coralStationID = 1;
         } else {
-            speakerID = 7;
+            coralStationID = 12;
         }
 
-        Optional<PhotonTrackedTarget> target = getTarget(speakerID);
+        Optional<PhotonTrackedTarget> target = getTarget(coralStationID);
     
         if (target.isPresent()) return getDistanceToTarget(target.get());
 
-        Translation2d targetPose = AprilTagOdometry.aprilTagFieldLayout.getTagPose(speakerID).get().getTranslation().toTranslation2d();
+        Translation2d targetPose = AprilTagOdometry.aprilTagFieldLayout.getTagPose(coralStationID).get().getTranslation().toTranslation2d();
         
         if (Field.isRedAlliance()) {
             targetPose = Field.translateRobotPoseToRed(targetPose);
@@ -172,16 +173,16 @@ public class OldOdometry extends SubsystemBase {
 
         // Grab speaker id based on alliance position
         if (Field.isRedAlliance()) {
-            speakerID = 4;
+            coralStationID = 1;
         } else {
-            speakerID = 7;
+            coralStationID = 12;
         }
 
-        Optional<PhotonTrackedTarget> target = getTarget(speakerID);
+        Optional<PhotonTrackedTarget> target = getTarget(coralStationID);
         if (target.isPresent()) return -target.get().getYaw() + Constants.AprilTagOdometry.yawToSpeakerOffset;
 
 
-        Translation2d targetPose = AprilTagOdometry.aprilTagFieldLayout.getTagPose(speakerID).get().getTranslation().toTranslation2d();
+        Translation2d targetPose = AprilTagOdometry.aprilTagFieldLayout.getTagPose(coralStationID).get().getTranslation().toTranslation2d();
         if (Field.isRedAlliance()) {
             targetPose = Field.translateRobotPoseToRed(targetPose);
         }

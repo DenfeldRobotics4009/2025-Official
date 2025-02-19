@@ -4,10 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import frc.robot.Constants.NeoMotorConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -80,6 +84,21 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final double kDriveDeadband = 0.05;
   }
+
+  public static final class AprilTagOdometry {
+    public static double maxSpeed = 0.001; // power
+    public static double maxRotation = 0.001; // power
+    public static Transform3d frontCamPose = new Transform3d  (
+      new Translation3d(0, 0, 0.694), // TODO: Find actual camera height from ground
+      new Rotation3d(0, 0, 0)
+        );
+        public static double yawToSpeakerOffset = -5;
+  }
+
+    public static Transform3d backCamPose = new Transform3d(
+      new Translation3d(0, 0, 0.694), // TODO: Find actual camera height from ground
+      new Rotation3d(0, 0, 0)
+        );
 
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = 3;
