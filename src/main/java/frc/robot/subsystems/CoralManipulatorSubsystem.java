@@ -7,34 +7,34 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.CoralManipulatorIntakeCommand;
 
-public class ManipulatorSubsystem extends SubsystemBase{
+public class CoralManipulatorSubsystem extends SubsystemBase{
    //objects
     SparkMax manipulatorMotor;
     SparkMax deployMotor;
     AnalogInput pieceInManipulatorSensor;
     PIDController pid;
-    DutyCycleEncoder pidEncoder = new DutyCycleEncoder(Constants.ManipulatorConstants.dutyCycleEncoderChannel);
+    DutyCycleEncoder pidEncoder = new DutyCycleEncoder(Constants.CoralManipulatorConstants.dutyCycleEncoderChannel);
 
-      private static ManipulatorSubsystem instance;
+      private static CoralManipulatorSubsystem instance;
 
   /**
    * Returns the Scheduler instance.
    *
    * @return the instance
    */
-  public static  ManipulatorSubsystem getInstance() {
+  public static  CoralManipulatorSubsystem getInstance() {
     if (instance == null) {
-      instance = new ManipulatorSubsystem();
+      instance = new CoralManipulatorSubsystem();
     }
     return instance;
     }
     //constructor
-    public ManipulatorSubsystem() {
-        this.manipulatorMotor = new SparkMax(Constants.ManipulatorConstants.manipulatorMotorID, null);
-        this.pieceInManipulatorSensor = new AnalogInput(Constants.ManipulatorConstants.manipulatorSensorChanel); 
-        this.pid = new PIDController(Constants.ManipulatorConstants.deployMotorP, Constants.ManipulatorConstants.deployMotorI, Constants.ManipulatorConstants.deployMotorD);
+    public CoralManipulatorSubsystem() {
+        this.manipulatorMotor = new SparkMax(Constants.CoralManipulatorConstants.manipulatorMotorID, null);
+        this.pieceInManipulatorSensor = new AnalogInput(Constants.CoralManipulatorConstants.manipulatorSensorChanel); 
+        this.pid = new PIDController(Constants.CoralManipulatorConstants.deployMotorP, Constants.CoralManipulatorConstants.deployMotorI, Constants.CoralManipulatorConstants.deployMotorD);
         
     }
     //sets the motor speed to the speed that is defined
@@ -49,7 +49,7 @@ public class ManipulatorSubsystem extends SubsystemBase{
     public void setPIDTarget(double pidTarget) {
         pid.setSetpoint(pidTarget);
     }
-    IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
+    CoralManipulatorIntakeCommand runIntakeCommand = new CoralManipulatorIntakeCommand(CoralManipulatorSubsystem.getInstance());
     @Override
     public void periodic() {
         if (getManipulatorSensor() && !runIntakeCommand.isScheduled()) {
@@ -61,9 +61,9 @@ public class ManipulatorSubsystem extends SubsystemBase{
     
 
     public enum deployMotorPoints{
-        Start(Constants.ManipulatorConstants.deployMotorStart), 
-        Up(Constants.ManipulatorConstants.deployMotorUp),
-        Down(Constants.ManipulatorConstants.deployMotorDown);
+        Start(Constants.CoralManipulatorConstants.deployMotorStart), 
+        Up(Constants.CoralManipulatorConstants.deployMotorUp),
+        Down(Constants.CoralManipulatorConstants.deployMotorDown);
         double encoderValue;
         deployMotorPoints(double val){
             this.encoderValue = val;

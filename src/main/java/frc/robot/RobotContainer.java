@@ -22,7 +22,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
-import frc.robot.commands.ManipulatorOutputCommand;
+import frc.robot.commands.CoralManipulatorOutputCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
@@ -31,7 +31,7 @@ import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
-import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.setpoint;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -57,7 +57,7 @@ public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+    public final CoralManipulatorSubsystem m_manipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
@@ -129,7 +129,7 @@ public class RobotContainer {
         );
         
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        (new ManipulatorOutputCommand(m_manipulatorSubsystem))
+        (new CoralManipulatorOutputCommand(m_manipulatorSubsystem))
         );
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)

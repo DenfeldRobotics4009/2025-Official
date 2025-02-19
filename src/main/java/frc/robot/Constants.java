@@ -109,7 +109,7 @@ public final class Constants {
     public static final double maxFunnelAngle = 0;
     public static final double minFunnelAngle = 0;
   }
-  public static final class ManipulatorConstants{
+  public static final class CoralManipulatorConstants{
     public static final int manipulatorMotorID = 0;
     public static final int manipulatorSensorChanel = 0;
     public static final int deployMotorP = 0;
@@ -120,8 +120,11 @@ public final class Constants {
     public static final int deployMotorUp = 1;
     public static final int deployMotorDown = 2;
   }
-  public static final class ManipulatorCommandConstants{
+  public static final class CoralManipulatorCommandConstants{
     public static final double manipulatorMotorSpeed = 0;
+  }
+  public static final class AlgaeManipulatorConstants{
+    public static final int algaeManipulatorMotorID = 0; //TODO: find actual ID
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 0;

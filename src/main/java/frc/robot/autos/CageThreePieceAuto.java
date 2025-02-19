@@ -10,24 +10,24 @@ import frc.library.auto.pathing.FollowControllers;
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.pathObjects.Path;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.ManipulatorOutputCommand;
-import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.commands.CoralManipulatorIntakeCommand;
+import frc.robot.commands.CoralManipulatorOutputCommand;
+import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
 
 public class CageThreePieceAuto extends SequentialCommandGroup{
      public CageThreePieceAuto(SwerveDrive drivetrain, PurePursuitSettings config, Alliance alliance) throws Throwable, IOException, ParseException{
         super(
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "Auto 2 path 1")), drivetrain),
-            new ManipulatorOutputCommand(ManipulatorSubsystem.getInstance()),
+            new CoralManipulatorOutputCommand(CoralManipulatorSubsystem.getInstance()),
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "Auto 2 path 2")), drivetrain),
-            new IntakeCommand(ManipulatorSubsystem.getInstance()),
+            new CoralManipulatorIntakeCommand(CoralManipulatorSubsystem.getInstance()),
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "Auto 2 path 3")), drivetrain),
-            new ManipulatorOutputCommand(ManipulatorSubsystem.getInstance()),
+            new CoralManipulatorOutputCommand(CoralManipulatorSubsystem.getInstance()),
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "Auto 2 path 4")), drivetrain),
-            new IntakeCommand(ManipulatorSubsystem.getInstance()),
+            new CoralManipulatorIntakeCommand(CoralManipulatorSubsystem.getInstance()),
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "Auto 2 path 5")), drivetrain),
-            new ManipulatorOutputCommand(ManipulatorSubsystem.getInstance())
+            new CoralManipulatorOutputCommand(CoralManipulatorSubsystem.getInstance())
 //pov me when big block of code :O
        );
 

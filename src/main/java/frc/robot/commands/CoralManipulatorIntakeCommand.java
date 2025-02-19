@@ -2,11 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.CoralManipulatorSubsystem;
 
-public class IntakeCommand extends Command {
-  private final ManipulatorSubsystem subsystem;
-    public IntakeCommand(ManipulatorSubsystem subsystem) {
+public class CoralManipulatorIntakeCommand extends Command {
+  private final CoralManipulatorSubsystem subsystem;
+    public CoralManipulatorIntakeCommand(CoralManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -27,7 +27,7 @@ public class IntakeCommand extends Command {
     @Override
     public void initialize() {
       //when activated starts spinning the intake wheels
-      subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
+      subsystem.manipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.manipulatorMotorSpeed);
     }
 
     @Override
