@@ -122,6 +122,7 @@ public final class Constants {
   }
   public static final class ManipulatorCommandConstants{
     public static final double manipulatorMotorSpeed = -0.35;
+    public static int PneumaticHubID = 0; //TODO: Find actual Pneumatic Hub ID
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;

@@ -7,7 +7,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.PneumaticHub;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -15,6 +18,11 @@ public class ManipulatorSubsystem extends SubsystemBase{
 //    objects
     SparkMax manipulatorMotor;
     AnalogInput pieceInManipulatorSensor;
+    PneumaticHub lightHub = new PneumaticHub(Constants.ManipulatorCommandConstants.PneumaticHubID);
+    Solenoid lightStripA = lightHub.makeSolenoid(6);
+    Solenoid lightStripB = lightHub.makeSolenoid(7);
+    Solenoid lightStripC = lightHub.makeSolenoid(8);
+    Solenoid lightStripD = lightHub.makeSolenoid(9);
 
       private static ManipulatorSubsystem instance;
 
@@ -49,5 +57,19 @@ public class ManipulatorSubsystem extends SubsystemBase{
     }
     public double getManipulatorMotorEncoder() {
         return manipulatorMotor.getAbsoluteEncoder().getPosition();
+    }
+    public void lightStripIsPowered(boolean lightStripOn){
+        if(lightStripOn){
+            lightStripA.set(true);
+            lightStripB.set(true);
+            lightStripC.set(true);
+            lightStripD.set(true);
+        }
+        else{
+            lightStripA.set(false);
+            lightStripB.set(false);
+            lightStripC.set(false);
+            lightStripD.set(false);
+        }
     }
 }
