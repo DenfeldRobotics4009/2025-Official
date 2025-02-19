@@ -10,26 +10,26 @@ import frc.robot.subsystems.SwerveDrive;
 
 
 public class Elastic extends SubsystemBase {
-  public ManipulatorSubsystem m_manipulatorSubsystem;
+  public ManipulatorSubsystem m_manipulatorSubsystem = new ManipulatorSubsystem();
   public Elastic(ManipulatorSubsystem subsystem) {
     this.m_manipulatorSubsystem = subsystem;
   }
     
-  public SwerveDrive m_swerveDrive;
+  public SwerveDrive m_swerveDrive = new SwerveDrive();
   public Elastic(SwerveDrive subsystem) {
     this.m_swerveDrive = subsystem;
   }
 
-  public FunnelSubsystem m_funnelSubsystem;
+  public FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
   public Elastic(FunnelSubsystem subsystem) {
     this.m_funnelSubsystem = subsystem;
   }
 
-  public ElevatorSubsystem m_ElevatorSubsystem;
-  public Elastic(ElevatorSubsystem subsystem) {
-    this.m_ElevatorSubsystem = subsystem;
-  }
-
+  // public ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
+  // public Elastic(ElevatorSubsystem subsystem) {
+  //   this.m_ElevatorSubsystem = subsystem;
+  // }
+  
     @Override
     public void periodic() {
         SmartDashboard.putBoolean("Manipulator laser Tripped", m_manipulatorSubsystem.getShortFunnelSensor());
@@ -39,11 +39,11 @@ public class Elastic extends SubsystemBase {
         SmartDashboard.putBoolean("Funnel Sensor Tripped", m_funnelSubsystem.getWideFunnelSensor());
         SmartDashboard.putBoolean("Drop piston up", m_funnelSubsystem.getFunnelDropPiston());
 
-        SmartDashboard.putNumber("Elevator relative encoder", m_ElevatorSubsystem.getElevatorRelativeEncoderValue());
-        SmartDashboard.putNumber("Wrist absolute encoder", m_ElevatorSubsystem.getWristAbsoluteEncoderValue());
-        SmartDashboard.putNumber("Wrist motor speed", m_ElevatorSubsystem.wristMotorSpeed());
-        SmartDashboard.putNumber("Shaft motor speed", m_ElevatorSubsystem.shaftMotorSpeed());
-        SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
+        // SmartDashboard.putNumber("Elevator relative encoder", m_ElevatorSubsystem.getElevatorRelativeEncoderValue());
+        // SmartDashboard.putNumber("Wrist absolute encoder", m_ElevatorSubsystem.getWristAbsoluteEncoderValue());
+        // SmartDashboard.putNumber("Wrist motor speed", m_ElevatorSubsystem.wristMotorSpeed());
+        // SmartDashboard.putNumber("Shaft motor speed", m_ElevatorSubsystem.shaftMotorSpeed());
+        // SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
 
         SmartDashboard.putNumber("Odometry X", m_swerveDrive.getPosition().getX());
         SmartDashboard.putNumber("Odometry Y", m_swerveDrive.getPosition().getY());
