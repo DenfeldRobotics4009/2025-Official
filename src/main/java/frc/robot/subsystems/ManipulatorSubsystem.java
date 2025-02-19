@@ -58,7 +58,7 @@ public class ManipulatorSubsystem extends SubsystemBase{
     public double getManipulatorMotorEncoder() {
         return manipulatorMotor.getAbsoluteEncoder().getPosition();
     }
-    public void lightStripIsPowered(boolean lightStripOn){
+    public void setLightStripPowered(boolean lightStripOn){
         if(lightStripOn){
             lightStripA.set(true);
             lightStripB.set(true);
