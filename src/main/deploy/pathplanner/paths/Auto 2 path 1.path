@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.14675,
-        "y": 6.0725
+        "x": 7.4879999999999995,
+        "y": 6.199249999999999
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.124862988839527,
-        "y": 5.6824804973592205
+        "x": 6.466112988839527,
+        "y": 5.80923049735922
       },
       "isLocked": false,
       "linkedName": null
@@ -33,10 +33,10 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 5.74,
+    "maxAcceleration": 10.7,
     "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -48,7 +48,7 @@
   "folder": "Cage 3 piece auto paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -119.99999999999999
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
