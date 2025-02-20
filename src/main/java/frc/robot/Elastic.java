@@ -25,7 +25,6 @@ public class Elastic extends SubsystemBase {
         SmartDashboard.putNumber("Manipulator Motor Encoder Value", m_manipulatorSubsystem.getManipulatorMotorEncoder());
         SmartDashboard.putNumber("Manipulator Motor Speed", m_manipulatorSubsystem.getManipulatorMotorSpeed());
 
-        SmartDashboard.putBoolean("Funnel Sensor Tripped", m_funnelSubsystem.getWideFunnelSensor());
         SmartDashboard.putBoolean("Drop piston up", m_funnelSubsystem.getFunnelDropPiston());
 
         // SmartDashboard.putNumber("Elevator relative encoder", m_ElevatorSubsystem.getElevatorRelativeEncoderValue());

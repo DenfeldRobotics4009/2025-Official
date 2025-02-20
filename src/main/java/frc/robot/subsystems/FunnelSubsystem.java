@@ -7,8 +7,6 @@ import frc.robot.Constants;
 // "Tanner is stinky" -Luke
 public class FunnelSubsystem extends SubsystemBase{
     //objects
-    
-    AnalogInput wideFunnelSensor;
    
     DoubleSolenoid dropPiston;
 
@@ -29,7 +27,6 @@ public class FunnelSubsystem extends SubsystemBase{
 //Constructor
     public FunnelSubsystem() {
        
-        //this.wideFunnelSensor = new AnalogInput(Constants.FunnelConstants.wideFunnelSensorChannel);
        
         //Pnumatics hub is module 20, and is a REVPH hub. the piston is plugged into 0 and 1 on the REVPH
         this.dropPiston =  new DoubleSolenoid(20,PneumaticsModuleType.REVPH, 0, 1);
@@ -62,9 +59,6 @@ public class FunnelSubsystem extends SubsystemBase{
     //get commands for Elastic
     public boolean getFunnelDropPiston() {
         return dropPiston.equals(dropPiston);
-    }
-     public boolean getWideFunnelSensor() {
-        return wideFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
 } 
 
