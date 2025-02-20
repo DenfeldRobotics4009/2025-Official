@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.XboxController.Button;
+
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -35,6 +36,7 @@ import frc.robot.commands.SetElevatorOffset;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
+import frc.robot.subsystems.AprilTagOdometry;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
@@ -68,14 +70,17 @@ import frc.library.auto.pathing.field.GameField;
 public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
-   private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-   public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+    private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+    public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
     private ElevatorSubsystem m_ElevatorSubsystem;
-        private final Controls m_controlsSubsystem = new Controls();
-       private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
-        // The driver's controller
-        public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
-        private final Elastic m_Elastic = new Elastic();
+    private final Controls m_controlsSubsystem = new Controls();
+    private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
+    private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
+
+    // The driver's controller
+    public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
+    private final Elastic m_Elastic = new Elastic();
+
         /**
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */

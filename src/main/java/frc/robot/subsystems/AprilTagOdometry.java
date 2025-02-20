@@ -24,6 +24,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AprilTagOdometry extends SubsystemBase{
+    private static AprilTagOdometry instance;
+
+    public static  AprilTagOdometry getInstance() {
+        if (instance == null) {
+          instance = new AprilTagOdometry();
+        }
+        return instance;
+        }
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
     public PhotonCamera backCam = new PhotonCamera("BackCam");
     Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.

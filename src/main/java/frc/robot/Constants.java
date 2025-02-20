@@ -86,7 +86,7 @@ public final class Constants {
     public static final double kDriveDeadband = 0.05;
   }
 
-  public static final class AprilTagOdometry {
+  public static final class AprilTagOdometryConstants {
     public static double maxSpeed = 0.001; // power
     public static double maxRotation = 0.001; // power
     public static Transform3d frontCamPose = new Transform3d  (
