@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -50,17 +51,17 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 6;
-    public static final int kRearLeftDrivingCanId = 9;
-    public static final int kFrontRightDrivingCanId = 7;
-    public static final int kRearRightDrivingCanId = 8;
+    public static final int kFrontLeftDrivingCanId = 4;
+    public static final int kRearLeftDrivingCanId = 3;
+    public static final int kFrontRightDrivingCanId = 5;
+    public static final int kRearRightDrivingCanId = 2;
 
-    public static final int kFrontLeftTurningCanId = 10;
-    public static final int kRearLeftTurningCanId = 12;
-    public static final int kFrontRightTurningCanId = 14;
-    public static final int kRearRightTurningCanId = 16;
+    public static final int kFrontLeftTurningCanId = 8;
+    public static final int kRearLeftTurningCanId = 7;
+    public static final int kFrontRightTurningCanId = 9;
+    public static final int kRearRightTurningCanId = 6;
 
-    public static final boolean kGyroReversed = false;
+    public static final boolean kGyroReversed = true;
   }
 
   public static final class ModuleConstants {
@@ -101,9 +102,9 @@ public final class Constants {
         );
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxSpeedMetersPerSecond = Constants.DriveConstants.kMaxSpeedMetersPerSecond;
     public static final double kMaxAccelerationMetersPerSecondSquared = 0.5;
-    public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+    public static final double kMaxAngularSpeedRadiansPerSecond = Constants.DriveConstants.kMaxAngularSpeed;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
 
     public static final double kPXController = 1;
@@ -128,14 +129,55 @@ public final class Constants {
     public static final double agitatorMotorSpeed = 0.5;
   }
   public static final class ManipulatorConstants{
-    public static final int manipulatorMotorID = 0;
-    public static final int manipulatorSensorChanel = 0;
+    public static final int manipulatorMotorID = 14;
+    public static final int manipulatorSensorChannel = 0;
     public static final int deployMotorP = 0;
     public static final int deployMotorI = 0;
     public static final int deployMotorD = 0;
     public static final int dutyCycleEncoderChannel = 3;
+    public static final int deployMotorStart = 0;
+    public static final int deployMotorUp = 1;
+    public static final int deployMotorDown = 2;
   }
   public static final class ManipulatorCommandConstants{
-    public static final double manipulatorMotorSpeed = 0;
+    public static final double manipulatorMotorSpeed = -0.35;
   }
+  public static final class ClimberSubsystemConstants{
+    public static final int winchMotorDeviceID = 13;
+    public static final int climberDownlimitSwitchPort = 2;
+    public static final double climberUpSpeed = 0.3;
+    public static final double climberDownSpeed = -0.3;
+    public static final double climberOffSpeed = 0;
+    public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
+  }
+  public static final class ElevatorSubsystemConstants{
+    public static final int enumPointZero = 0;
+    public static final int enumP2 = 3500;
+    public static final int enumP3 = 9500;
+    public static final int enumP4 = 11000;
+
+    public static int maxHeight = 11500;
+    public static double maxSpeed = 0.6;
+    public static final int ElevatormotorID = 11;
+    public static final int ElevatormotorFollowerID = 10;
+    public static final int ElevatorLimitSwitchPort = 9;
+
+    public static final double Elevatorp = .001;
+    public static final double Elevatori = 0;
+    public static final double Elevatord = .0001;
+
+    public static final int wristMotorID = 31; //TODO: find actual ID
+    public static final double wristUp = 0.469;
+    public static final double wristDown = 0.096;
+    public static final double wristMoving = 0.2;
+
+    public static final double wristMinAngle = 0.096; //TODO: find actual value
+    public static final double wristMaxAngle = 0.492; //TODO: find actual value
+
+    public static final double Wristp = 1.5; //TODO: tune
+    public static final double Wristi = 0; //TODO: tune
+    public static final double Wristd = 0; //TODO: tune
+    public static final double WristF = .15; //TODO: tune
+  }
+  
 }

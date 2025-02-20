@@ -1,0 +1,59 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.04075,
+        "y": 2.815999999999999
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.736744452178213,
+        "y": 2.063132045940325
+      },
+      "isLocked": false,
+      "linkedName": "End Path Start"
+    },
+    {
+      "anchor": {
+        "x": 1.6185000000000003,
+        "y": 0.7197499999999991
+      },
+      "prevControl": {
+        "x": 3.022501475007055,
+        "y": 1.0122429198842267
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Corral station"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 59.99999999999999
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.74,
+    "maxAcceleration": 10.7,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 1542.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 55.0
+  },
+  "reversed": false,
+  "folder": "Processer 3 piece auto paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 119.99999999999999
+  },
+  "useDefaultConstraints": true
+}

@@ -1,63 +1,207 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.commands.ElevatorControllerCommand;
 
 public class ElevatorSubsystem extends SubsystemBase {
+    //Creates components of the Elevator
+    //Positive value is up
     private SparkMax shaftMotor;
-    public SparkMax getShaftMotor() {
-        return shaftMotor;
-    }
-    private DutyCycleEncoder elevatorEncoder;
-    public DutyCycleEncoder getElevatorEncoder() {
-        return elevatorEncoder;
-    }
-    private PIDController pid;
-    public PIDController getPid() {
-        return pid;
-    }
-    private double offset;
+    private SparkMax wristMotor;
 
-    public ElevatorSubsystem(){
-        shaftMotor = new SparkMax(0, null); //TODO: get Spark IDs
-        elevatorEncoder = new DutyCycleEncoder(0); //TODO: Find actual channel
-        pid = new PIDController(offset, offset, offset);
-        setTarget(setpoint.ZERO);
+    private DigitalInput bottomLimitSwitch;
+    private Encoder elevatorEncoder;
+
+    //this is a offset value to move all setpoints up or down
+    private double offset = 0;
+    private static ElevatorSubsystem instance;
+
+    /**
+     * Returns the Scheduler instance.
+     *
+     * @return the instance
+          * @throws Exception If our motors are not configured, fail creating instance
+          */
+         public static  ElevatorSubsystem getInstance() throws Exception {
+      if (instance == null) {
+        instance = new ElevatorSubsystem();
+      }
+      return instance;
+      }
+
+    public double getElevatorRelativeEncoderValue(){
+        return elevatorEncoder.getDistance();
+    }
+    public double getWristAbsoluteEncoderValue(){
+        return wristMotor.getAbsoluteEncoder().getPosition();
+    }
+    private PIDController Elevatorpid;
+    public PIDController getElevatorPid() {
+        return Elevatorpid;
+    }
+    private PIDController Wristpid;
+    public PIDController getWristPid() {
+        return Wristpid;
+    }
+
+    Boolean ERROR = false;
+    /**
+     * 
+     * @throws Exception if our motors are not set up correctly in REV client
+     */
+    public ElevatorSubsystem() throws Exception{
+        
+        //plugged into DIO 9 on roborio
+        bottomLimitSwitch = new DigitalInput(Constants.ElevatorSubsystemConstants.ElevatorLimitSwitchPort);
+        
+        shaftMotor = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorID, MotorType.kBrushless);
+        wristMotor = new SparkMax(Constants.ElevatorSubsystemConstants.wristMotorID, MotorType.kBrushless); 
+        
+        //get the elevator follower for sanity checks
+        SparkMax shaftMotorFollower = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorFollowerID, MotorType.kBrushless); 
+        
+        //make sure the follower is following The Elevator Motor ID, its inverted from the elevator motor
+        //The elevator motor is inverted because that sets "up" to be positive
+        if(!(shaftMotorFollower.isFollower() 
+        &&shaftMotorFollower.configAccessor.getFollowerModeLeaderId() == Constants.ElevatorSubsystemConstants.ElevatormotorID
+        && shaftMotorFollower.configAccessor.getFollowerModeInverted() 
+        && shaftMotor.configAccessor.getInverted())){
+            ERROR = true;
+            //throw new Exception("Evelator Motors not set up");
+        }
+        
+        //The PID controller setup. 
+        //kp is how much to multiply speed by the farther it is away. 
+        //Example: 1 tick away is .0005 faster than the previous tick.
+        //ki is how much to speed up the longer it takes to get there
+        //example: every loop add .0001 to the speed untill we reach our target
+        //kd is to slow down the faster we go
+        Elevatorpid = new PIDController(
+            Constants.ElevatorSubsystemConstants.Elevatorp, 
+            Constants.ElevatorSubsystemConstants.Elevatori, 
+            Constants.ElevatorSubsystemConstants.Elevatord
+        );
+        Wristpid = new PIDController(
+            Constants.ElevatorSubsystemConstants.Wristp, 
+            Constants.ElevatorSubsystemConstants.Wristi, 
+            Constants.ElevatorSubsystemConstants.Wristd
+        );
+        Wristpid.enableContinuousInput(0, 2* Math.PI);
+        elevatorEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
+        
+        setTarget(ElevatorSetpoint.ZERO);
+        setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
-        // DigitalInput zeroLimitSwitch = new DigitalInput(0);
+    }
+
+    public boolean isAtBottom(){
+        //bottom is false 
+        return !bottomLimitSwitch.get();
     }
     
-    public void setTarget(setpoint var){
-        pid.setSetpoint(offset+var.encoderValue);
+    public void setTarget(ElevatorSetpoint var){
+        Elevatorpid.setSetpoint(offset+var.elevatorEncoderValue);
+    }
+    public void setWristTarget(WristAngle var){
+        Wristpid.setSetpoint(var.wristEncoderValue);
     }
 
     //Creates setpoints for the elevator to reach
-    public enum setpoint{
-        ZERO(0), //TODO: Add Constants in for the levels
-        P2(1),
-        P3(2),
-        P4(3);
-        double encoderValue;
-        setpoint(double val){
-            this.encoderValue = val;
+    public enum ElevatorSetpoint{
+        ZERO(Constants.ElevatorSubsystemConstants.enumPointZero), 
+        P2(Constants.ElevatorSubsystemConstants.enumP2),
+        P3(Constants.ElevatorSubsystemConstants.enumP3),
+        P4(Constants.ElevatorSubsystemConstants.enumP4);
+        double elevatorEncoderValue;
+        ElevatorSetpoint(int val){
+            this.elevatorEncoderValue = val;
         }
         public double getEncoderValue(){
-            return encoderValue;
+            return elevatorEncoderValue;
         }
+    }
+
+    public enum WristAngle{
+        DOWN(Constants.ElevatorSubsystemConstants.wristDown), 
+        UP(Constants.ElevatorSubsystemConstants.wristUp),
+        MOVING(Constants.ElevatorSubsystemConstants.wristMoving);
+        double wristEncoderValue;
+        WristAngle(double val){
+            this.wristEncoderValue = val;
+        }
+        public double getEncoderValue(){
+            return wristEncoderValue;
+        }
+    }
+    public void runWristMotor(double speed){
+        //Check to see that if we are  above our max height and going up, we stop. If we are above and going down that is ok
+        if(getWristAbsoluteEncoderValue() >= Constants.ElevatorSubsystemConstants.wristMaxAngle && speed > 0){
+            speed = 0;
+        }
+        if(getWristAbsoluteEncoderValue() <= Constants.ElevatorSubsystemConstants.wristMinAngle && speed < 0){
+            speed = 0;
+        }
+        wristMotor.set(-speed-Constants.ElevatorSubsystemConstants.WristF * Math.sin(getWristAbsoluteEncoderValue()));
+        double minAngle = Constants.ElevatorSubsystemConstants.wristMinAngle;
+        double maxAngle = Constants.ElevatorSubsystemConstants.wristMaxAngle;
+    }
+    
+    public void runElevatorMotor(double speed){
+        //Check to see that if we are  above our max height and going up, we stop. If we are above and going down that is ok
+        if(getElevatorRelativeEncoderValue() >= Constants.ElevatorSubsystemConstants.maxHeight && speed > 0){
+            speed = 0;
+        }
+
+        //if limit switch is hit, you can't go down
+        if(isAtBottom() && speed < 0){
+            speed = 0;
+        }
+        //get a temp variable to hold max speed
+        double maxSpeed = Constants.ElevatorSubsystemConstants.maxSpeed;
+        //make sure we only send -1 to 1
+        speed = Math.max(-maxSpeed, speed);
+        speed = Math.min(maxSpeed, speed);
+        // System.out.println("motor speed" + speed);
+        // System.out.println( "elevator encoder: " +getElevatorRelativeEncoderValue());
+        // System.out.println("elevator pid "+Elevatorpid.calculate (getElevatorRelativeEncoderValue()));
+        shaftMotor.set(speed);
     }
     public void setOffset(double newOffset){
         this.offset = newOffset;
+    }
+
+    public double getOffset(){
+        return offset;
     }
     public void resetOffset(){
         this.offset = 0;
     }
     @Override
     public void periodic() {
-        // TODO Auto-generated method stub
+    //    System.out.println(isAtBottom());
+        //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
+        if(isAtBottom()){
+            elevatorEncoder.reset();
+        } 
+        // System.out.println("elevatorEncoder: "
+        // +getElevatorRelativeEncoderValue());
+        System.out.println("wristEncoder: "
+        +getWristAbsoluteEncoderValue());
+
+        System.out.println("wrist pid "+Wristpid.calculate (getWristAbsoluteEncoderValue()));
+        System.out.println("pid target: "+Wristpid.getSetpoint());
+
+        if(ERROR){
+            System.out.println("ABORT ERRROR HELP ELVEVATOR");
+        }
     }
 }

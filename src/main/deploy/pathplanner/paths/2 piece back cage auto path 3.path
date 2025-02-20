@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6575,
+        "y": 7.3985
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8200343840949469,
+        "y": 6.930561453167786
+      },
+      "isLocked": false,
+      "linkedName": "2 piece back cage auto path 2"
+    },
+    {
+      "anchor": {
+        "x": 3.1785,
+        "y": 3.8689999999999993
+      },
+      "prevControl": {
+        "x": 3.0057727002309846,
+        "y": 4.2789778216124805
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.74,
+    "maxAcceleration": 10.7,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 1542.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "2 piece back cage auto",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -55.0
+  },
+  "useDefaultConstraints": true
+}
