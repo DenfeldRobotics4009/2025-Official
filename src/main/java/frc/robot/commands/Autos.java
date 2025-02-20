@@ -8,6 +8,7 @@ import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public enum Autos {
 
@@ -33,6 +34,7 @@ public enum Autos {
    */
   Autos(SequentialCommandGroup autoSequence) {
       this.autoSequence = autoSequence;
+      new WaitCommand(0);
   }
 
   public SequentialCommandGroup getSequence() {return autoSequence;}
