@@ -5,8 +5,8 @@ import frc.robot.subsystems.AlgaeManipulatorSubsystem;
 
 public class AlgaeManipulatorUpCommand extends Command{
 private AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem;
-    public AlgaeManipulatorUpCommand(AlgaeManipulatorSubsystem m_algAlgaeManipulatorSubsystem) {
-    this.m_AlgaeManipulatorSubsystem = m_AlgaeManipulatorSubsystem;
+    public AlgaeManipulatorUpCommand(AlgaeManipulatorSubsystem algaeManipulator) {
+    this.m_AlgaeManipulatorSubsystem = algaeManipulator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_AlgaeManipulatorSubsystem);
   }
