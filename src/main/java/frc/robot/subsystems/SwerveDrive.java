@@ -10,6 +10,7 @@ import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -45,23 +46,35 @@ public class SwerveDrive extends SubsystemBase {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
+      private static SwerveDrive instance;
+
   // The gyro sensor
   private final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
-  
-  // Odometry class for tracking robot pose
-  SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
-      DriveConstants.kDriveKinematics,
-      Rotation2d.fromDegrees(m_gyro.getAngle()),
-      new SwerveModulePosition[] {
-          m_frontLeft.getPosition(),
-          m_frontRight.getPosition(),
-          m_rearLeft.getPosition(),
-          m_rearRight.getPosition()
-      });
+  /**
+   * Returns the Scheduler instance.
+   *
+   * @return the instance
+   */
+  public static  SwerveDrive getInstance() {
+    if (instance == null) {
+      instance = new SwerveDrive();
+    }
+    return instance;
+    }
 
+  // Odometry class for tracking robot pose
+  SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+  Rotation2d.fromDegrees(m_gyro.getAngle()),
+  new SwerveModulePosition[] {
+    m_frontLeft.getPosition(),
+    m_frontRight.getPosition(),
+    m_rearLeft.getPosition(),
+    m_rearRight.getPosition()
+}, new Pose2d());
   /** Creates a new DriveSubsystem. */
   public SwerveDrive() {
+    swerveDrivePoseEstimator.addVisionMeasurement(getPosition(), 5);
     // Usage reporting for MAXSwerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
   }
@@ -69,7 +82,7 @@ public class SwerveDrive extends SubsystemBase {
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
-    m_odometry.update(
+    swerveDrivePoseEstimator.update(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
             m_frontLeft.getPosition(),
@@ -85,7 +98,7 @@ public class SwerveDrive extends SubsystemBase {
    * @return The pose.
    */
   public Pose2d getPosition() {
-    return m_odometry.getPoseMeters();
+    return swerveDrivePoseEstimator.getEstimatedPosition();
   }
 
   /**
@@ -94,7 +107,7 @@ public class SwerveDrive extends SubsystemBase {
    * @param pose The pose to which to set the odometry.
    */
   public void setPosition(Pose2d pose) {
-    m_odometry.resetPosition(
+    swerveDrivePoseEstimator.resetPosition(
         Rotation2d.fromDegrees(m_gyro.getAngle()),
         new SwerveModulePosition[] {
             m_frontLeft.getPosition(),
@@ -188,5 +201,14 @@ public class SwerveDrive extends SubsystemBase {
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+  public void addVisionMeasurement(Pose2d visionPosition, double timestampSeconds) {
+    // Check if the vision position is within 1 meter of the current drive position,
+    // per the robotPoseEstimator recommendations.
+
+    // Im losing my marbles
+    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
+      swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
+    }
   }
 }

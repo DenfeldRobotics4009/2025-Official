@@ -1,0 +1,38 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.FunnelSubsystem;
+
+public class FunnelUpCommand extends Command {
+private FunnelSubsystem subsystem;
+public FunnelUpCommand(FunnelSubsystem subsystem) {
+    this.subsystem = subsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(subsystem);
+  }
+
+    @Override
+    public void end(boolean interrupted) {
+        
+        super.end(interrupted);
+    }
+
+    @Override
+    public void execute() {
+          //when activated makes funnel go up so we can intake
+          subsystem.pistonIsPowered(true);
+        
+    }
+
+    @Override
+    public void initialize() {
+      
+    }
+
+    @Override
+    public boolean isFinished() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+    
+}

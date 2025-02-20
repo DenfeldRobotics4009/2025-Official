@@ -61,7 +61,7 @@ public class OldOdometry extends SubsystemBase {
      * @param cameraName
      * @param cameraToRobot offset in meters from the robot to the camera
      */
-    public AprilTagOdometry(PhotonCamera frontCam, PhotonCamera backCam, Transform3d robotToCamera) {
+    public OldOdometry(PhotonCamera frontCam, PhotonCamera backCam, Transform3d robotToFrontCam, Transform3d robotToBackCam) {
 
         this.frontCam = frontCam;
         this.backCam = backCam;
