@@ -9,10 +9,10 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class AlgaeManipulator extends SubsystemBase{
+public class AlgaeManipulatorSubsystem extends SubsystemBase{
     private SparkMax algaeManipulatorMotor;
     private DoubleSolenoid algaePiston;
-    public AlgaeManipulator(){
+    public AlgaeManipulatorSubsystem(){
         this.algaeManipulatorMotor = new SparkMax(Constants.AlgaeManipulatorConstants.algaeManipulatorMotorID, MotorType.kBrushless);
         this.algaePiston = new DoubleSolenoid(null,1,2); //TODO: Find out what to put for channels and module type
     }
