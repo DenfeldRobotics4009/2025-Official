@@ -19,10 +19,10 @@ public class ManipulatorSubsystem extends SubsystemBase{
     SparkMax manipulatorMotor;
     AnalogInput pieceInManipulatorSensor;
     PneumaticHub lightHub = new PneumaticHub(Constants.ManipulatorCommandConstants.PneumaticHubID);
-    Solenoid lightStripA = lightHub.makeSolenoid(6);
-    Solenoid lightStripB = lightHub.makeSolenoid(7);
-    Solenoid lightStripC = lightHub.makeSolenoid(8);
-    Solenoid lightStripD = lightHub.makeSolenoid(9);
+    Solenoid lightStripA = lightHub.makeSolenoid(Constants.ManipulatorConstants.lightStripAID);
+    Solenoid lightStripB = lightHub.makeSolenoid(Constants.ManipulatorConstants.lightStripBID);
+    Solenoid lightStripC = lightHub.makeSolenoid(Constants.ManipulatorConstants.lightStripCID);
+    Solenoid lightStripD = lightHub.makeSolenoid(Constants.ManipulatorConstants.lightStripDID);
 
       private static ManipulatorSubsystem instance;
 
@@ -50,14 +50,6 @@ public class ManipulatorSubsystem extends SubsystemBase{
     public boolean getShortFunnelSensor() {
         return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
-
-    @Override
-    public void periodic() {
-        System.out.println(getShortFunnelSensor());
-    }
-    public double getManipulatorMotorEncoder() {
-        return manipulatorMotor.getAbsoluteEncoder().getPosition();
-    }
     public void setLightStripPowered(boolean lightStripOn){
         if(lightStripOn){
             lightStripA.set(true);
@@ -71,5 +63,12 @@ public class ManipulatorSubsystem extends SubsystemBase{
             lightStripC.set(false);
             lightStripD.set(false);
         }
+    }
+    @Override
+    public void periodic() {
+        System.out.println(getShortFunnelSensor());
+    }
+    public double getManipulatorMotorEncoder() {
+        return manipulatorMotor.getAbsoluteEncoder().getPosition();
     }
 }

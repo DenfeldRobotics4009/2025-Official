@@ -119,6 +119,10 @@ public final class Constants {
     public static final int deployMotorStart = 0;
     public static final int deployMotorUp = 1;
     public static final int deployMotorDown = 2;
+    public static final int lightStripAID = 6;
+    public static final int lightStripBID = 7;
+    public static final int lightStripCID = 8;
+    public static final int lightStripDID = 9;
   }
   public static final class ManipulatorCommandConstants{
     public static final double manipulatorMotorSpeed = -0.35;
