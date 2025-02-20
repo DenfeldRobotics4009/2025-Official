@@ -86,7 +86,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
     System.out.println("Angle: " + m_gyro.getAngle());
-    m_odometry.update(
+    swerveDrivePoseEstimator.update(
         Rotation2d.fromDegrees(-m_gyro.getAngle()),
         new SwerveModulePosition[] {
             m_frontLeft.getPosition(),
@@ -102,7 +102,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @return The pose.
    */
   public Pose2d getPosition() {
-    return m_odometry.getPoseMeters();
+    return swerveDrivePoseEstimator.getEstimatedPosition();
   }
 
   /**
@@ -111,7 +111,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @param pose The pose to which to set the odometry.
    */
   public void setPosition(Pose2d pose) {
-    m_odometry.resetPosition(
+    swerveDrivePoseEstimator.resetPosition(
         Rotation2d.fromDegrees(-m_gyro.getAngle()),
         new SwerveModulePosition[] {
             m_frontLeft.getPosition(),
@@ -225,8 +225,8 @@ System.out.println("gyro angle: "+m_gyro.getAngle());
     // Check if the vision position is within 1 meter of the current drive position,
     // per the robotPoseEstimator recommendations.
 
-    // Im losing my marbles
-    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
+    // If the AprilTag is wildly different from the Swerve Pose, don't update.
+    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 100) {
       swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
     }
   }

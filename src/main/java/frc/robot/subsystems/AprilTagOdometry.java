@@ -39,10 +39,10 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
     }
     @Override
     public void periodic() {
-        Optional<Pose2d> positionSample = getFrontEstimatedGlobalPose();
+        Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
         if (positionSample.isPresent()) {
             SwerveDrive.getInstance().addVisionMeasurement(
-                positionSample.get(), Timer.getFPGATimestamp()
+                positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
             );
         }
     }
