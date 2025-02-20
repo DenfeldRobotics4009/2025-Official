@@ -204,4 +204,12 @@ public class ElevatorSubsystem extends SubsystemBase {
             System.out.println("ABORT ERRROR HELP ELVEVATOR");
         }
     }
+
+    //get commands for elastic
+    public double shaftMotorSpeed(){
+        return shaftMotor.get();
+    }
+    public double wristMotorSpeed(){
+        return wristMotor.get();
+    }
 }

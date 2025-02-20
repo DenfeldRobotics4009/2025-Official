@@ -1,15 +1,9 @@
 package frc.robot.subsystems;
-import static edu.wpi.first.units.Units.Value;
-
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.IntakeCommand;
 // "Tanner is stinky" -Luke
 public class FunnelSubsystem extends SubsystemBase{
     //objects
@@ -42,11 +36,7 @@ public class FunnelSubsystem extends SubsystemBase{
     }
     //tests for if object in lazers way
    
-    public boolean getWideFunnelSensor() {
-        return false;
-        //return wideFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
-        
-    }
+   
 
   
     //Droppiston on / off
@@ -67,6 +57,14 @@ public class FunnelSubsystem extends SubsystemBase{
         else{
             dropPiston.set(DoubleSolenoid.Value.kReverse);
         }
+    }
+
+    //get commands for Elastic
+    public boolean getFunnelDropPiston() {
+        return dropPiston.equals(dropPiston);
+    }
+     public boolean getWideFunnelSensor() {
+        return wideFunnelSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
 } 
 
