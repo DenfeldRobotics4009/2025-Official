@@ -17,7 +17,7 @@ public class AlgaeManipulatorSubsystem extends SubsystemBase{
         this.algaePiston = new DoubleSolenoid(null,1,2); //TODO: Find out what to put for channels and module type
     }
 
-    public void setAlgaeManipulatorPowered(double speed){
+    public void setAlgaeManipulatorSpeed(double speed){
         algaeManipulatorMotor.set(speed);
     }
     public void algaePistonIsDeployed(boolean pistonOn){

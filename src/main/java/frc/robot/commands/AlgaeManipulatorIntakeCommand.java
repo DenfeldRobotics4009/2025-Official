@@ -3,23 +3,20 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AlgaeManipulatorSubsystem;
 
-public class AlgaeManipulatorDownCommand extends Command{
-private AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem;
-    public AlgaeManipulatorDownCommand(AlgaeManipulatorSubsystem m_algAlgaeManipulatorSubsystem) {
+public class AlgaeManipulatorIntakeCommand extends Command{private AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem;
+    public AlgaeManipulatorIntakeCommand(AlgaeManipulatorSubsystem m_algAlgaeManipulatorSubsystem) {
     this.m_AlgaeManipulatorSubsystem = m_AlgaeManipulatorSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_AlgaeManipulatorSubsystem);
   }
-
     @Override
     public void end(boolean interrupted) {
-        // TODO Auto-generated method stub
-        super.end(interrupted);
+        m_AlgaeManipulatorSubsystem.setAlgaeManipulatorSpeed(0);
     }
 
     @Override
     public void execute() {
-        m_AlgaeManipulatorSubsystem.algaePistonIsDeployed(false);
+        m_AlgaeManipulatorSubsystem.setAlgaeManipulatorSpeed(1);//TODO: Find out which way is positive and negative
     }
 
     @Override
@@ -30,7 +27,7 @@ private AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem;
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
     
 }
