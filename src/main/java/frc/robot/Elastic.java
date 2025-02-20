@@ -10,25 +10,14 @@ import frc.robot.subsystems.SwerveDrive;
 
 
 public class Elastic extends SubsystemBase {
-  public ManipulatorSubsystem m_manipulatorSubsystem = new ManipulatorSubsystem();
-  public Elastic(ManipulatorSubsystem subsystem) {
-    this.m_manipulatorSubsystem = subsystem;
-  }
-    
-  public SwerveDrive m_swerveDrive = new SwerveDrive();
-  public Elastic(SwerveDrive subsystem) {
-    this.m_swerveDrive = subsystem;
+  public ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+  public SwerveDrive m_swerveDrive = SwerveDrive.getInstance();
+  public FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+
+  public Elastic() {
   }
 
-  public FunnelSubsystem m_funnelSubsystem = new FunnelSubsystem();
-  public Elastic(FunnelSubsystem subsystem) {
-    this.m_funnelSubsystem = subsystem;
-  }
 
-  // public ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
-  // public Elastic(ElevatorSubsystem subsystem) {
-  //   this.m_ElevatorSubsystem = subsystem;
-  // }
   
     @Override
     public void periodic() {

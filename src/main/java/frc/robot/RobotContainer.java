@@ -74,7 +74,7 @@ public class RobotContainer {
        private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
         // The driver's controller
         public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
-        private final Elastic m_Elastic = new Elastic(m_manipulatorSubsystem);
+        private final Elastic m_Elastic = new Elastic();
         /**
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */
