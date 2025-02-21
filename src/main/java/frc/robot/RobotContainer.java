@@ -20,12 +20,15 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.AlgaeManipulatorIntakeCommand;
+import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.CoralManipulatorOutputCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
+import frc.robot.subsystems.AlgaeManipulatorSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
@@ -57,7 +60,8 @@ public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-    public final CoralManipulatorSubsystem m_manipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
+    public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
+    public final AlgaeManipulatorSubsystem m_algaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
     private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
@@ -115,21 +119,15 @@ public class RobotContainer {
             m_robotDrive));
 
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new SequentialCommandGroup(
-                new FunnelDownCommand(m_funnelSubsystem),
-                new ClimberUpCommand(m_ClimberSubsystem)
-            )
+            new AlgaeManipulatorIntakeCommand(m_algaeManipulatorSubsystem)
         );
 
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new SequentialCommandGroup(
-                new ClimberDownCommand(m_ClimberSubsystem),
-                new FunnelUpCommand(m_funnelSubsystem)
-            )
+            new AlgaeManipulatorOuttakeCommand(m_algaeManipulatorSubsystem)
         );
         
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        (new CoralManipulatorOutputCommand(m_manipulatorSubsystem))
+        (new CoralManipulatorOutputCommand(m_coralManipulatorSubsystem))
         );
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
