@@ -4,10 +4,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import frc.robot.Constants.NeoMotorConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -46,17 +51,17 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 8;
-    public static final int kRearLeftDrivingCanId = 7;
-    public static final int kFrontRightDrivingCanId = 9;
-    public static final int kRearRightDrivingCanId = 6;
+    public static final int kFrontLeftDrivingCanId = 4;
+    public static final int kRearLeftDrivingCanId = 3;
+    public static final int kFrontRightDrivingCanId = 5;
+    public static final int kRearRightDrivingCanId = 2;
 
-    public static final int kFrontLeftTurningCanId = 21;
-    public static final int kRearLeftTurningCanId = 32;
-    public static final int kFrontRightTurningCanId = 40;
-    public static final int kRearRightTurningCanId = 22;
+    public static final int kFrontLeftTurningCanId = 8;
+    public static final int kRearLeftTurningCanId = 7;
+    public static final int kFrontRightTurningCanId = 9;
+    public static final int kRearRightTurningCanId = 6;
 
-    public static final boolean kGyroReversed = false;
+    public static final boolean kGyroReversed = true;
   }
 
   public static final class ModuleConstants {
@@ -80,6 +85,21 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final double kDriveDeadband = 0.05;
   }
+
+  public static final class AprilTagOdometryConstants {
+    public static double maxSpeed = 0.001; // power
+    public static double maxRotation = 0.001; // power
+    public static Transform3d frontCamPose = new Transform3d  (
+      new Translation3d(0, 0, 0.694), // TODO: Find actual camera height from ground
+      new Rotation3d(0, 0, 0)
+        );
+        public static double yawToSpeakerOffset = -5;
+  }
+
+    public static Transform3d backCamPose = new Transform3d(
+      new Translation3d(0, 0, 0.694), // TODO: Find actual camera height from ground
+      new Rotation3d(0, 0, 0)
+        );
 
   public static final class AutoConstants {
     public static final double kMaxSpeedMetersPerSecond = Constants.DriveConstants.kMaxSpeedMetersPerSecond;
@@ -110,8 +130,8 @@ public final class Constants {
     public static final double minFunnelAngle = 0;
   }
   public static final class ManipulatorConstants{
-    public static final int manipulatorMotorID = 0;
-    public static final int manipulatorSensorChanel = 0;
+    public static final int manipulatorMotorID = 14;
+    public static final int manipulatorSensorChannel = 0;
     public static final int deployMotorP = 0;
     public static final int deployMotorI = 0;
     public static final int deployMotorD = 0;
@@ -121,17 +141,45 @@ public final class Constants {
     public static final int deployMotorDown = 2;
   }
   public static final class ManipulatorCommandConstants{
-    public static final double manipulatorMotorSpeed = 0;
+    public static final double manipulatorMotorSpeed = -0.35;
   }
   public static final class ClimberSubsystemConstants{
-    public static final int winchMotorDeviceID = 0;
-    public static final int climberUplimitSwitchID = 0;
+    public static final int winchMotorDeviceID = 13;
+    public static final int climberDownlimitSwitchPort = 2;
+    public static final double climberUpSpeed = 0.8;
+    public static final double climberDownSpeed = -0.8;
+    public static final double climberOffSpeed = 0;
+    public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;
-    public static final int enumP2 = 1;
-    public static final int enumP3 = 2;
-    public static final int enumP4 = 3;
+    public static final int enumP2 = 3500;
+    public static final int enumP3 = 9500;
+    public static final int enumP4 = 11000;
+
+    public static int maxHeight = 11500;
+    public static double maxSpeed = 0.75;
+    public static final int ElevatormotorID = 11;
+    public static final int ElevatormotorFollowerID = 10;
+    public static final int ElevatorLimitSwitchPort = 9;
+
+    public static final double Elevatorp = .0035;
+    public static final double Elevatori = .0003;
+    public static final double Elevatord = .000855;
+    public static final double Elevatorf = .0196;
+
+    public static final int wristMotorID = 31;
+    public static final double wristUp = 0.469;
+    public static final double wristDown = 0.096;
+    public static final double wristMoving = 0.2;
+
+    public static final double wristMinAngle = 0.096; //TODO: find actual value
+    public static final double wristMaxAngle = 0.492; //TODO: find actual value
+
+    public static final double Wristp = 1.5; //TODO: tune
+    public static final double Wristi = 0; //TODO: tune
+    public static final double Wristd = 0; //TODO: tune
+    public static final double WristF = .15; //TODO: tune
   }
   
 }

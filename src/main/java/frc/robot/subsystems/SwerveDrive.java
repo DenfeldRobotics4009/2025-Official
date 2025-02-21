@@ -10,6 +10,7 @@ import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -19,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
@@ -64,15 +66,14 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   
   
   // Odometry class for tracking robot pose
-  SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
-      DriveConstants.kDriveKinematics,
-      Rotation2d.fromDegrees(m_gyro.getAngle()),
-      new SwerveModulePosition[] {
-          m_frontLeft.getPosition(),
-          m_frontRight.getPosition(),
-          m_rearLeft.getPosition(),
-          m_rearRight.getPosition()
-      });
+  SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+  Rotation2d.fromDegrees(m_gyro.getAngle()),
+  new SwerveModulePosition[] {
+    m_frontLeft.getPosition(),
+    m_frontRight.getPosition(),
+    m_rearLeft.getPosition(),
+    m_rearRight.getPosition()
+}, new Pose2d());
 
   /** Creates a new DriveSubsystem. */
   public SwerveDrive() {
@@ -83,8 +84,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
-    m_odometry.update(
-        Rotation2d.fromDegrees(m_gyro.getAngle()),
+    SmartDashboard.putNumber("gyro:", getHeading());
+    swerveDrivePoseEstimator.update(
+        Rotation2d.fromDegrees(-m_gyro.getAngle()),
         new SwerveModulePosition[] {
             m_frontLeft.getPosition(),
             m_frontRight.getPosition(),
@@ -99,7 +101,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @return The pose.
    */
   public Pose2d getPosition() {
-    return m_odometry.getPoseMeters();
+    return swerveDrivePoseEstimator.getEstimatedPosition();
   }
 
   /**
@@ -108,8 +110,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @param pose The pose to which to set the odometry.
    */
   public void setPosition(Pose2d pose) {
-    m_odometry.resetPosition(
-        Rotation2d.fromDegrees(m_gyro.getAngle()),
+    swerveDrivePoseEstimator.resetPosition(
+        Rotation2d.fromDegrees(-m_gyro.getAngle()),
         new SwerveModulePosition[] {
             m_frontLeft.getPosition(),
             m_frontRight.getPosition(),
@@ -131,6 +133,18 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    if(xSpeed>0.5){
+      xSpeed = 0.5;
+    }
+    if(xSpeed<-0.5){
+      xSpeed = -0.5;
+    }
+    if(ySpeed>0.5){
+      ySpeed = 0.5;
+    }
+    if(ySpeed<-0.5){
+      ySpeed = -0.5;
+    }
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
@@ -139,7 +153,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative
             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                Rotation2d.fromDegrees(m_gyro.getAngle()))
+                Rotation2d.fromDegrees(-m_gyro.getAngle()))
             : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
@@ -192,7 +206,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-    return Rotation2d.fromDegrees(m_gyro.getAngle()).getDegrees();
+    return Rotation2d.fromDegrees(-m_gyro.getAngle()).getDegrees();
   }
 
   /**
@@ -202,5 +216,15 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   public double getTurnRate() {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  public void addVisionMeasurement(Pose2d visionPosition, double timestampSeconds) {
+    // Check if the vision position is within 1 meter of the current drive position,
+    // per the robotPoseEstimator recommendations.
+
+    // If the AprilTag is wildly different from the Swerve Pose, don't update.
+    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 100) {
+      swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
+    }
   }
 }

@@ -14,14 +14,15 @@ public class ClimberDownCommand extends Command{
     }
     @Override
     public void initialize() {
-        climberSubsystem.moveClimberDown();
+        
     }
     @Override
     public boolean isFinished() {
-        return climberSubsystem.getDownLimitSwitchHit();
+        return false; // climberSubsystem.getDownLimitSwitchHit();
     }
     @Override
     public void execute() {
-        
+        climberSubsystem.moveClimberDown();
+        //climberSubsystem.pistonIsPowered(false);
     }
 }

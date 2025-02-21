@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ManipulatorSubsystem;
 
-public class ManipulatorOutputCommand extends Command {
+public class ManipulatorOutputCommandP4 extends Command {
     private final ManipulatorSubsystem subsystem;
-    public ManipulatorOutputCommand(ManipulatorSubsystem subsystem) {
+    public ManipulatorOutputCommandP4(ManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -20,7 +20,7 @@ public class ManipulatorOutputCommand extends Command {
 
     @Override
     public void initialize() {
-        subsystem.manipulatorMotorSpeed(-0.9);
+        subsystem.manipulatorMotorSpeed(-Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
     }
 
     @Override

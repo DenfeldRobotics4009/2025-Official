@@ -1,21 +1,17 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
-import edu.wpi.first.math.controller.PIDController;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.IntakeCommand;
 
 public class ManipulatorSubsystem extends SubsystemBase{
-   //objects
+//    objects
     SparkMax manipulatorMotor;
-    SparkMax deployMotor;
     AnalogInput pieceInManipulatorSensor;
-    PIDController pid;
-    DutyCycleEncoder pidEncoder = new DutyCycleEncoder(Constants.ManipulatorConstants.dutyCycleEncoderChannel);
 
       private static ManipulatorSubsystem instance;
 
@@ -32,45 +28,25 @@ public class ManipulatorSubsystem extends SubsystemBase{
     }
     //constructor
     public ManipulatorSubsystem() {
-        this.manipulatorMotor = new SparkMax(Constants.ManipulatorConstants.manipulatorMotorID, null);
-        this.pieceInManipulatorSensor = new AnalogInput(Constants.ManipulatorConstants.manipulatorSensorChanel); 
-        this.pid = new PIDController(Constants.ManipulatorConstants.deployMotorP, Constants.ManipulatorConstants.deployMotorI, Constants.ManipulatorConstants.deployMotorD);
-        
+        this.manipulatorMotor = new SparkMax(Constants.ManipulatorConstants.manipulatorMotorID, MotorType.kBrushless);
+        this.pieceInManipulatorSensor = new AnalogInput(Constants.ManipulatorConstants.manipulatorSensorChannel); 
     }
     //sets the motor speed to the speed that is defined
     public void manipulatorMotorSpeed(double motorSpeed){
         manipulatorMotor.set(motorSpeed);
     }
-    //tests for if object in lazers way
-    public boolean getManipulatorSensor() {
-        return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
-    }
-
-    public void setPIDTarget(double pidTarget) {
-        pid.setSetpoint(pidTarget);
-    }
-    IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
     @Override
     public void periodic() {
-        if (getManipulatorSensor() && !runIntakeCommand.isScheduled()) {
-              CommandScheduler.getInstance().schedule(runIntakeCommand);
-        }
-       double speed = pid.calculate(pidEncoder.get());
-       deployMotor.set(speed);
     }
-    
 
-    public enum deployMotorPoints{
-        Start(Constants.ManipulatorConstants.deployMotorStart), 
-        Up(Constants.ManipulatorConstants.deployMotorUp),
-        Down(Constants.ManipulatorConstants.deployMotorDown);
-        double encoderValue;
-        deployMotorPoints(double val){
-            this.encoderValue = val;
-        }
-        public double getEncoderValue(){
-            return encoderValue;
-        }
+    //get commands for Elastic
+    public double getManipulatorMotorEncoder() {
+        return manipulatorMotor.getAbsoluteEncoder().getPosition();
     }
-    
+    public boolean getShortFunnelSensor() {
+        return pieceInManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
+    }
+    public double getManipulatorMotorSpeed() {
+        return manipulatorMotor.get();
+    }
 }

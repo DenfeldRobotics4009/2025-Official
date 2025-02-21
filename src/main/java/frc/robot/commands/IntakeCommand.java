@@ -20,20 +20,19 @@ public class IntakeCommand extends Command {
 
     @Override
     public void execute() {
-        
-        super.execute();
+        //when activated starts spinning the intake wheels
+      subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
     }
 
     @Override
     public void initialize() {
-      //when activated starts spinning the intake wheels
-      subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
+      
     }
 
     @Override
     public boolean isFinished() {
       //when lazer sensor in the manipulator is tripped it stops the program
-        return !subsystem.getManipulatorSensor();
+        return !subsystem.getShortFunnelSensor();
     }
     
 }

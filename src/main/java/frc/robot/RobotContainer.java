@@ -14,25 +14,40 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.XboxController.Button;
+
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.autos.AutoTest;
+import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
+import frc.robot.commands.ElevatorControllerCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ManipulatorOutputCommand;
+import frc.robot.commands.ManipulatorOutputCommandP4;
+import frc.robot.commands.SetElevatorOffset;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
+import frc.robot.subsystems.AprilTagOdometry;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem.ElevatorSetpoint;
 import frc.robot.subsystems.ManipulatorSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem.setpoint;
+import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.ElevatorSubsystem.WristAngle;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -58,16 +73,31 @@ public class RobotContainer {
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
-    private final ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
+    private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
-    // The driver's controller
-    
+    private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
 
-    /**
-     * The container for the robot. Contains subsystems, OI devices, and commands.
-     */
-    public RobotContainer() {
+    // The driver's controller
+    public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
+    private final Elastic m_Elastic = new Elastic();
+    GameField gameField = null;
+    PurePursuitSettings config = null;
+
+        /**
+         * The container for the robot. Contains subsystems, OI devices, and commands.
+         */
+        public RobotContainer() {
+           
+    
+            try {
+                m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                m_ElevatorSubsystem = null;
+        }
+        m_compressor.enableDigital();
     // Configure the button bindings
         configureButtonBindings();
         
@@ -80,10 +110,9 @@ public class RobotContainer {
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftY(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftX(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getRightX(), OIConstants.kDriveDeadband),
-                    true),
+                    !m_controlsSubsystem.driveController.getLeftBumperButton()),
                 m_robotDrive));
 
-                GameField gameField = null;
         try {
         gameField = new GameField(AprilTagFields.k2025Reefscape.loadAprilTagLayoutField(), FieldMirrorType.Mirrored);
         } catch (IOException e) {
@@ -91,10 +120,11 @@ public class RobotContainer {
         e.printStackTrace();
         }
 
-        PurePursuitSettings config = new PurePursuitSettings(gameField, Alliance.Blue)
+        this.config = new PurePursuitSettings(gameField, Alliance.Red)
         .setLookAheadScalar(0.2)
         .setDistanceToGoalTolerance(0.1)
         .setDefaultEndpointTolerance(0.1);
+        config.setTurningPID(1, 0, 0);
 
         //populateSendable
     }
@@ -109,44 +139,65 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
+    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value);
     new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
+        //Makes funnel go down and climber go up when up dpad is pressed
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
             new SequentialCommandGroup(
                 new FunnelDownCommand(m_funnelSubsystem),
                 new ClimberUpCommand(m_ClimberSubsystem)
             )
         );
-
+        //Makes climber go down and funnel go up when up dpad is pressed
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new SequentialCommandGroup(
-                new ClimberDownCommand(m_ClimberSubsystem),
-                new FunnelUpCommand(m_funnelSubsystem)
-            )
+            new ClimberDownCommand(m_ClimberSubsystem)
+
         );
-        
+        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+            new FunnelUpCommand(m_funnelSubsystem)
+        );
+        //Makes manipulator output coral
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
         (new ManipulatorOutputCommand(m_manipulatorSubsystem))
         );
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
+        (new IntakeCommand(m_manipulatorSubsystem))
+        );
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value).whileTrue(
+        (new ManipulatorOutputCommandP4(m_manipulatorSubsystem))
+        );
 
+        //
+        // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
+        // .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, 10));
+        // new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
+        // .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, -10));
+        
+        // Moves elevator to height for each reef level
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.ZERO));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.MOVING)); //Zero is the same as L1
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P2));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P2, WristAngle.MOVING));
+
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P3));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P3, WristAngle.MOVING));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, setpoint.P4));
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP));
+
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN));    
     }
 
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return AutoShuffleboardTab.getInstance().getSelectedAuto();
+        // return AutoShuffleboardTab.getInstance().getSelectedAuto();
+        return new AutoTest(config, Alliance.Blue, gameField);
     }
 }
