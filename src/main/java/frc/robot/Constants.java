@@ -145,8 +145,8 @@ public final class Constants {
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;
     public static final int climberDownlimitSwitchPort = 2;
-    public static final double climberUpSpeed = 0.3;
-    public static final double climberDownSpeed = -0.3;
+    public static final double climberUpSpeed = 0.8;
+    public static final double climberDownSpeed = -0.8;
     public static final double climberOffSpeed = 0;
     public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
   }
@@ -162,10 +162,10 @@ public final class Constants {
     public static final int ElevatormotorFollowerID = 10;
     public static final int ElevatorLimitSwitchPort = 9;
 
-    public static final double Elevatorp = .001;
-    public static final double Elevatori = .0005;
-    public static final double Elevatord = .0005;
-    public static final double Elevatorf = .015;
+    public static final double Elevatorp = .0035;
+    public static final double Elevatori = .0003;
+    public static final double Elevatord = .000855;
+    public static final double Elevatorf = .0196;
 
     public static final int wristMotorID = 31;
     public static final double wristUp = 0.469;
