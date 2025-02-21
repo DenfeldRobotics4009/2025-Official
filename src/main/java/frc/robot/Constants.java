@@ -124,7 +124,7 @@ public final class Constants {
     public static final double manipulatorMotorSpeed = 0;
   }
   public static final class AlgaeManipulatorConstants{
-    public static final int algaeManipulatorMotorID = 0; //TODO: find actual ID
+    public static final int algaeManipulatorMotorID = 16;
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 0;
