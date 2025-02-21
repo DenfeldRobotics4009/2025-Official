@@ -15,7 +15,6 @@ public FunnelUpCommand(FunnelSubsystem subsystem) {
 
     @Override
     public void end(boolean interrupted) {
-        subsystem.setFunnelMotorSpeed(0);
         super.end(interrupted);
     }
 
