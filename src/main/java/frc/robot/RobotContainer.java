@@ -26,6 +26,7 @@ import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.CoralManipulatorOutputCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.FunnelDownCommand;
 import frc.robot.commands.FunnelUpCommand;
 import frc.robot.subsystems.AlgaeManipulatorSubsystem;
@@ -124,6 +125,9 @@ public class RobotContainer {
 
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
             new AlgaeManipulatorOuttakeCommand(m_algaeManipulatorSubsystem)
+        );
+        m_controlsSubsystem.getOperatePOVTrigger(0).onTrue(
+            new ToggleAlgaeManipulatorCommand(m_algaeManipulatorSubsystem)
         );
         
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
