@@ -14,10 +14,12 @@ import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -45,6 +47,35 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
         photonFrontPoseEstimator.setReferencePose(prevEstimatedRobotPose);
         return photonFrontPoseEstimator.update(frontCam.getLatestResult());
     }
+
+        public Optional<Pose3d> getTargetPose(PhotonTrackedTarget target) {
+        int fiducialId = target.getFiducialId();
+        Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
+        // Ensure the existence of this tag id, print warning
+        if (tagPose.isEmpty()) {
+            DriverStation.reportWarning("Fiducial id " + fiducialId + " not recognized", false);
+        }
+        // Return with optional null value
+        return tagPose;
+    }
+    
+    // Gets distance from robot to apriltag
+    public double getDistanceToTarget(PhotonTrackedTarget target) {
+        Optional<Pose3d> tagPose = getTargetPose(target);
+        // Ensure the existence of this tag id
+        if (tagPose.isEmpty()) {return -1;}
+
+        Transform3d cameraToTarget = target.getBestCameraToTarget();
+        return Math.hypot(cameraToTarget.getX(), cameraToTarget.getY());
+    }
+
+    // Gets ID of the nearest AprilTag
+    public PhotonTrackedTarget bestTarget() {
+        PhotonPipelineResult result = frontCam.getLatestResult();
+        PhotonTrackedTarget targetID = result.getBestTarget();
+        return targetID;
+    }
+
     @Override
     public void periodic() {
         Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
