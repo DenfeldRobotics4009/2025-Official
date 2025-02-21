@@ -15,8 +15,10 @@ public class ElevatorControllerCommand extends Command{
     public void execute() {
         double elevatorSpeed = m_elevator.getElevatorPid().calculate(m_elevator.getElevatorRelativeEncoderValue());
         double wristSpeed = m_elevator.getWristPid().calculate(m_elevator.getWristAbsoluteEncoderValue());
-        
-        m_elevator.runElevatorMotor(elevatorSpeed);
+        if(Math.abs(elevatorSpeed) < .01){
+            elevatorSpeed = 0;
+        }
+        m_elevator.runElevatorMotor(elevatorSpeed+(m_elevator.isAtBottom() ? 0 : Constants.ElevatorSubsystemConstants.Elevatorf));
         m_elevator.runWristMotor(wristSpeed);
     }
 

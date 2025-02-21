@@ -42,10 +42,6 @@ public class FunnelSubsystem extends SubsystemBase{
 // IntakeCommand runIntakeCommand = new IntakeCommand(ManipulatorSubsystem.getInstance());
     @Override
     public void periodic() {
-        //System.out.println(dropPiston.get());
-        // if (getWideFunnelSensor() && !runIntakeCommand.isScheduled()) {
-        //     CommandScheduler.getInstance().schedule(runIntakeCommand);
-        // }
     }
      public void pistonIsPowered(boolean pistonOn){
         if(pistonOn){

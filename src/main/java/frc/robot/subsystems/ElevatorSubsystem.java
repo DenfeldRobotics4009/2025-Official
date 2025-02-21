@@ -31,7 +31,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      * @return the instance
           * @throws Exception If our motors are not configured, fail creating instance
           */
-         public static  ElevatorSubsystem getInstance() throws Exception {
+         public static  ElevatorSubsystem getInstance() {
       if (instance == null) {
         instance = new ElevatorSubsystem();
       }
@@ -58,7 +58,7 @@ public class ElevatorSubsystem extends SubsystemBase {
      * 
      * @throws Exception if our motors are not set up correctly in REV client
      */
-    public ElevatorSubsystem() throws Exception{
+    public ElevatorSubsystem(){
         
         //plugged into DIO 9 on roborio
         bottomLimitSwitch = new DigitalInput(Constants.ElevatorSubsystemConstants.ElevatorLimitSwitchPort);
@@ -170,9 +170,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         //make sure we only send -1 to 1
         speed = Math.max(-maxSpeed, speed);
         speed = Math.min(maxSpeed, speed);
-        // System.out.println("motor speed" + speed);
-        // System.out.println( "elevator encoder: " +getElevatorRelativeEncoderValue());
-        // System.out.println("elevator pid "+Elevatorpid.calculate (getElevatorRelativeEncoderValue()));
         shaftMotor.set(speed);
     }
     public void setOffset(double newOffset){
@@ -187,22 +184,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-    //    System.out.println(isAtBottom());
         //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
         if(isAtBottom()){
             elevatorEncoder.reset();
         } 
-        // System.out.println("elevatorEncoder: "
-        // +getElevatorRelativeEncoderValue());
-        System.out.println("wristEncoder: "
-        +getWristAbsoluteEncoderValue());
-
-        System.out.println("wrist pid "+Wristpid.calculate (getWristAbsoluteEncoderValue()));
-        System.out.println("pid target: "+Wristpid.getSetpoint());
-
-        if(ERROR){
-            System.out.println("ABORT ERRROR HELP ELVEVATOR");
-        }
     }
 
     //get commands for elastic

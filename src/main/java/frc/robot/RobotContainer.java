@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.autos.AutoTest;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
@@ -80,6 +81,8 @@ public class RobotContainer {
     // The driver's controller
     public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
     private final Elastic m_Elastic = new Elastic();
+    GameField gameField = null;
+    PurePursuitSettings config = null;
 
         /**
          * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -110,7 +113,6 @@ public class RobotContainer {
                     !m_controlsSubsystem.driveController.getLeftBumperButton()),
                 m_robotDrive));
 
-                GameField gameField = null;
         try {
         gameField = new GameField(AprilTagFields.k2025Reefscape.loadAprilTagLayoutField(), FieldMirrorType.Mirrored);
         } catch (IOException e) {
@@ -118,10 +120,11 @@ public class RobotContainer {
         e.printStackTrace();
         }
 
-        PurePursuitSettings config = new PurePursuitSettings(gameField, Alliance.Blue)
+        this.config = new PurePursuitSettings(gameField, Alliance.Red)
         .setLookAheadScalar(0.2)
         .setDistanceToGoalTolerance(0.1)
         .setDefaultEndpointTolerance(0.1);
+        config.setTurningPID(1, 0, 0);
 
         //populateSendable
     }
@@ -194,6 +197,7 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return AutoShuffleboardTab.getInstance().getSelectedAuto();
+        // return AutoShuffleboardTab.getInstance().getSelectedAuto();
+        return new AutoTest(config, Alliance.Blue, gameField);
     }
 }

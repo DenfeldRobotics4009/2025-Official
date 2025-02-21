@@ -85,7 +85,6 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   public void periodic() {
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
-    System.out.println("Angle: " + m_gyro.getAngle());
     swerveDrivePoseEstimator.update(
         Rotation2d.fromDegrees(-m_gyro.getAngle()),
         new SwerveModulePosition[] {
@@ -150,8 +149,6 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;
-
-System.out.println("gyro angle: "+m_gyro.getAngle());
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
         fieldRelative

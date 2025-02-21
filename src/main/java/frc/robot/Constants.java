@@ -157,16 +157,17 @@ public final class Constants {
     public static final int enumP4 = 11000;
 
     public static int maxHeight = 11500;
-    public static double maxSpeed = 0.6;
+    public static double maxSpeed = 0.75;
     public static final int ElevatormotorID = 11;
     public static final int ElevatormotorFollowerID = 10;
     public static final int ElevatorLimitSwitchPort = 9;
 
     public static final double Elevatorp = .001;
-    public static final double Elevatori = 0;
-    public static final double Elevatord = .0001;
+    public static final double Elevatori = .0005;
+    public static final double Elevatord = .0005;
+    public static final double Elevatorf = .015;
 
-    public static final int wristMotorID = 31; //TODO: find actual ID
+    public static final int wristMotorID = 31;
     public static final double wristUp = 0.469;
     public static final double wristDown = 0.096;
     public static final double wristMoving = 0.2;

@@ -38,7 +38,6 @@ public class ManipulatorSubsystem extends SubsystemBase{
     }
     @Override
     public void periodic() {
-        System.out.println(getShortFunnelSensor());
     }
 
     //get commands for Elastic

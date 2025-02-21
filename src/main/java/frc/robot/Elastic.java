@@ -13,6 +13,7 @@ public class Elastic extends SubsystemBase {
   public ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
   public SwerveDrive m_swerveDrive = SwerveDrive.getInstance();
   public FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
+  public ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
 
   public Elastic() {
   }
@@ -28,7 +29,7 @@ public class Elastic extends SubsystemBase {
         SmartDashboard.putBoolean("Drop piston up", m_funnelSubsystem.getFunnelDropPiston());
 
         // SmartDashboard.putNumber("Elevator relative encoder", m_ElevatorSubsystem.getElevatorRelativeEncoderValue());
-        // SmartDashboard.putNumber("Wrist absolute encoder", m_ElevatorSubsystem.getWristAbsoluteEncoderValue());
+        SmartDashboard.putNumber("Wrist absolute encoder", m_ElevatorSubsystem.getWristAbsoluteEncoderValue());
         // SmartDashboard.putNumber("Wrist motor speed", m_ElevatorSubsystem.wristMotorSpeed());
         // SmartDashboard.putNumber("Shaft motor speed", m_ElevatorSubsystem.shaftMotorSpeed());
         // SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
@@ -36,7 +37,6 @@ public class Elastic extends SubsystemBase {
         SmartDashboard.putNumber("Odometry X", m_swerveDrive.getPosition().getX());
         SmartDashboard.putNumber("Odometry Y", m_swerveDrive.getPosition().getY());
         SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
- System.out.println("elastic periodic running");
     }
 
 }
