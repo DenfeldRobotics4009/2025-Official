@@ -58,8 +58,8 @@ public class FunnelSubsystem extends SubsystemBase{
     }
 } 
 
-/*
- * if (codeWorks == false){
- * isCrying = True
- * }
+/* 
+  if (codeWorks == false){
+  isCrying = True
+  }
  */

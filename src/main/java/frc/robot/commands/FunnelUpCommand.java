@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.FunnelSubsystem;
 
 public class FunnelUpCommand extends Command {
@@ -14,7 +15,7 @@ public FunnelUpCommand(FunnelSubsystem subsystem) {
 
     @Override
     public void end(boolean interrupted) {
-        
+        subsystem.setFunnelMotorSpeed(0);
         super.end(interrupted);
     }
 

@@ -1,13 +1,12 @@
 package frc.robot.subsystems;
 
-
-
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.IntakeCommand;
 
 public class ManipulatorSubsystem extends SubsystemBase{
 //    objects
