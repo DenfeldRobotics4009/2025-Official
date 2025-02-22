@@ -5,6 +5,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,6 +21,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     private DigitalInput bottomLimitSwitch;
     private Encoder elevatorEncoder;
+
+    SlewRateLimiter elevatorRampRate = new SlewRateLimiter(2);
 
     //this is a offset value to move all setpoints up or down
     private double offset = 0;
@@ -98,7 +101,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         Wristpid.enableContinuousInput(0, 2* Math.PI);
         elevatorEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
         
-        setTarget(ElevatorSetpoint.ZERO);
+        setElevatorTarget(ElevatorSetpoint.ZERO);
         setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
     }
@@ -107,10 +110,18 @@ public class ElevatorSubsystem extends SubsystemBase {
         //bottom is false 
         return !bottomLimitSwitch.get();
     }
-    
-    public void setTarget(ElevatorSetpoint var){
+
+    public void setElevatorTarget(ElevatorSetpoint var){
         Elevatorpid.setSetpoint(offset+var.elevatorEncoderValue);
+        elevatorTarget = var;
     }
+
+    public ElevatorSetpoint elevatorTarget;
+
+    public ElevatorSetpoint getElevatorTarget(){
+        return elevatorTarget;
+    }
+
     public void setWristTarget(WristAngle var){
         Wristpid.setSetpoint(var.wristEncoderValue);
     }
@@ -156,6 +167,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     
     public void runElevatorMotor(double speed){
+        speed = elevatorRampRate.calculate(speed);
         //Check to see that if we are  above our max height and going up, we stop. If we are above and going down that is ok
         if(getElevatorRelativeEncoderValue() >= Constants.ElevatorSubsystemConstants.maxHeight && speed > 0){
             speed = 0;

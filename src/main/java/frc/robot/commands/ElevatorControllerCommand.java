@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -13,10 +15,14 @@ public class ElevatorControllerCommand extends Command{
     }
     @Override
     public void execute() {
+        if(m_elevator.isAtBottom() && m_elevator.getElevatorTarget().equals(ElevatorSubsystem.ElevatorSetpoint.ZERO)){
+            m_elevator.setWristTarget(ElevatorSubsystem.WristAngle.DOWN);
+        }
         double elevatorSpeed = m_elevator.getElevatorPid().calculate(m_elevator.getElevatorRelativeEncoderValue());
         double wristSpeed = m_elevator.getWristPid().calculate(m_elevator.getWristAbsoluteEncoderValue());
-        if(Math.abs(elevatorSpeed) < .01){
-            elevatorSpeed = 0;
+        SmartDashboard.putNumber("elevator speed", elevatorSpeed);
+        if(Math.abs(elevatorSpeed) < .005){
+            elevatorSpeed = 0+Constants.ElevatorSubsystemConstants.Elevatorf;
         }
         m_elevator.runElevatorMotor(elevatorSpeed+(m_elevator.isAtBottom() ? 0 : Constants.ElevatorSubsystemConstants.Elevatorf));
         m_elevator.runWristMotor(wristSpeed);

@@ -44,6 +44,9 @@ public class CoralManipulatorSubsystem extends SubsystemBase{
     }
     @Override
     public void periodic() {
+        setLightStripPowered(getShortFunnelSensor());
+        System.out.println("coral sensor: "+ getShortFunnelSensor());
+        System.out.println("sensor voltage: "+ coralManipulatorSensor.getValue());
     }
 
     //get commands for Elastic
@@ -51,7 +54,7 @@ public class CoralManipulatorSubsystem extends SubsystemBase{
         return coralManipulatorMotor.getAbsoluteEncoder().getPosition();
     }
     public boolean getShortFunnelSensor() {
-        return coralManipulatorSensor.getVoltage() < Constants.FunnelConstants.laserSensorVoltageHigh;
+        return coralManipulatorSensor.getValue() < Constants.FunnelConstants.laserSensorVoltageHigh;
     }
     public double getCoralManipulatorMotorSpeed() {
         return coralManipulatorMotor.get();

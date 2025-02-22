@@ -33,8 +33,8 @@ public class AprilTagOdometry extends SubsystemBase{
         return instance;
         }
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
-    public PhotonCamera backCam = new PhotonCamera("BackCam");
-    Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+    // public PhotonCamera backCam = new PhotonCamera("BackCam");
+    Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.26035, 0.250825, 0.22225), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
 // Construct PhotonPoseEstimator

@@ -123,7 +123,7 @@ public final class Constants {
   public static final class FunnelConstants{
     public static final int wideFunnelSensorChannel = 0;
     public static final int dropMotorID = 0;
-    public static final double laserSensorVoltageHigh = 0.58;
+    public static final double laserSensorVoltageHigh = 458;
     public static final double agitatorMotorSpeed = 0.5;
     public static final double dropFunnelMotorSpeed = 1;
     public static final double maxFunnelAngle = 0;
@@ -146,7 +146,7 @@ public final class Constants {
   }
   public static final class CoralManipulatorCommandConstants{
     public static final double coralManipulatorMotorSpeed = -0.35;
-    public static int PneumaticHubID = 0; //TODO: Find actual Pneumatic Hub ID
+    public static int PneumaticHubID = 20;
   }
   public static final class AlgaeManipulatorConstants{
     public static final int algaeManipulatorMotorID = 16;
@@ -166,15 +166,15 @@ public final class Constants {
     public static final int enumP4 = 11000;
 
     public static int maxHeight = 11500;
-    public static double maxSpeed = 0.75;
+    public static double maxSpeed = 1;
     public static final int ElevatormotorID = 11;
     public static final int ElevatormotorFollowerID = 10;
     public static final int ElevatorLimitSwitchPort = 9;
 
-    public static final double Elevatorp = .0035;
-    public static final double Elevatori = .0003;
-    public static final double Elevatord = .000855;
-    public static final double Elevatorf = .0196;
+    public static final double Elevatorp = .0003;
+    public static final double Elevatori = .00003;
+    public static final double Elevatord = .000015;
+    public static final double Elevatorf = .01;
 
     public static final int wristMotorID = 31;
     public static final double wristUp = 0.469;

@@ -9,6 +9,7 @@ public class FunnelSubsystem extends SubsystemBase{
     //objects
    
     DoubleSolenoid dropPiston;
+    private boolean setFunnelPiston;
 
     private static FunnelSubsystem instance;
 
@@ -43,13 +44,17 @@ public class FunnelSubsystem extends SubsystemBase{
     @Override
     public void periodic() {
     }
-     public void pistonIsPowered(boolean pistonOn){
+    public void setFunnelPiston(boolean pistonOn){
         if(pistonOn){
             dropPiston.set(DoubleSolenoid.Value.kForward);
         }
         else{
             dropPiston.set(DoubleSolenoid.Value.kReverse);
         }
+        this.setFunnelPiston = pistonOn;
+    }
+    public boolean isPistonDeployed(){
+        return setFunnelPiston;
     }
 
     //get commands for Elastic

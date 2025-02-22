@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -25,7 +26,7 @@ public class AlgaeManipulatorSubsystem extends SubsystemBase{
 
     public AlgaeManipulatorSubsystem(){
         this.algaeManipulatorMotor = new SparkMax(Constants.AlgaeManipulatorConstants.algaeManipulatorMotorID, MotorType.kBrushless);
-        this.algaePiston = new DoubleSolenoid(null,1,2); //TODO: Find out what to put for channels and module type
+        this.algaePiston = new DoubleSolenoid(20,PneumaticsModuleType.REVPH,3,4); //TODO: Find out what to put for channels and module type
     }
 
     public void setAlgaeManipulatorSpeed(double speed){
