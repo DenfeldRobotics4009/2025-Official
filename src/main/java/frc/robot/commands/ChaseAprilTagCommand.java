@@ -41,11 +41,14 @@ public class ChaseAprilTagCommand extends Command{
     }
     @Override
     public void execute() {
-        // // Gets pose of nearest AprilTag
-        // Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
-        // Pose2d targetAprilTagPose2d = targetAprilTagPose3d.toPose2d();
+        // Gets pose of nearest AprilTag
+        Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
+        Pose2d targetAprilTagPose2d = camera.convertToPose2d(targetAprilTagPose3d);
+        
+        // Create new robot target based on AprilTag pose
+        Pose2d robotTargetPose2d = new Pose2d();
 
-        // // Set drive position to target (left or right)
-        // swerveDrive.setPosition(targetAprilTagPose2d);
+        // Set drive position to target (left or right)
+        swerveDrive.setPosition(robotTargetPose2d);
     }
 }

@@ -15,6 +15,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -57,6 +58,21 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
         }
         // Return with optional null value
         return tagPose;
+    }
+
+    // Converts an Optional<Pose3d> to a Pose2d
+    public Pose2d convertToPose2d(Optional<Pose3d> pose3dOptional) {
+        if (pose3dOptional.isPresent()) {
+            Pose3d pose3d = pose3dOptional.get();
+
+            // Convert Rotation3d to Rotation2d
+            Rotation3d rotation3d = pose3d.getRotation();
+            Rotation2d rotation2d = rotation3d.toRotation2d();
+            
+            return new Pose2d(pose3d.getX(), pose3d.getY(), rotation2d);
+        } else {
+            return new Pose2d(0, 0, new Rotation2d(0));
+        }
     }
     
     // Gets distance from robot to apriltag
