@@ -32,6 +32,7 @@ import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.TopAlgaeRemoveCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
+import frc.robot.commands.BottomAlgaeRemoveCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
@@ -80,7 +81,7 @@ public class RobotContainer {
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_manipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
     public final AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
-    private final ElevatorSubsystem m_ElevatorSubsystem;
+    private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
@@ -184,12 +185,12 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value).whileTrue(
         (new ClimberUpCommand(m_ClimberSubsystem))
         );
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value).whileTrue(
+        new Trigger(() -> {return m_controlsSubsystem.driveController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
         (new TopAlgaeRemoveCommand())
         );
-        // new JoystickButton(m_controlsSubsystem.operateController, Button.kStart.value).whileTrue(
-        //     (new TopAlgaeRemoveCommand(m_ElevatorSubsystem))
-        //     );
+        new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        (new BottomAlgaeRemoveCommand())
+        );
 
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
         // .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, 10));
