@@ -144,7 +144,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     public enum WristAngle{
         DOWN(Constants.ElevatorSubsystemConstants.wristDown), 
         UP(Constants.ElevatorSubsystemConstants.wristUp),
-        MOVING(Constants.ElevatorSubsystemConstants.wristMoving);
+        TOPALGAEREMOVAL(Constants.ElevatorSubsystemConstants.topWristAlgae),
+        MOVING(Constants.ElevatorSubsystemConstants.wristMoving),
+        BOTTOMALGAEREMOVAL(Constants.ElevatorSubsystemConstants.bottomWristAlgae);
         double wristEncoderValue;
         WristAngle(double val){
             this.wristEncoderValue = val;

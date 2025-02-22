@@ -29,6 +29,7 @@ import frc.robot.autos.AutoTest;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
+import frc.robot.commands.TopAlgaeRemoveCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
@@ -79,14 +80,14 @@ public class RobotContainer {
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_manipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
     public final AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
-    private ElevatorSubsystem m_ElevatorSubsystem;
+    private final ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
     private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
 
     // The driver's controller
     public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
-    private final Elastic m_Elastic = new Elastic();
+    private final ShuffleBoard m_Elastic = new ShuffleBoard();
     GameField gameField = null;
     PurePursuitSettings config = null;
 
@@ -183,8 +184,13 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value).whileTrue(
         (new ClimberUpCommand(m_ClimberSubsystem))
         );
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value).whileTrue(
+        (new TopAlgaeRemoveCommand())
+        );
+        // new JoystickButton(m_controlsSubsystem.operateController, Button.kStart.value).whileTrue(
+        //     (new TopAlgaeRemoveCommand(m_ElevatorSubsystem))
+        //     );
 
-        //
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
         // .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, 10));
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
