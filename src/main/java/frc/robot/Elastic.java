@@ -5,12 +5,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
-import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
 
 
 public class Elastic extends SubsystemBase {
-  public ManipulatorSubsystem m_manipulatorSubsystem = ManipulatorSubsystem.getInstance();
+  public CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
   public SwerveDrive m_swerveDrive = SwerveDrive.getInstance();
   public FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
   public ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
@@ -22,9 +22,9 @@ public class Elastic extends SubsystemBase {
   
     @Override
     public void periodic() {
-        SmartDashboard.putBoolean("Manipulator laser Tripped", m_manipulatorSubsystem.getShortFunnelSensor());
-        SmartDashboard.putNumber("Manipulator Motor Encoder Value", m_manipulatorSubsystem.getManipulatorMotorEncoder());
-        SmartDashboard.putNumber("Manipulator Motor Speed", m_manipulatorSubsystem.getManipulatorMotorSpeed());
+        SmartDashboard.putBoolean("CoralManipulator laser Tripped", m_coralManipulatorSubsystem.getShortFunnelSensor());
+        SmartDashboard.putNumber("Manipulator Motor Encoder Value", m_coralManipulatorSubsystem.getManipulatorMotorEncoder());
+        SmartDashboard.putNumber("Manipulator Motor Speed", m_coralManipulatorSubsystem.getCoralManipulatorMotorSpeed());
 
         SmartDashboard.putBoolean("Drop piston up", m_funnelSubsystem.getFunnelDropPiston());
 

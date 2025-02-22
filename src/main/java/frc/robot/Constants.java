@@ -129,9 +129,9 @@ public final class Constants {
     public static final double maxFunnelAngle = 0;
     public static final double minFunnelAngle = 0;
   }
-  public static final class ManipulatorConstants{
-    public static final int manipulatorMotorID = 14;
-    public static final int manipulatorSensorChannel = 0;
+  public static final class CoralManipulatorConstants{
+    public static final int coralManipulatorMotorID = 14;
+    public static final int coralManipulatorSensorChannel = 0;
     public static final int deployMotorP = 0;
     public static final int deployMotorI = 0;
     public static final int deployMotorD = 0;
@@ -139,9 +139,17 @@ public final class Constants {
     public static final int deployMotorStart = 0;
     public static final int deployMotorUp = 1;
     public static final int deployMotorDown = 2;
+    public static final int lightStripAID = 6;
+    public static final int lightStripBID = 7;
+    public static final int lightStripCID = 8;
+    public static final int lightStripDID = 9;
   }
-  public static final class ManipulatorCommandConstants{
-    public static final double manipulatorMotorSpeed = -0.35;
+  public static final class CoralManipulatorCommandConstants{
+    public static final double coralManipulatorMotorSpeed = -0.35;
+    public static int PneumaticHubID = 0; //TODO: Find actual Pneumatic Hub ID
+  }
+  public static final class AlgaeManipulatorConstants{
+    public static final int algaeManipulatorMotorID = 16;
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;
