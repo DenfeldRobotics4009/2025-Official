@@ -5,6 +5,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ElevatorControllerCommand extends Command{
+    //creates an elevator subsystem from the original file
     private final ElevatorSubsystem m_elevator;
     public ElevatorControllerCommand(ElevatorSubsystem elevator){
         m_elevator = elevator;
@@ -13,29 +14,29 @@ public class ElevatorControllerCommand extends Command{
     }
     @Override
     public void execute() {
+        //sets the elevator speed with pid and relative encoder values
         double elevatorSpeed = m_elevator.getElevatorPid().calculate(m_elevator.getElevatorRelativeEncoderValue());
+        //sets the wrist speed with pid and absolute encoder values
         double wristSpeed = m_elevator.getWristPid().calculate(m_elevator.getWristAbsoluteEncoderValue());
         if(Math.abs(elevatorSpeed) < .01){
             elevatorSpeed = 0;
         }
+        //checks to see if the elevator is at the bottom when using feedforward so it doesn't constantly run the motors.
         m_elevator.runElevatorMotor(elevatorSpeed+(m_elevator.isAtBottom() ? 0 : Constants.ElevatorSubsystemConstants.Elevatorf));
         m_elevator.runWristMotor(wristSpeed);
     }
 
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
-        super.initialize();
     }
 
     @Override
     public boolean isFinished() {
-        // TODO Auto-generated method stub
         return false;
     }
     @Override
     public void end(boolean interrupted) {
-        // TODO Auto-generated method stub
+        //sets the elevator and wrist motors to 0 when the command ends
         m_elevator.runElevatorMotor(0);
         m_elevator.runWristMotor(0);
     }

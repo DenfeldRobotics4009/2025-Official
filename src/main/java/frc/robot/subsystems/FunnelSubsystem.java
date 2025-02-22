@@ -31,7 +31,7 @@ public class FunnelSubsystem extends SubsystemBase{
         //Pnumatics hub is module 20, and is a REVPH hub. the piston is plugged into 0 and 1 on the REVPH
         this.dropPiston =  new DoubleSolenoid(20,PneumaticsModuleType.REVPH, 0, 1);
     }
-    //tests for if object in lazers way
+    //tests for if object in laser's way
    
    
 
@@ -44,15 +44,17 @@ public class FunnelSubsystem extends SubsystemBase{
     public void periodic() {
     }
      public void pistonIsPowered(boolean pistonOn){
+        //if the piston is set to on, power the piston
         if(pistonOn){
             dropPiston.set(DoubleSolenoid.Value.kForward);
         }
+        //if it's not set to on, unpower the piston
         else{
             dropPiston.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
-    //get commands for Elastic
+    //get commands for shuffleboard
     public boolean getFunnelDropPiston() {
         return dropPiston.equals(dropPiston);
     }

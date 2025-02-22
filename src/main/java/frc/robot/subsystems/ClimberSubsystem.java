@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase{
+    //creates variables for our objects
    private SparkMax winchMotor;
    private DigitalInput climberDownLimitSwitch;
    DoubleSolenoid climbPiston;
@@ -36,21 +37,18 @@ public static  ClimberSubsystem getInstance() {
         //this.climbPiston = new DoubleSolenoid(null, 0, 0);
     }
 
-    public double getRelativeEncoderValue(){
-        return 0; // winchMotor.getAlternateEncoder().getPosition();
-    }
-
     public boolean isAtBottom(){
         //bottom is false 
         return !climberDownLimitSwitch.get();
     }
     
     public void moveClimberUp(){
+        //function for moving the climber up. sets the motor speed to our set climber up speed.
         winchMotor.set(Constants.ClimberSubsystemConstants.climberUpSpeed);
     }
 
     public void moveClimberDown(){
-        //if limit switch is hit, you can't go down
+        //does the same as the climber up function but has a limit switch that stops the climber from going too far down.
         if(isAtBottom()){
             winchMotor.set(0);
         }
@@ -60,13 +58,16 @@ public static  ClimberSubsystem getInstance() {
     }
 
     public void winchMotorOff(){
+        //sets the winch motor speed to our constant (which should be 0)
         winchMotor.set(Constants.ClimberSubsystemConstants.climberOffSpeed);
     }
 
     public void pistonIsPowered(boolean pistonOn){
+        //if the piston is powered, power on the climber solenoid
         if(pistonOn){
             climbPiston.set(Value.kForward);
         }
+        //otherwise, power the solenoid off
         else{
             climbPiston.set(Value.kOff);
         }
