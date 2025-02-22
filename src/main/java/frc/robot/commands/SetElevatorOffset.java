@@ -21,8 +21,6 @@ public class SetElevatorOffset extends Command{
     }
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
-        super.initialize();
     }
     @Override
     public boolean isFinished() {

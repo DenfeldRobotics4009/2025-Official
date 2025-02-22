@@ -133,18 +133,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-    if(xSpeed>0.5){
-      xSpeed = 0.5;
-    }
-    if(xSpeed<-0.5){
-      xSpeed = -0.5;
-    }
-    if(ySpeed>0.5){
-      ySpeed = 0.5;
-    }
-    if(ySpeed<-0.5){
-      ySpeed = -0.5;
-    }
+
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;

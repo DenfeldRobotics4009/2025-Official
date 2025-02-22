@@ -3,10 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
-public class CoralManipulatorOutputCommand extends Command {
+public class CoralManipulatorOuttakeCommand extends Command {
     private final CoralManipulatorSubsystem subsystem;
-    public CoralManipulatorOutputCommand(CoralManipulatorSubsystem subsystem) {
+    public CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -20,13 +21,18 @@ public class CoralManipulatorOutputCommand extends Command {
 
     @Override
     public void initialize() {
-        subsystem.coralManipulatorMotorSpeed(-0.9);
+        if(ElevatorSubsystem.getInstance().getElevatorTarget() == ElevatorSubsystem.ElevatorSetpoint.P4){
+            subsystem.coralManipulatorMotorSpeed(0.9);
+        }else{
+            subsystem.coralManipulatorMotorSpeed(-0.9);
+            
+        }
     }
 
     @Override
     public boolean isFinished() {
       
-        return false;
+        return !subsystem.getCoralManipulatorSensor();
     }
 
     @Override

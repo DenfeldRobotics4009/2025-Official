@@ -129,6 +129,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     //Creates setpoints for the elevator to reach
     public enum ElevatorSetpoint{
         ZERO(Constants.ElevatorSubsystemConstants.enumPointZero), 
+        LOW_ALGAE(Constants.ElevatorSubsystemConstants.enumPointLowAlgae),
         P2(Constants.ElevatorSubsystemConstants.enumP2),
         P3(Constants.ElevatorSubsystemConstants.enumP3),
         P4(Constants.ElevatorSubsystemConstants.enumP4);
@@ -188,6 +189,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public void setOffset(double newOffset){
         this.offset = newOffset;
+        setElevatorTarget(elevatorTarget);
     }
 
     public double getOffset(){
@@ -198,9 +200,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
+        //if we are at the bottom, reset encoder so 0 is the bottom of the elevator and set our offset to 0
         if(isAtBottom()){
             elevatorEncoder.reset();
+            setOffset(0);
         } 
     }
 

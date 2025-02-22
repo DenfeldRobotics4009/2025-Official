@@ -8,7 +8,7 @@ public class ToggleFunnelCommand extends Command {
 private FunnelSubsystem m_funnelSubsystem;
 private boolean isDone = false;
 public ToggleFunnelCommand(FunnelSubsystem subsystem) {
-    this.m_funnelSubsystem = m_funnelSubsystem;
+    this.m_funnelSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }

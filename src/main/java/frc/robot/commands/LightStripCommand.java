@@ -18,10 +18,10 @@ public class LightStripCommand extends Command{
 
     @Override
     public void execute() {
-        if(subsystem.getShortFunnelSensor()){
+        if(subsystem.getCoralManipulatorSensor()){
             subsystem.setLightStripPowered(true);
         }
-        else if(!subsystem.getShortFunnelSensor()){
+        else if(!subsystem.getCoralManipulatorSensor()){
             subsystem.setLightStripPowered(false);
         }
     }

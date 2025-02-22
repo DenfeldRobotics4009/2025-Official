@@ -15,6 +15,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -38,8 +39,7 @@ import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
-import frc.robot.commands.CoralManipulatorOutputCommand;
-import frc.robot.commands.CoralManipulatorOutputCommandP4;
+import frc.robot.commands.CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorOffset;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ToggleFunnelCommand;
@@ -88,7 +88,7 @@ public class RobotContainer {
 
     // The driver's controller
     public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
-    private final ShuffleBoard m_Elastic = new ShuffleBoard();
+    private final ShuffleBoard m_shuffleboard = new ShuffleBoard();
     GameField gameField = null;
     PurePursuitSettings config = null;
 
@@ -147,49 +147,72 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
-    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value);
-    new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value)
+    // Locks robot movement - driver y
+    new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
+        // Reset driver gryo - driver b
         new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
         .onTrue(new ResetSwerveOdometry());
     
-        //toggle algae manipulator
+        // Toggle algae manipulator - operator up dpad
         m_controlsSubsystem.getOperatePOVTrigger(0).whileTrue(
             new ToggleAlgaeManipulatorCommand(m_AlgaeManipulatorSubsystem)    
         );
-        //algae intake
+
+        // Algae intake - operator left dpad
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
             new AlgaeManipulatorIntakeCommand(m_AlgaeManipulatorSubsystem)    
         );
-        //outtake algae
+
+        // Outtake algae - operator right dpad
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
             new AlgaeManipulatorOuttakeCommand(m_AlgaeManipulatorSubsystem)
         );
-        //toggle funnel
+
+        // Toggle funnel - operator down dpad
         m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
             new ToggleFunnelCommand(m_funnelSubsystem)
         );
-        //Makes manipulator output coral
-        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        (new CoralManipulatorOutputCommand(m_manipulatorSubsystem))
-        );
+
+        //Makes manipulator output coral - driver right bumper
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value).whileTrue(
+            (new CoralManipulatorOuttakeCommand(m_manipulatorSubsystem))
+            );
+
+        // intake coral - operator left trigger 
         new Trigger(() -> {return m_controlsSubsystem.operateController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
         (new CoralIntakeCommand(m_manipulatorSubsystem))
         );
+
+        // manual elevator control - operator left joystick
+        new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() > 0.5;}).whileTrue(
+            (new SetElevatorOffset(m_ElevatorSubsystem, 1))
+        );
+        new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() < -0.5;}).whileTrue(
+            (new SetElevatorOffset(m_ElevatorSubsystem, -1))
+        );
+
+        // climber down - operator right bumper
         new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value).whileTrue(
         (new ClimberDownCommand(m_ClimberSubsystem))
         );
+
+        // climber up - operator left bumper
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value).whileTrue(
         (new ClimberUpCommand(m_ClimberSubsystem))
         );
+
+        // remove low algae - driver left trigger
         new Trigger(() -> {return m_controlsSubsystem.driveController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
-        (new TopAlgaeRemoveCommand())
-        );
-        new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;}).whileTrue(
         (new BottomAlgaeRemoveCommand())
+        );
+
+        // remove high algae - driver right trigger
+        new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        (new TopAlgaeRemoveCommand())
         );
 
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
@@ -198,21 +221,30 @@ public class RobotContainer {
         // .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, -10));
         
         // Moves elevator to height for each reef level
+
+        // elevator zero/P1 - operator A
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.MOVING)); //Zero is the same as L1
 
+        // elevator P2 - operator B
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P2, WristAngle.MOVING));
 
+        // elevator to low algae position - operator right joystick click
+        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.LOW_ALGAE, WristAngle.MOVING));
 
+        // elevator P3 - operator y
         new JoystickButton(m_controlsSubsystem.operateController, Button.kY.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P3, WristAngle.MOVING));
 
+        // elevator P4 - operator x
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP)); 
         
-        new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
+        // manually zero wrist - operator right stick click
+        // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
+        // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
     }
 
     public Command getAutonomousCommand() {

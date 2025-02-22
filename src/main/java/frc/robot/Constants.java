@@ -83,7 +83,7 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
-    public static final double kDriveDeadband = 0.05;
+    public static final double kDriveDeadband = 0.08;
   }
 
   public static final class AprilTagOdometryConstants {
@@ -123,7 +123,7 @@ public final class Constants {
   public static final class FunnelConstants{
     public static final int wideFunnelSensorChannel = 0;
     public static final int dropMotorID = 0;
-    public static final double laserSensorVoltageHigh = 458;
+    public static final double laserSensorVoltageHigh = 455;
     public static final double agitatorMotorSpeed = 0.5;
     public static final double dropFunnelMotorSpeed = 1;
     public static final double maxFunnelAngle = 0;
@@ -147,7 +147,7 @@ public final class Constants {
   public static final class CoralManipulatorCommandConstants{
     public static final double coralManipulatorMotorSpeed = -0.35;
     public static int PneumaticHubID = 20;
-    public static final double algaeRemovalMotorSpeed = 1;
+    public static final double algaeRemovalMotorSpeed = -0.5;
   }
   public static final class AlgaeManipulatorConstants{
     public static final int algaeManipulatorMotorID = 16;
@@ -161,9 +161,10 @@ public final class Constants {
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;
+    public static final int enumPointLowAlgae = 300;
     public static final int enumP2 = 3500;
     public static final int enumP3 = 9500;
-    public static final int enumP4 = 11000;
+    public static final int enumP4 = 10400;
 
     public static int maxHeight = 11500;
     public static double maxSpeed = 1;
@@ -171,9 +172,9 @@ public final class Constants {
     public static final int ElevatormotorFollowerID = 10;
     public static final int ElevatorLimitSwitchPort = 9;
 
-    public static final double Elevatorp = .0003;
-    public static final double Elevatori = .00003;
-    public static final double Elevatord = .000015;
+    public static final double Elevatorp = .00025;
+    public static final double Elevatori = 0; //.000035;
+    public static final double Elevatord = .00002;
     public static final double Elevatorf = .01;
 
     public static final int wristMotorID = 31;
@@ -181,7 +182,7 @@ public final class Constants {
     public static final double topWristAlgae = 0.33; //TODO: tune this value
     public static final double bottomWristAlgae = 0.33; //TODO: tune this value
     public static final double wristDown = 0.096;
-    public static final double wristMoving = 0.2;
+    public static final double wristMoving = 0.15;
 
     public static final double wristMinAngle = 0.096; //TODO: find actual value
     public static final double wristMaxAngle = 0.492; //TODO: find actual value

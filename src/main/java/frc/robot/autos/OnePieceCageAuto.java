@@ -13,7 +13,7 @@ import frc.library.auto.pathing.FollowControllers;
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.pathObjects.Path;
-import frc.robot.commands.CoralManipulatorOutputCommand;
+import frc.robot.commands.CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.CoralManipulatorSubsystem;

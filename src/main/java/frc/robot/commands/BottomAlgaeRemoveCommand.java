@@ -6,7 +6,6 @@ import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class BottomAlgaeRemoveCommand extends Command{
-     private ElevatorSubsystem m_elevatorSubsystem;
      public BottomAlgaeRemoveCommand(){
 
      }
@@ -21,7 +20,7 @@ public class BottomAlgaeRemoveCommand extends Command{
     @Override
     public void execute() {
         CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
-        m_elevatorSubsystem.setWristTarget(ElevatorSubsystem.WristAngle.BOTTOMALGAEREMOVAL);
+        ElevatorSubsystem.getInstance().setWristTarget(ElevatorSubsystem.WristAngle.BOTTOMALGAEREMOVAL);
     }
 
     @Override
