@@ -147,6 +147,7 @@ public final class Constants {
   public static final class CoralManipulatorCommandConstants{
     public static final double coralManipulatorMotorSpeed = -0.35;
     public static int PneumaticHubID = 20;
+    public static final double algaeRemovalMotorSpeed = 1;
   }
   public static final class AlgaeManipulatorConstants{
     public static final int algaeManipulatorMotorID = 16;
@@ -157,7 +158,6 @@ public final class Constants {
     public static final double climberUpSpeed = 0.8;
     public static final double climberDownSpeed = -0.8;
     public static final double climberOffSpeed = 0;
-    public static final double climberUpEncoderVal = 1; //TODO: find encoder value on the climber
   }
   public static final class ElevatorSubsystemConstants{
     public static final int enumPointZero = 0;
@@ -178,8 +178,8 @@ public final class Constants {
 
     public static final int wristMotorID = 31;
     public static final double wristUp = 0.469;
-    public static final double topWristAlgae = 0.33;
-    public static final double bottomWristAlgae = 0.33;
+    public static final double topWristAlgae = 0.33; //TODO: tune this value
+    public static final double bottomWristAlgae = 0.33; //TODO: tune this value
     public static final double wristDown = 0.096;
     public static final double wristMoving = 0.2;
 

@@ -1,11 +1,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class BottomAlgaeRemoveCommand extends Command{
-     private ElevatorSubsystem elevatorSubsystem;
+     private ElevatorSubsystem m_elevatorSubsystem;
+     public BottomAlgaeRemoveCommand(){
+
+     }
     @Override
     public void end(boolean interrupted) {
         // TODO Auto-generated method stub
@@ -16,8 +20,8 @@ public class BottomAlgaeRemoveCommand extends Command{
 
     @Override
     public void execute() {
-        CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(-1);
-        elevatorSubsystem.setWristTarget(ElevatorSubsystem.WristAngle.BOTTOMALGAEREMOVAL);
+        CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
+        m_elevatorSubsystem.setWristTarget(ElevatorSubsystem.WristAngle.BOTTOMALGAEREMOVAL);
     }
 
     @Override
@@ -27,7 +31,6 @@ public class BottomAlgaeRemoveCommand extends Command{
 
     @Override
     public boolean isFinished() {
-        // TODO Auto-generated method stub
         return false;
     }
 }
