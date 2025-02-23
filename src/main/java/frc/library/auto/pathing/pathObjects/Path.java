@@ -16,9 +16,7 @@ import org.json.simple.parser.ParseException;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.Trajectory.State;
 import edu.wpi.first.networktables.BooleanSubscriber;
@@ -30,10 +28,8 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.GameField;
-import frc.robot.Constants;
 
-import com.pathplanner.lib.config.ModuleConfig;
-import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectory;
 import com.pathplanner.lib.trajectory.PathPlannerTrajectoryState;
@@ -62,22 +58,23 @@ public class Path implements Iterable<PathPoint> {
      * @param originAlliance The alliance this path is built for.
      * @param pathName The path planner file name.
      * @return A new path that matches the path planner path.
-     * @throws ParseException 
-     * @throws IOException 
-     * @throws FileVersionException 
      */
-    public static Path getFromPathPlanner(PurePursuitSettings config, Alliance originAlliance, String pathName) throws FileVersionException, IOException, ParseException {
-        PathPlannerPath pathPlannerPath = PathPlannerPath.fromPathFile(pathName);  
-        SwerveModulePosition[] sp = new SwerveModulePosition[4];
-        Constants.DriveConstants.kDriveKinematics.copy(sp);
-        Translation2d[] mPos = new Translation2d[4];
-        for (int i = 0; i < mPos.length; i++) {
-            mPos[i] = new Translation2d(sp[i].distanceMeters, sp[i].angle);
+    public static Path getFromPathPlanner(PurePursuitSettings config, Alliance originAlliance, String pathName) {
+        PathPlannerPath pathPlannerPath;
+        try {
+            pathPlannerPath = PathPlannerPath.fromPathFile(pathName);
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+            System.out.println("Failed to open path " + pathName);
+            return null;
         }
-        PathPlannerTrajectory trajectory = pathPlannerPath.generateTrajectory(
-            new ChassisSpeeds(), pathPlannerPath.getStartingHolonomicPose().get().getRotation(),
-            new RobotConfig(7, 16, new ModuleConfig(null, null, 0, null, null, 0),mPos));
-        return new Path(config, originAlliance, trajectory);
+        
+        ArrayList<PathPoint> pathPoints = new ArrayList<PathPoint>();
+        for (com.pathplanner.lib.path.PathPoint pathPoint : pathPlannerPath.getAllPathPoints()) {
+            pathPoints.add(new PathPoint(config.field, new Pose2d(pathPoint.position, pathPoint.rotationTarget.rotation()), pathPoint.maxV));
+        }
+
+        return new Path(config, originAlliance, pathPoints.toArray(new PathPoint[pathPoints.size()]));
     }
 
     /**
@@ -87,20 +84,7 @@ public class Path implements Iterable<PathPoint> {
      * @return A new path that matches the path planner path.
      */
     public static Path getFromPathPlanner(PurePursuitSettings config, String pathName) {
-        try {
-            return Path.getFromPathPlanner(config, config.originAlliance, pathName);
-        } catch (FileVersionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return null;
+        return Path.getFromPathPlanner(config, config.originAlliance, pathName);
     }
 
     /**
@@ -202,10 +186,11 @@ public class Path implements Iterable<PathPoint> {
      * @param lastPointTolerance The distance to the last point where the path ends.
      * @param pathPlannerTrajectory The PathPlanner trajectory.
      */
+    @Deprecated
     public Path(PurePursuitSettings config, Alliance originAlliance, double lastPointTolerance, PathPlannerTrajectory pathPlannerTrajectory) {
         ArrayList<PathPoint> tempPoints = new ArrayList<PathPoint>();
         for (PathPlannerTrajectoryState state : pathPlannerTrajectory.getStates()) {
-            tempPoints.add(new PathPoint(config.field, state.pose.getTranslation(), state.heading, state.linearVelocity));
+            tempPoints.add(new PathPoint(config.field, state.pose, state.linearVelocity));
         }
         processPoints(config, originAlliance, lastPointTolerance, tempPoints);
     }

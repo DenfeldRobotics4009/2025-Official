@@ -128,7 +128,7 @@ public class RobotContainer {
                 m_robotDrive));
 
         try {
-        gameField = new GameField(AprilTagFields.k2025Reefscape.loadAprilTagLayoutField(), FieldMirrorType.Rotated);
+        gameField = new GameField(AprilTagFields.k2025ReefscapeAndyMark.loadAprilTagLayoutField(), FieldMirrorType.Rotated);
         } catch (IOException e) {
         // AprilTagFields file not found
         e.printStackTrace();
@@ -271,19 +271,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        try {
-            return new OnePieceCageAuto(config, Alliance.Blue, gameField);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Throwable e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        return null;
+        return new OnePieceCageAuto(config, Alliance.Blue, gameField);
     }
 }

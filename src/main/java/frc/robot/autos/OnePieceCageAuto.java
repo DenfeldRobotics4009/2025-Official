@@ -25,9 +25,9 @@ public class OnePieceCageAuto extends SequentialCommandGroup {
     
     
 
-    public OnePieceCageAuto(PurePursuitSettings config, Alliance alliance, GameField gameField) throws Throwable, IOException, ParseException{
+    public OnePieceCageAuto(PurePursuitSettings config, Alliance alliance, GameField gameField){
         super(
-             new SetDrivePosition(SwerveDrive.getInstance(), Path.getFromPathPlanner(config, alliance, "One Piece Cage Start").getStartingPoseSupplier()),
+            new SetDrivePosition(SwerveDrive.getInstance(), Path.getFromPathPlanner(config, alliance, "One Piece Cage Start").getStartingPoseSupplier()),
             new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage Start")), SwerveDrive.getInstance())
             // new ManipulatorOutputCommand(ManipulatorSubsystem.getInstance()),
             // new ParallelCommandGroup(new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage End")), drivetrain),new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(),ElevatorSubsystem.setpoint.ZERO))
