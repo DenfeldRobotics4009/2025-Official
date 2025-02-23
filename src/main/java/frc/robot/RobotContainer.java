@@ -28,6 +28,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.autos.AutoTest;
 import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
@@ -80,7 +81,7 @@ public class RobotContainer {
   // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
-    public final CoralManipulatorSubsystem m_manipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
+    public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
     public final AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
@@ -182,11 +183,11 @@ public class RobotContainer {
 
         //Makes manipulator output coral - operator right trigger
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-            (new CoralManipulatorOuttakeCommand(m_manipulatorSubsystem))
+            (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         );
         //Makes manipulator output coral - driver x
         new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value).whileTrue(
-            (new CoralManipulatorOuttakeCommand(m_manipulatorSubsystem))
+            (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         );
 
         // Set precision mode - driver right bumper
@@ -196,13 +197,17 @@ public class RobotContainer {
 
         // intake coral - operator left trigger 
         new Trigger(() -> {return m_controlsSubsystem.operateController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
-        (new CoralIntakeCommand(m_manipulatorSubsystem))
+        (new CoralIntakeCommand(m_coralManipulatorSubsystem))
         );
 
         // manual elevator control - operator left joystick
         new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() > 0.5;}).whileTrue(
             (new SetElevatorOffset(m_ElevatorSubsystem, 1))
         );
+        // manual elevator control - operator right joystick
+        new Trigger(()->{return m_controlsSubsystem.driveController.getRightY() > 0.5;}).whileTrue(
+            (new SlowCoralManiuplatorOuttakeCommand(m_coralManipulatorSubsystem))
+            );
         new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() < -0.5;}).whileTrue(
             (new SetElevatorOffset(m_ElevatorSubsystem, -1))
         );
