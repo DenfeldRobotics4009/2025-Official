@@ -123,13 +123,13 @@ public class RobotContainer {
                 m_robotDrive));
 
         try {
-        gameField = new GameField(AprilTagFields.k2025Reefscape.loadAprilTagLayoutField(), FieldMirrorType.Mirrored);
+        gameField = new GameField(AprilTagFields.k2025Reefscape.loadAprilTagLayoutField(), FieldMirrorType.Rotated);
         } catch (IOException e) {
         // AprilTagFields file not found
         e.printStackTrace();
         }
 
-        this.config = new PurePursuitSettings(gameField, Alliance.Red)
+        this.config = new PurePursuitSettings(gameField, Alliance.Blue)
         .setLookAheadScalar(0.2)
         .setDistanceToGoalTolerance(0.1)
         .setDefaultEndpointTolerance(0.1)
