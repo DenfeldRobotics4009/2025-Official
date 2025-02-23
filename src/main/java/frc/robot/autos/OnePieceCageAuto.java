@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.library.auto.pathing.FollowControllers;
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
+import frc.library.auto.pathing.SetDrivePosition;
+import frc.library.auto.pathing.field.GameField;
 import frc.library.auto.pathing.pathObjects.Path;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
@@ -23,9 +25,10 @@ public class OnePieceCageAuto extends SequentialCommandGroup {
     
     
 
-    public OnePieceCageAuto(SwerveDrive drivetrain, PurePursuitSettings config, Alliance alliance) throws Throwable, IOException, ParseException{
+    public OnePieceCageAuto(PurePursuitSettings config, Alliance alliance, GameField gameField) throws Throwable, IOException, ParseException{
         super(
-            // new ParallelCommandGroup(new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage Start")), drivetrain),new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(),ElevatorSubsystem.setpoint.P4)),
+             new SetDrivePosition(SwerveDrive.getInstance(), Path.getFromPathPlanner(config, alliance, "One Piece Cage Start").getStartingPoseSupplier()),
+            new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage Start")), SwerveDrive.getInstance())
             // new ManipulatorOutputCommand(ManipulatorSubsystem.getInstance()),
             // new ParallelCommandGroup(new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage End")), drivetrain),new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(),ElevatorSubsystem.setpoint.ZERO))
 

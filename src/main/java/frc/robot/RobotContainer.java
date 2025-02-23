@@ -27,6 +27,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.autos.AutoTest;
+import frc.robot.autos.OnePieceCageAuto;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
@@ -66,6 +67,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.io.IOException;
 import java.util.List;
+
+import org.json.simple.parser.ParseException;
+
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.FieldMirrorType;
@@ -267,6 +271,19 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        return new AutoTest(config, Alliance.Blue, gameField);
+        try {
+            return new OnePieceCageAuto(config, Alliance.Blue, gameField);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
