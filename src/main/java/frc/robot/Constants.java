@@ -145,9 +145,14 @@ public final class Constants {
     public static final int lightStripBID = 7;
     public static final int lightStripCID = 8;
     public static final int lightStripDID = 9;
+
+    public static final double coralManipulatorOuttakeMotorSpeed = 0.9;
+    public static final double coralP4ManipulatorOuttakeMotorSpeed = -0.9;
+    public static final double coralManipulatorSlowOuttakeMotorSpeed = 0.5;
+    public static final double coralP4ManipulatorP4SlowOuttakeMotorSpeed = -0.5;
   }
   public static final class CoralManipulatorCommandConstants{
-    public static final double coralManipulatorMotorSpeed = -0.3;
+    public static final double coralManipulatorIntakeMotorSpeed = -0.3;
     public static int PneumaticHubID = 20;
     public static final double algaeRemovalMotorSpeed = -0.5;
   }

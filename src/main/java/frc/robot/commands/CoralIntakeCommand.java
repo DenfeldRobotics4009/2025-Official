@@ -21,7 +21,7 @@ public class CoralIntakeCommand extends Command {
     @Override
     public void execute() {
         //when activated starts spinning the intake wheels
-      subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.coralManipulatorMotorSpeed);
+      subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.coralManipulatorIntakeMotorSpeed);
     }
 
     @Override

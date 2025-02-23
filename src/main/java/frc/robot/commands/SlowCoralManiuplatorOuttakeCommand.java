@@ -5,9 +5,9 @@ import frc.robot.Constants;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class CoralManipulatorOuttakeCommand extends Command {
+public class SlowCoralManiuplatorOuttakeCommand extends Command {
     private final CoralManipulatorSubsystem subsystem;
-    public CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem subsystem) {
+    public SlowCoralManiuplatorOuttakeCommand(CoralManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -22,17 +22,16 @@ public class CoralManipulatorOuttakeCommand extends Command {
     @Override
     public void initialize() {
         if(ElevatorSubsystem.getInstance().getElevatorTarget() == ElevatorSubsystem.ElevatorSetpoint.P4){
-            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorOuttakeMotorSpeed);
+            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowOuttakeMotorSpeed);
         }else{
-            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralP4ManipulatorOuttakeMotorSpeed);
+            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralP4ManipulatorP4SlowOuttakeMotorSpeed);
             
         }
     }
 
     @Override
     public boolean isFinished() {
-      
-        return !subsystem.getCoralManipulatorSensor();
+      return false;
     }
 
     @Override
