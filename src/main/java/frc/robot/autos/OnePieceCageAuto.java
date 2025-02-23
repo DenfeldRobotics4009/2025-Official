@@ -33,6 +33,5 @@ public class OnePieceCageAuto extends SequentialCommandGroup {
             // new ParallelCommandGroup(new FollowControllers(new PurePursuitController(Path.getFromPathPlanner(config, alliance, "One Piece Cage End")), drivetrain),new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(),ElevatorSubsystem.setpoint.ZERO))
 
        );
-
     }
 }
