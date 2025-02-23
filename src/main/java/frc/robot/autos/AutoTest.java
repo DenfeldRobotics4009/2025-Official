@@ -18,8 +18,10 @@ public class AutoTest extends SequentialCommandGroup{
             new FollowControllers(new PurePursuitController(new Path(config, alliance, 
             new PathPoint(gameField, new Pose2d(0, 0, new Rotation2d(0)), 1),
             new PathPoint(gameField, new Pose2d(0.5, 0, new Rotation2d(0)), 1),
-            new PathPoint(gameField, new Pose2d(1, 0, new Rotation2d(0)), 0)
+            new PathPoint(gameField, new Pose2d(1, 0, new Rotation2d(0)), 1),
+            new PathPoint(gameField, new Pose2d(1, 1, new Rotation2d(0)), 0)
+
             )), SwerveDrive.getInstance())
-            );
+        );
     }
 }

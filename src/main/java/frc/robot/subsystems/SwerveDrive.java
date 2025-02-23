@@ -64,8 +64,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     boolean precisionMode;
 
   // The gyro sensor
-  private final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
-  
+  public final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
   // Odometry class for tracking robot pose
   SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
@@ -95,6 +94,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
+
+        SmartDashboard.putNumber("Odometry X", getPosition().getX());
+    SmartDashboard.putNumber("Odometry Y", getPosition().getY());
   }
 
   /**

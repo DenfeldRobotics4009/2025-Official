@@ -15,6 +15,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -28,6 +29,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.autos.AutoTest;
 import frc.robot.autos.OnePieceCageAuto;
+import frc.robot.autos.OnePieceSide;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
@@ -90,7 +92,7 @@ public class RobotContainer {
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
-    private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
+    // private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
 
     // The driver's controller
     public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
@@ -271,6 +273,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        return new OnePieceCageAuto(config, Alliance.Blue, gameField);
+        return new OnePieceSide(config, DriverStation.getAlliance().get(), gameField);
     }
 }

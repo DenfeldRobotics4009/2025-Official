@@ -3,8 +3,9 @@
   "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
-    "Cage 3 piece auto paths",
     "2 piece back cage auto",
+    "Cage 3 piece auto paths",
+    "One Piece Side",
     "Processer 3 piece auto paths",
     "Processer one piece auto paths",
     "cage One piece auto paths"

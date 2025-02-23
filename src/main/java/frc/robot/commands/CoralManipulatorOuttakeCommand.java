@@ -16,17 +16,18 @@ public class CoralManipulatorOuttakeCommand extends Command {
     @Override
     public void execute() {
         
-        super.execute();
-    }
-
-    @Override
-    public void initialize() {
         if(ElevatorSubsystem.getInstance().getElevatorTarget() == ElevatorSubsystem.ElevatorSetpoint.P4){
             subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorOuttakeMotorSpeed);
         }else{
             subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralP4ManipulatorOuttakeMotorSpeed);
             
         }
+        System.out.println("Outtaking");
+    }
+
+    @Override
+    public void initialize() {
+
     }
 
     @Override
