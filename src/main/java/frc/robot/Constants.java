@@ -61,6 +61,8 @@ public final class Constants {
     public static final int kFrontRightTurningCanId = 9;
     public static final int kRearRightTurningCanId = 6;
 
+    public static final double precisionModeSpeed = 0.25;
+
     public static final boolean kGyroReversed = true;
   }
 
@@ -145,7 +147,7 @@ public final class Constants {
     public static final int lightStripDID = 9;
   }
   public static final class CoralManipulatorCommandConstants{
-    public static final double coralManipulatorMotorSpeed = -0.35;
+    public static final double coralManipulatorMotorSpeed = -0.3;
     public static int PneumaticHubID = 20;
     public static final double algaeRemovalMotorSpeed = -0.5;
   }
@@ -166,7 +168,7 @@ public final class Constants {
     public static final int enumP3 = 9500;
     public static final int enumP4 = 10400;
 
-    public static int maxHeight = 11500;
+    public static int maxHeight = 10500;
     public static double maxSpeed = 1;
     public static final int ElevatormotorID = 11;
     public static final int ElevatormotorFollowerID = 10;

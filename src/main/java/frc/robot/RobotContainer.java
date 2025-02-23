@@ -30,13 +30,14 @@ import frc.robot.autos.AutoTest;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
-import frc.robot.commands.TopAlgaeRemoveCommand;
+import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
-import frc.robot.commands.BottomAlgaeRemoveCommand;
+import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
+import frc.robot.commands.PrecisionModeCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
@@ -131,7 +132,9 @@ public class RobotContainer {
         this.config = new PurePursuitSettings(gameField, Alliance.Red)
         .setLookAheadScalar(0.2)
         .setDistanceToGoalTolerance(0.1)
-        .setDefaultEndpointTolerance(0.1);
+        .setDefaultEndpointTolerance(0.1)
+        .setMaxVelocityMeters(Constants.DriveConstants.kMaxSpeedMetersPerSecond);
+        
         config.setTurningPID(1, 0, 0);
 
         //populateSendable
@@ -157,8 +160,8 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
         .onTrue(new ResetSwerveOdometry());
     
-        // Toggle algae manipulator - operator up dpad
-        m_controlsSubsystem.getOperatePOVTrigger(0).whileTrue(
+        // Toggle algae manipulator - operator down dpad
+        m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(
             new ToggleAlgaeManipulatorCommand(m_AlgaeManipulatorSubsystem)    
         );
 
@@ -172,15 +175,24 @@ public class RobotContainer {
             new AlgaeManipulatorOuttakeCommand(m_AlgaeManipulatorSubsystem)
         );
 
-        // Toggle funnel - operator down dpad
-        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+        // Toggle funnel - operator up dpad
+        m_controlsSubsystem.getOperatePOVTrigger(0).onTrue(
             new ToggleFunnelCommand(m_funnelSubsystem)
         );
 
-        //Makes manipulator output coral - driver right bumper
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value).whileTrue(
+        //Makes manipulator output coral - operator right trigger
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
             (new CoralManipulatorOuttakeCommand(m_manipulatorSubsystem))
-            );
+        );
+        //Makes manipulator output coral - driver x
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value).whileTrue(
+            (new CoralManipulatorOuttakeCommand(m_manipulatorSubsystem))
+        );
+
+        // Set precision mode - driver right bumper
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value).whileTrue(
+            (new PrecisionModeCommand())
+        );
 
         // intake coral - operator left trigger 
         new Trigger(() -> {return m_controlsSubsystem.operateController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
@@ -207,13 +219,13 @@ public class RobotContainer {
 
         // remove low algae - driver left trigger
         new Trigger(() -> {return m_controlsSubsystem.driveController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
-        (new BottomAlgaeRemoveCommand())
+        (new AlgaeRemoveCommand())
         );
 
-        // remove high algae - driver right trigger
-        new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;}).whileTrue(
-        (new TopAlgaeRemoveCommand())
-        );
+        // // remove high algae - driver right trigger
+        // new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        // (new TopAlgaeRemoveCommand())
+        // );
 
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value)
         // .onTrue(new SetElevatorOffset(m_ElevatorSubsystem, 10));

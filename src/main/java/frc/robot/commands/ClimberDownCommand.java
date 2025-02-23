@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ClimberDownCommand extends Command{
     private ClimberSubsystem climberSubsystem;
@@ -23,6 +24,7 @@ public class ClimberDownCommand extends Command{
     @Override
     public void execute() {
         climberSubsystem.moveClimberDown();
+        ElevatorSubsystem.getInstance().setElevatorTarget(ElevatorSubsystem.ElevatorSetpoint.LOW_ALGAE);
         //climberSubsystem.pistonIsPowered(false);
     }
 }

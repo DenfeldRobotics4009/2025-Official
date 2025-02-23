@@ -61,6 +61,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
+    boolean precisionMode;
+
   // The gyro sensor
   private final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
@@ -133,6 +135,11 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+
+    if (precisionMode) {
+      xSpeed = xSpeed * Constants.DriveConstants.precisionModeSpeed;
+      ySpeed = ySpeed * Constants.DriveConstants.precisionModeSpeed;
+    }
 
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
@@ -215,5 +222,10 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 100) {
       swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
     }
+  }
+
+  public boolean setPrecisionMode(boolean precisionMode) {
+      this.precisionMode = precisionMode;
+      return precisionMode;
   }
 }

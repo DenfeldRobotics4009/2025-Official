@@ -1,6 +1,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -42,6 +43,7 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
 
     SmartDashboard.putData("Field", m_field);
+    m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));
     
   }
 
