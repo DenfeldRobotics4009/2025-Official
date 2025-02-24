@@ -22,7 +22,7 @@ public class CoralManipulatorOuttakeCommand extends Command {
             subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralP4ManipulatorOuttakeMotorSpeed);
             
         }
-        System.out.println("Outtaking");
+        // System.out.println("Outtaking");
     }
 
     @Override

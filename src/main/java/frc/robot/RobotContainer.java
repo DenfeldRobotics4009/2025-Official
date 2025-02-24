@@ -75,7 +75,7 @@ import org.json.simple.parser.ParseException;
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.FieldMirrorType;
-import frc.library.auto.pathing.field.GameField;  
+import frc.library.auto.pathing.field.GameField;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a

@@ -12,7 +12,6 @@ import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase{
    private SparkMax winchMotor;
-   private DigitalInput climberDownLimitSwitch;
    DoubleSolenoid climbPiston;
    
 
@@ -32,7 +31,6 @@ public static  ClimberSubsystem getInstance() {
 
     public ClimberSubsystem(){
         this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, MotorType.kBrushless); 
-        this.climberDownLimitSwitch = new DigitalInput(Constants.ClimberSubsystemConstants.climberDownlimitSwitchPort);
         //this.climbPiston = new DoubleSolenoid(null, 0, 0);
     }
 
@@ -40,23 +38,13 @@ public static  ClimberSubsystem getInstance() {
         return 0; // winchMotor.getAlternateEncoder().getPosition();
     }
 
-    public boolean isAtBottom(){
-        //bottom is false 
-        return !climberDownLimitSwitch.get();
-    }
     
     public void moveClimberUp(){
         winchMotor.set(Constants.ClimberSubsystemConstants.climberUpSpeed);
     }
 
     public void moveClimberDown(){
-        //if limit switch is hit, you can't go down
-        if(isAtBottom()){
-            winchMotor.set(0);
-        }
-        else{
-            winchMotor.set(Constants.ClimberSubsystemConstants.climberDownSpeed);
-        }
+        winchMotor.set(Constants.ClimberSubsystemConstants.climberDownSpeed);
     }
 
     public void winchMotorOff(){

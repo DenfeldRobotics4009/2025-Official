@@ -36,8 +36,6 @@ import frc.robot.subsystems.SwerveDrive;
 
 public class OnePieceCageAuto extends SequentialCommandGroup {
     
-    
-
     public OnePieceCageAuto(PurePursuitSettings config, Alliance alliance, GameField gameField){
         super(
             new ParallelCommandGroup(

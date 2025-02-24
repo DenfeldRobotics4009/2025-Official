@@ -4,17 +4,35 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.autos.OnePieceCageAuto;
+import frc.robot.autos.AutoTest;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.library.auto.pathing.pathObjects.Path;
+import frc.library.auto.pathing.pathObjects.PathPoint;
+import frc.library.auto.pathing.PurePursuitSettings;
+import frc.library.auto.pathing.field.FieldMirrorType;
+import frc.library.auto.pathing.field.GameField;  
 
 public enum Autos {
 
   /* ----------------- */
   /* Define Autos here */
 
-    AUTOEXAMPLE(new SequentialCommandGroup());
+    AUTOEXAMPLE(new SequentialCommandGroup()),
+
+    AUTOTEST(new AutoTest()),
+    
+    ONEPIECECAGEAUTO(new OnePieceCageAuto());
 
   /**
    * Drives the robot along the ExamplePath
