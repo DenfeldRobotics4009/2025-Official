@@ -23,6 +23,7 @@ public class ShuffleBoard extends SubsystemBase {
   public FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
   public ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
   public Field2d m_field = new Field2d();
+  public PurePursuitSettings config = new PurePursuitSettings(null, Alliance.Blue);
 
   public ShuffleBoard() {
   }
@@ -42,6 +43,8 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putNumber("Wrist motor speed", m_ElevatorSubsystem.wristMotorSpeed());
     SmartDashboard.putNumber("Shaft motor speed", m_ElevatorSubsystem.shaftMotorSpeed());
     SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
+    
+    DROPDOWNVARNAME.addOption("name", new AutoTest(config, Alliance.Blue, m_field));
     
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
 
