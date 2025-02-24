@@ -211,7 +211,7 @@ public class RobotContainer {
 
         // manual elevator control - operator left joystick
         new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() > 0.5;}).whileTrue(
-            (new SetElevatorOffset(m_ElevatorSubsystem, 1))
+            (new SetElevatorOffset(m_ElevatorSubsystem, 5))
         );
         // manual elevator control - operator right joystick
         new Trigger(()->{return m_controlsSubsystem.driveController.getRightY() > 0.5;}).whileTrue(
@@ -276,6 +276,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        return new OnePieceSide(config, DriverStation.getAlliance().get(), gameField);
+        return new OnePieceCageAuto(config, DriverStation.getAlliance().get(), gameField);
     }
 }
