@@ -196,8 +196,11 @@ public class RobotContainer {
             (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         );
 
-        // Set precision mode - driver right bumper
+        // Set precision mode - driver right bumper and left bumper
         new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value).whileTrue(
+            (new PrecisionModeCommand())
+        );
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kLeftBumper.value).whileTrue(
             (new PrecisionModeCommand())
         );
 

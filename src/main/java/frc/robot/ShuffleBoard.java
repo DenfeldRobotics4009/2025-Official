@@ -44,8 +44,6 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putNumber("Shaft motor speed", m_ElevatorSubsystem.shaftMotorSpeed());
     SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
     
-    DROPDOWNVARNAME.addOption("name", new AutoTest(config, Alliance.Blue, m_field));
-    
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
 
     SmartDashboard.putData("Field", m_field);

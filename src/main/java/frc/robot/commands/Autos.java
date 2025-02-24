@@ -28,11 +28,11 @@ public enum Autos {
   /* ----------------- */
   /* Define Autos here */
 
-    AUTOEXAMPLE(new SequentialCommandGroup()),
+    AUTOEXAMPLE(new SequentialCommandGroup());
 
-    AUTOTEST(new AutoTest()),
+    // AUTOTEST(new AutoTest()),
     
-    ONEPIECECAGEAUTO(new OnePieceCageAuto());
+    // ONEPIECECAGEAUTO(new OnePieceCageAuto());
 
   /**
    * Drives the robot along the ExamplePath
