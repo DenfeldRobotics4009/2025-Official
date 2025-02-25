@@ -182,6 +182,7 @@ public final class Constants {
     public static final int ElevatormotorID = 11;
     public static final int ElevatormotorFollowerID = 10;
     public static final int ElevatorLimitSwitchPort = 9;
+    public static final double ElevatorZeroMotorSpeed = -0.05;
 
     public static final double Elevatorp = .00025;
     public static final double Elevatori = 0; //.000035;

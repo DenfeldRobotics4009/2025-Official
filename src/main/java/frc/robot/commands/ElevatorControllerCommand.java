@@ -26,7 +26,7 @@ public class ElevatorControllerCommand extends Command{
         }
 
         if(m_elevator.getElevatorTarget().equals(ElevatorSubsystem.ElevatorSetpoint.ZERO) && !m_elevator.isAtBottom() && elevatorSpeed > -0.05){
-            elevatorSpeed = -0.05;
+            elevatorSpeed = Constants.ElevatorSubsystemConstants.ElevatorZeroMotorSpeed;
         }
         m_elevator.runElevatorMotor(elevatorSpeed+(m_elevator.isAtBottom() ? 0 : Constants.ElevatorSubsystemConstants.Elevatorf));
         m_elevator.runWristMotor(wristSpeed);
