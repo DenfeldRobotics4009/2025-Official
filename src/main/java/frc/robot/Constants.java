@@ -158,6 +158,10 @@ public final class Constants {
   }
   public static final class AlgaeManipulatorConstants{
     public static final int algaeManipulatorMotorID = 16;
+
+    public static final int AlgaeManipulatorModule = 20;
+    public static final int AlgaeManipulatorForwardChannel = 3;
+    public static final int AlgaeManipulatorReverseChannel = 4;
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;

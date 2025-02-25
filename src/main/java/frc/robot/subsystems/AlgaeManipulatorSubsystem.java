@@ -26,7 +26,10 @@ public class AlgaeManipulatorSubsystem extends SubsystemBase{
 
     public AlgaeManipulatorSubsystem(){
         this.algaeManipulatorMotor = new SparkMax(Constants.AlgaeManipulatorConstants.algaeManipulatorMotorID, MotorType.kBrushless);
-        this.algaePiston = new DoubleSolenoid(20,PneumaticsModuleType.REVPH,3,4); //TODO: Find out what to put for channels and module type
+        this.algaePiston = new DoubleSolenoid(Constants.AlgaeManipulatorConstants.AlgaeManipulatorModule,
+        PneumaticsModuleType.REVPH,
+        Constants.AlgaeManipulatorConstants.AlgaeManipulatorForwardChannel,
+        Constants.AlgaeManipulatorConstants.AlgaeManipulatorReverseChannel); //TODO: Find out what to put for channels and module type
     }
 
     public void setAlgaeManipulatorSpeed(double speed){
