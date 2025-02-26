@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AprilTagOdometry extends SubsystemBase{
+    //createds a singleton for the AprilTagOdometry subsystem
     private static AprilTagOdometry instance;
 
     public static  AprilTagOdometry getInstance() {
@@ -32,6 +33,7 @@ public class AprilTagOdometry extends SubsystemBase{
         }
         return instance;
         }
+        //creates the variables for our objects
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
     // public PhotonCamera backCam = new PhotonCamera("BackCam");
     Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.26035, 0.250825, 0.22225), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
@@ -53,6 +55,7 @@ public class AprilTagOdometry extends SubsystemBase{
 
     @Override
     public void periodic() {
+        //uses the getFrontEstimatedGlobalPose to make a pose sample with the swerve drive
         // Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
         // if (positionSample.isPresent()) {
         //     SwerveDrive.getInstance().addVisionMeasurement(

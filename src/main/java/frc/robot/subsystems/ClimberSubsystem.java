@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClimberSubsystem extends SubsystemBase{
+    //creates variables for our objects
    private SparkMax winchMotor;
    DoubleSolenoid climbPiston;
    
@@ -31,15 +32,10 @@ public static  ClimberSubsystem getInstance() {
 
     public ClimberSubsystem(){
         this.winchMotor = new SparkMax(Constants.ClimberSubsystemConstants.winchMotorDeviceID, MotorType.kBrushless); 
-        //this.climbPiston = new DoubleSolenoid(null, 0, 0);
     }
-
-    public double getRelativeEncoderValue(){
-        return 0; // winchMotor.getAlternateEncoder().getPosition();
-    }
-
     
     public void moveClimberUp(){
+        //function for moving the climber up. sets the motor speed to our set climber up speed.
         winchMotor.set(Constants.ClimberSubsystemConstants.climberUpSpeed);
     }
 
@@ -48,13 +44,16 @@ public static  ClimberSubsystem getInstance() {
     }
 
     public void winchMotorOff(){
+        //sets the winch motor speed to our constant (which should be 0)
         winchMotor.set(Constants.ClimberSubsystemConstants.climberOffSpeed);
     }
 
     public void pistonIsPowered(boolean pistonOn){
+        //if the piston is powered, power on the climber solenoid
         if(pistonOn){
             climbPiston.set(Value.kForward);
         }
+        //otherwise, power the solenoid off
         else{
             climbPiston.set(Value.kOff);
         }

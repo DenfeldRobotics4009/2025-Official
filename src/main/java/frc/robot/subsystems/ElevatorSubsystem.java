@@ -99,8 +99,10 @@ public class ElevatorSubsystem extends SubsystemBase {
             Constants.ElevatorSubsystemConstants.Wristd
         );
         Wristpid.enableContinuousInput(0, 2* Math.PI);
+        //declares the encoder
         elevatorEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
         
+        //The default position of the elevator is at zero and the default wrist position is at down
         setElevatorTarget(ElevatorSetpoint.ZERO);
         setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
@@ -112,6 +114,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void setElevatorTarget(ElevatorSetpoint var){
+        //sets our elevator target using offset and the setpoint encoder value.
         Elevatorpid.setSetpoint(offset+var.elevatorEncoderValue);
         elevatorTarget = var;
     }
@@ -123,6 +126,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public void setWristTarget(WristAngle var){
+        //sets the wrist's target angle using an encoder and a setpoint
         Wristpid.setSetpoint(var.wristEncoderValue);
     }
 
@@ -141,7 +145,7 @@ public class ElevatorSubsystem extends SubsystemBase {
             return elevatorEncoderValue;
         }
     }
-
+    //creates positions for the wrist to be at
     public enum WristAngle{
         DOWN(Constants.ElevatorSubsystemConstants.wristDown), 
         UP(Constants.ElevatorSubsystemConstants.wristUp),
@@ -207,7 +211,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         } 
     }
 
-    //get commands for elastic
+    //get commands for shuffleboard
     public double shaftMotorSpeed(){
         return shaftMotor.get();
     }
