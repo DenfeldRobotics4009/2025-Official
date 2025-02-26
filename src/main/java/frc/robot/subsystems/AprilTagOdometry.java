@@ -55,12 +55,12 @@ public class AprilTagOdometry extends SubsystemBase{
 
     @Override
     public void periodic() {
-        //uses the getFrontEstimatedGlobalPose to make a pose sample with the swerve drive
-        // Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
-        // if (positionSample.isPresent()) {
-        //     SwerveDrive.getInstance().addVisionMeasurement(
-        //         positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
-        //     );
-        // }
+        // uses the getFrontEstimatedGlobalPose to make a pose sample with the swerve drive
+        Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
+        if (positionSample.isPresent()) {
+            SwerveDrive.getInstance().addVisionMeasurement(
+                positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
+            );
+        }
     }
 }

@@ -40,6 +40,7 @@ public static  ClimberSubsystem getInstance() {
     }
 
     public void moveClimberDown(){
+        //function for moving the climber down. Sets the motor speed to our set climber down speed.
         winchMotor.set(Constants.ClimberSubsystemConstants.climberDownSpeed);
     }
 
@@ -48,19 +49,7 @@ public static  ClimberSubsystem getInstance() {
         winchMotor.set(Constants.ClimberSubsystemConstants.climberOffSpeed);
     }
 
-    public void pistonIsPowered(boolean pistonOn){
-        //if the piston is powered, power on the climber solenoid
-        if(pistonOn){
-            climbPiston.set(Value.kForward);
-        }
-        //otherwise, power the solenoid off
-        else{
-            climbPiston.set(Value.kOff);
-        }
-    }
-
     @Override
     public void periodic() {
-        
     }
 }
