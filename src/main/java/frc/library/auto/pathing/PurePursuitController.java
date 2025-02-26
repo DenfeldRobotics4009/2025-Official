@@ -18,6 +18,7 @@ import frc.library.auto.pathing.controllers.TranslationController;
 import frc.library.auto.pathing.pathObjects.Path;
 import frc.library.auto.pathing.pathObjects.PathPoint;
 import frc.library.auto.pathing.pathObjects.PathState;
+import frc.robot.Constants;
 
 public class PurePursuitController extends Command implements RotationController, TranslationController {
 
@@ -130,8 +131,9 @@ public class PurePursuitController extends Command implements RotationController
         return ChassisSpeeds.fromFieldRelativeSpeeds(
             // Field oriented chassisSpeeds
             new ChassisSpeeds(
-                axisSpeeds.getX(),
-                axisSpeeds.getY(),
+                //TODO: Check to make sure that this normalizes the values
+                axisSpeeds.getX() / Constants.DriveConstants.kMaxSpeedMetersPerSecond,
+                axisSpeeds.getY() / Constants.DriveConstants.kMaxSpeedMetersPerSecond,
 
                 rotationController.calculate(
                     robotPosition.getRotation().getRadians(), 

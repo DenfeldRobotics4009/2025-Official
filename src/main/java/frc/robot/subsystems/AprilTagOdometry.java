@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AprilTagOdometry extends SubsystemBase{
+    //createds a singleton for the AprilTagOdometry subsystem
     private static AprilTagOdometry instance;
 
     public static  AprilTagOdometry getInstance() {
@@ -32,21 +33,29 @@ public class AprilTagOdometry extends SubsystemBase{
         }
         return instance;
         }
+        //creates the variables for our objects
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
-    public PhotonCamera backCam = new PhotonCamera("BackCam");
-    Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
-    AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+    // public PhotonCamera backCam = new PhotonCamera("BackCam");
+    Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.26035, 0.250825, 0.22225), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
+    AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
-// Construct PhotonPoseEstimator
-PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE, robotToFrontCam);// private final Controls m_controlsSubsystem = new Controls();
+    // Construct PhotonPoseEstimator MULTI_TAG_PNP_ON_COPROCESSOR or CLOSEST_TO_REFERENCE_POSE
+    PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToFrontCam);// private final Controls m_controlsSubsystem = new Controls();
+    
     public AprilTagOdometry(){
     }
+
     public Optional<EstimatedRobotPose> getFrontEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
         photonFrontPoseEstimator.setReferencePose(prevEstimatedRobotPose);
-        return photonFrontPoseEstimator.update(frontCam.getLatestResult());
+        if (frontCam.getAllUnreadResults().size() == 0){
+            return Optional.empty();
+        }
+        return photonFrontPoseEstimator.update(frontCam.getAllUnreadResults().get(0));
     }
+
     @Override
     public void periodic() {
+        // uses the getFrontEstimatedGlobalPose to make a pose sample with the swerve drive
         Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
         if (positionSample.isPresent()) {
             SwerveDrive.getInstance().addVisionMeasurement(

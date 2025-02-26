@@ -61,9 +61,10 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       DriveConstants.kRearRightTurningCanId,
       DriveConstants.kBackRightChassisAngularOffset);
 
+    boolean precisionMode;
+
   // The gyro sensor
-  private final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
-  
+  public final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
   // Odometry class for tracking robot pose
   SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
@@ -93,6 +94,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
+
+        SmartDashboard.putNumber("Odometry X", getPosition().getX());
+    SmartDashboard.putNumber("Odometry Y", getPosition().getY());
   }
 
   /**
@@ -133,18 +137,12 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-    if(xSpeed>0.5){
-      xSpeed = 0.5;
+
+    if (precisionMode) {
+      xSpeed = xSpeed * Constants.DriveConstants.precisionModeSpeed;
+      ySpeed = ySpeed * Constants.DriveConstants.precisionModeSpeed;
     }
-    if(xSpeed<-0.5){
-      xSpeed = -0.5;
-    }
-    if(ySpeed>0.5){
-      ySpeed = 0.5;
-    }
-    if(ySpeed<-0.5){
-      ySpeed = -0.5;
-    }
+
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
@@ -226,5 +224,10 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 100) {
       swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
     }
+  }
+
+  public boolean setPrecisionMode(boolean precisionMode) {
+      this.precisionMode = precisionMode;
+      return precisionMode;
   }
 }

@@ -2,11 +2,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.ManipulatorSubsystem;
+import frc.robot.subsystems.CoralManipulatorSubsystem;
 
-public class IntakeCommand extends Command {
-  private final ManipulatorSubsystem subsystem;
-    public IntakeCommand(ManipulatorSubsystem subsystem) {
+public class CoralIntakeCommand extends Command {
+  private final CoralManipulatorSubsystem subsystem;
+    public CoralIntakeCommand(CoralManipulatorSubsystem subsystem) {
     this.subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -14,14 +14,14 @@ public class IntakeCommand extends Command {
     @Override
     public void end(boolean interrupted) {
       //when let go it stops the intake wheel
-        subsystem.manipulatorMotorSpeed(0);
+        subsystem.coralManipulatorMotorSpeed(0);
     }
     
 
     @Override
     public void execute() {
         //when activated starts spinning the intake wheels
-      subsystem.manipulatorMotorSpeed(Constants.ManipulatorCommandConstants.manipulatorMotorSpeed);
+      subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.coralManipulatorIntakeMotorSpeed);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class IntakeCommand extends Command {
     @Override
     public boolean isFinished() {
       //when lazer sensor in the manipulator is tripped it stops the program
-        return !subsystem.getShortFunnelSensor();
+        return subsystem.getCoralManipulatorSensor();
     }
     
 }

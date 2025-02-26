@@ -5,6 +5,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,6 +21,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     private DigitalInput bottomLimitSwitch;
     private Encoder elevatorEncoder;
+
+    SlewRateLimiter elevatorRampRate = new SlewRateLimiter(2);
 
     //this is a offset value to move all setpoints up or down
     private double offset = 0;
@@ -96,9 +99,11 @@ public class ElevatorSubsystem extends SubsystemBase {
             Constants.ElevatorSubsystemConstants.Wristd
         );
         Wristpid.enableContinuousInput(0, 2* Math.PI);
+        //declares the encoder
         elevatorEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
         
-        setTarget(ElevatorSetpoint.ZERO);
+        //The default position of the elevator is at zero and the default wrist position is at down
+        setElevatorTarget(ElevatorSetpoint.ZERO);
         setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
     }
@@ -107,17 +112,28 @@ public class ElevatorSubsystem extends SubsystemBase {
         //bottom is false 
         return !bottomLimitSwitch.get();
     }
-    
-    public void setTarget(ElevatorSetpoint var){
+
+    public void setElevatorTarget(ElevatorSetpoint var){
+        //sets our elevator target using offset and the setpoint encoder value.
         Elevatorpid.setSetpoint(offset+var.elevatorEncoderValue);
+        elevatorTarget = var;
     }
+
+    public ElevatorSetpoint elevatorTarget;
+
+    public ElevatorSetpoint getElevatorTarget(){
+        return elevatorTarget;
+    }
+
     public void setWristTarget(WristAngle var){
+        //sets the wrist's target angle using an encoder and a setpoint
         Wristpid.setSetpoint(var.wristEncoderValue);
     }
 
     //Creates setpoints for the elevator to reach
     public enum ElevatorSetpoint{
         ZERO(Constants.ElevatorSubsystemConstants.enumPointZero), 
+        LOW_ALGAE(Constants.ElevatorSubsystemConstants.enumPointLowAlgae),
         P2(Constants.ElevatorSubsystemConstants.enumP2),
         P3(Constants.ElevatorSubsystemConstants.enumP3),
         P4(Constants.ElevatorSubsystemConstants.enumP4);
@@ -129,11 +145,13 @@ public class ElevatorSubsystem extends SubsystemBase {
             return elevatorEncoderValue;
         }
     }
-
+    //creates positions for the wrist to be at
     public enum WristAngle{
         DOWN(Constants.ElevatorSubsystemConstants.wristDown), 
         UP(Constants.ElevatorSubsystemConstants.wristUp),
-        MOVING(Constants.ElevatorSubsystemConstants.wristMoving);
+        TOPALGAEREMOVAL(Constants.ElevatorSubsystemConstants.topWristAlgae),
+        MOVING(Constants.ElevatorSubsystemConstants.wristMoving),
+        BOTTOMALGAEREMOVAL(Constants.ElevatorSubsystemConstants.bottomWristAlgae);
         double wristEncoderValue;
         WristAngle(double val){
             this.wristEncoderValue = val;
@@ -156,6 +174,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     
     public void runElevatorMotor(double speed){
+        speed = elevatorRampRate.calculate(speed);
         //Check to see that if we are  above our max height and going up, we stop. If we are above and going down that is ok
         if(getElevatorRelativeEncoderValue() >= Constants.ElevatorSubsystemConstants.maxHeight && speed > 0){
             speed = 0;
@@ -174,6 +193,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     public void setOffset(double newOffset){
         this.offset = newOffset;
+        setElevatorTarget(elevatorTarget);
     }
 
     public double getOffset(){
@@ -184,13 +204,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
     @Override
     public void periodic() {
-        //if we are at the bottom, reset encoder so 0 is the bottom of the elevator
+        //if we are at the bottom, reset encoder so 0 is the bottom of the elevator and set our offset to 0
         if(isAtBottom()){
             elevatorEncoder.reset();
+            setOffset(0);
         } 
     }
 
-    //get commands for elastic
+    //get commands for shuffleboard
     public double shaftMotorSpeed(){
         return shaftMotor.get();
     }

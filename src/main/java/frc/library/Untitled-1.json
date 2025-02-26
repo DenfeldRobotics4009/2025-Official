@@ -1,0 +1,855 @@
+[
+    {
+        "messageType": 2,
+        "timestamp": 0,
+        "seqNumber": 597,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.02203369140625,
+        "seqNumber": 598,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.04058837890625,
+        "seqNumber": 599,
+        "line": "NT: Got a NT4 connection from 10.40.9.11 port 58790"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.041748046875,
+        "seqNumber": 600,
+        "line": "NT: CONNECTED NT4 client 'photonvision@1' (from 10.40.9.11:58790)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.4080810546875,
+        "seqNumber": 601,
+        "line": "NT: Got a NT4 connection from 10.40.9.200 port 50141"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.41259765625,
+        "seqNumber": 602,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@2' (from 10.40.9.200:50141)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.4283447265625,
+        "seqNumber": 603,
+        "line": "CS: USB Camera 0: Attempting to connect to USB camera on /dev/video0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.4295654296875,
+        "seqNumber": 604,
+        "line": "CS: USB Camera 0: Connected to USB camera on /dev/video0"
+    },
+    {
+        "timestamp": 0.83807373046875,
+        "seqNumber": 605,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkMax object created for CAN ID 4, which is not a SPARK MAX. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)",
+        "callStack": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)\n\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)\n\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:44)\n\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)\n\tat frc.robot.Robot.<init>(Robot.java:30)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:23)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.83868408203125,
+        "seqNumber": 606,
+        "line": "Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 4, which is not a SPARK MAX. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8397216796875,
+        "seqNumber": 607,
+        "line": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8399658203125,
+        "seqNumber": 608,
+        "line": "\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8402099609375,
+        "seqNumber": 609,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:44)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8406982421875,
+        "seqNumber": 610,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.84100341796875,
+        "seqNumber": 611,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8411865234375,
+        "seqNumber": 612,
+        "line": "\tat frc.robot.Robot.<init>(Robot.java:30)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8414306640625,
+        "seqNumber": 613,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.84161376953125,
+        "seqNumber": 614,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.8419189453125,
+        "seqNumber": 615,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.84210205078125,
+        "seqNumber": 616,
+        "line": ""
+    },
+    {
+        "timestamp": 1.3656005859375,
+        "seqNumber": 617,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkMax object created for CAN ID 5, which is not a SPARK MAX. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)",
+        "callStack": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)\n\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)\n\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:49)\n\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)\n\tat frc.robot.Robot.<init>(Robot.java:30)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:23)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.366455078125,
+        "seqNumber": 618,
+        "line": "Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 5, which is not a SPARK MAX. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.36669921875,
+        "seqNumber": 619,
+        "line": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.366943359375,
+        "seqNumber": 620,
+        "line": "\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.36712646484375,
+        "seqNumber": 621,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:49)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.36737060546875,
+        "seqNumber": 622,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.36767578125,
+        "seqNumber": 623,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.367919921875,
+        "seqNumber": 624,
+        "line": "\tat frc.robot.Robot.<init>(Robot.java:30)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.36810302734375,
+        "seqNumber": 625,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.3682861328125,
+        "seqNumber": 626,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.36846923828125,
+        "seqNumber": 627,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.3687744140625,
+        "seqNumber": 628,
+        "line": ""
+    },
+    {
+        "timestamp": 1.79931640625,
+        "seqNumber": 629,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkMax object created for CAN ID 3, which is not a SPARK MAX. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)",
+        "callStack": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)\n\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)\n\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:54)\n\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)\n\tat frc.robot.Robot.<init>(Robot.java:30)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:23)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.79986572265625,
+        "seqNumber": 630,
+        "line": "Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 3, which is not a SPARK MAX. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.80010986328125,
+        "seqNumber": 631,
+        "line": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.8004150390625,
+        "seqNumber": 632,
+        "line": "\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.80059814453125,
+        "seqNumber": 633,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:54)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.80078125,
+        "seqNumber": 634,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.801025390625,
+        "seqNumber": 635,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.80120849609375,
+        "seqNumber": 636,
+        "line": "\tat frc.robot.Robot.<init>(Robot.java:30)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.8013916015625,
+        "seqNumber": 637,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.80157470703125,
+        "seqNumber": 638,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.8017578125,
+        "seqNumber": 639,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 1.80194091796875,
+        "seqNumber": 640,
+        "line": ""
+    },
+    {
+        "timestamp": 2.237548828125,
+        "seqNumber": 641,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkMax object created for CAN ID 2, which is not a SPARK MAX. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)",
+        "callStack": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)\n\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)\n\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:59)\n\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)\n\tat frc.robot.Robot.<init>(Robot.java:30)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:23)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.23809814453125,
+        "seqNumber": 642,
+        "line": "Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 2, which is not a SPARK MAX. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.2384033203125,
+        "seqNumber": 643,
+        "line": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.2386474609375,
+        "seqNumber": 644,
+        "line": "\tat frc.robot.subsystems.MAXSwerveModule.<init>(MAXSwerveModule.java:42)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.2388916015625,
+        "seqNumber": 645,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.<init>(SwerveDrive.java:59)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.2391357421875,
+        "seqNumber": 646,
+        "line": "\tat frc.robot.subsystems.SwerveDrive.getInstance(SwerveDrive.java:39)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.23944091796875,
+        "seqNumber": 647,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:86)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.2396240234375,
+        "seqNumber": 648,
+        "line": "\tat frc.robot.Robot.<init>(Robot.java:30)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.23980712890625,
+        "seqNumber": 649,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.239990234375,
+        "seqNumber": 650,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.24017333984375,
+        "seqNumber": 651,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.2403564453125,
+        "seqNumber": 652,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.68499755859375,
+        "seqNumber": 653,
+        "line": "Instantiating NavX on roboRIO MXP Port."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.68548583984375,
+        "seqNumber": 654,
+        "line": "NavX: Library for FRC"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.85821533203125,
+        "seqNumber": 655,
+        "line": "NavX: Connected."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.85943603515625,
+        "seqNumber": 656,
+        "line": "NavX: startup initialization and startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.86151123046875,
+        "seqNumber": 657,
+        "line": "NavX: onboard startup calibration complete."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 2.86181640625,
+        "seqNumber": 658,
+        "line": "NavX: Yaw angle auto-reset to 0.0 due to startup calibration."
+    },
+    {
+        "timestamp": 3.42144775390625,
+        "seqNumber": 659,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "CANSparkMax object created for CAN ID 14, which is not a SPARK MAX. Some functionalities may not work.",
+        "location": "com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)",
+        "callStack": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)\n\tat frc.robot.subsystems.CoralManipulatorSubsystem.<init>(CoralManipulatorSubsystem.java:38)\n\tat frc.robot.subsystems.CoralManipulatorSubsystem.getInstance(CoralManipulatorSubsystem.java:32)\n\tat frc.robot.RobotContainer.<init>(RobotContainer.java:88)\n\tat frc.robot.Robot.<init>(Robot.java:30)\n\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)\n\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)\n\tat frc.robot.Main.main(Main.java:23)\n",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.422119140625,
+        "seqNumber": 660,
+        "line": "Warning at com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77): CANSparkMax object created for CAN ID 14, which is not a SPARK MAX. Some functionalities may not work."
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.42303466796875,
+        "seqNumber": 661,
+        "line": "\tat com.revrobotics.spark.SparkMax.<init>(SparkMax.java:77)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.42333984375,
+        "seqNumber": 662,
+        "line": "\tat frc.robot.subsystems.CoralManipulatorSubsystem.<init>(CoralManipulatorSubsystem.java:38)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.42462158203125,
+        "seqNumber": 663,
+        "line": "\tat frc.robot.subsystems.CoralManipulatorSubsystem.getInstance(CoralManipulatorSubsystem.java:32)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.4249267578125,
+        "seqNumber": 664,
+        "line": "\tat frc.robot.RobotContainer.<init>(RobotContainer.java:88)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.4251708984375,
+        "seqNumber": 665,
+        "line": "\tat frc.robot.Robot.<init>(Robot.java:30)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.427978515625,
+        "seqNumber": 666,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:370)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.42828369140625,
+        "seqNumber": 667,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.42877197265625,
+        "seqNumber": 668,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 3.43011474609375,
+        "seqNumber": 669,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.6617431640625,
+        "seqNumber": 670,
+        "line": "********** Robot program startup complete **********"
+    },
+    {
+        "timestamp": 6.70159912109375,
+        "seqNumber": 671,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:436)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.702392578125,
+        "seqNumber": 672,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:436): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.7032470703125,
+        "seqNumber": 673,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.77764892578125,
+        "seqNumber": 674,
+        "line": "CommandScheduler loop overrun"
+    },
+    {
+        "timestamp": 6.80291748046875,
+        "seqNumber": 675,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tAprilTagOdometry.periodic(): 0.033261s\n\tSwerveDrive.periodic(): 0.060640s\n\tCoralManipulatorSubsystem.periodic(): 0.002301s\n\tShuffleBoard.periodic(): 0.005861s\n\tFunnelSubsystem.periodic(): 0.000092s\n\tClimberSubsystem.periodic(): 0.000037s\n\tbuttons.run(): 0.006344s\n\tAlgaeManipulatorSubsystem.periodic(): 0.000055s\n\tElevatorSubsystem.periodic(): 0.000575s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.8033447265625,
+        "seqNumber": 676,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tAprilTagOdometry.periodic(): 0.033261s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.8037109375,
+        "seqNumber": 677,
+        "line": "\tSwerveDrive.periodic(): 0.060640s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.8065185546875,
+        "seqNumber": 678,
+        "line": "\tCoralManipulatorSubsystem.periodic(): 0.002301s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.80694580078125,
+        "seqNumber": 679,
+        "line": "\tShuffleBoard.periodic(): 0.005861s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.80718994140625,
+        "seqNumber": 680,
+        "line": "\tFunnelSubsystem.periodic(): 0.000092s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.8076171875,
+        "seqNumber": 681,
+        "line": "\tClimberSubsystem.periodic(): 0.000037s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.80792236328125,
+        "seqNumber": 682,
+        "line": "\tbuttons.run(): 0.006344s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.80810546875,
+        "seqNumber": 683,
+        "line": "\tAlgaeManipulatorSubsystem.periodic(): 0.000055s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.80841064453125,
+        "seqNumber": 684,
+        "line": "\tElevatorSubsystem.periodic(): 0.000575s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.8092041015625,
+        "seqNumber": 685,
+        "line": ""
+    },
+    {
+        "timestamp": 6.83758544921875,
+        "seqNumber": 686,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tSmartDashboard.updateValues(): 0.010555s\n\tdisabledInit(): 0.002022s\n\trobotPeriodic(): 0.138012s\n\tLiveWindow.updateValues(): 0.000056s\n\tShuffleboard.update(): 0.000055s\n\tdisabledPeriodic(): 0.000575s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.83953857421875,
+        "seqNumber": 687,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tSmartDashboard.updateValues(): 0.010555s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.83984375,
+        "seqNumber": 688,
+        "line": "\tdisabledInit(): 0.002022s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.840087890625,
+        "seqNumber": 689,
+        "line": "\trobotPeriodic(): 0.138012s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.84039306640625,
+        "seqNumber": 690,
+        "line": "\tLiveWindow.updateValues(): 0.000056s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.84088134765625,
+        "seqNumber": 691,
+        "line": "\tShuffleboard.update(): 0.000055s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.841064453125,
+        "seqNumber": 692,
+        "line": "\tdisabledPeriodic(): 0.000575s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.84124755859375,
+        "seqNumber": 693,
+        "line": ""
+    },
+    {
+        "timestamp": 10.599365234375,
+        "seqNumber": 694,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:436)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.6009521484375,
+        "seqNumber": 695,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:436): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.6024169921875,
+        "seqNumber": 696,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.89599609375,
+        "seqNumber": 697,
+        "line": "java.lang.NullPointerException: Cannot invoke \"edu.wpi.first.math.kinematics.SwerveModulePosition.copy()\" because \"positions[i]\" is null"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.89813232421875,
+        "seqNumber": 698,
+        "line": "\tat edu.wpi.first.math.kinematics.SwerveDriveKinematics.copy(SwerveDriveKinematics.java:395)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.89923095703125,
+        "seqNumber": 699,
+        "line": "\tat frc.library.auto.pathing.pathObjects.Path.getFromPathPlanner(Path.java:72)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.89959716796875,
+        "seqNumber": 700,
+        "line": "\tat frc.robot.autos.OnePieceCageAuto.<init>(OnePieceCageAuto.java:30)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.89990234375,
+        "seqNumber": 701,
+        "line": "\tat frc.robot.RobotContainer.getAutonomousCommand(RobotContainer.java:275)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.90185546875,
+        "seqNumber": 702,
+        "line": "\tat frc.robot.Robot.autonomousInit(Robot.java:59)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.90228271484375,
+        "seqNumber": 703,
+        "line": "\tat edu.wpi.first.wpilibj.IterativeRobotBase.loopFunc(IterativeRobotBase.java:350)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.90264892578125,
+        "seqNumber": 704,
+        "line": "\tat edu.wpi.first.wpilibj.TimedRobot.startCompetition(TimedRobot.java:133)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.90338134765625,
+        "seqNumber": 705,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.runRobot(RobotBase.java:419)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9036865234375,
+        "seqNumber": 706,
+        "line": "\tat edu.wpi.first.wpilibj.RobotBase.startRobot(RobotBase.java:510)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.904052734375,
+        "seqNumber": 707,
+        "line": "\tat frc.robot.Main.main(Main.java:23)"
+    },
+    {
+        "timestamp": 10.919189453125,
+        "seqNumber": 708,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tautonomousInit(): 0.320841s\n\tSmartDashboard.updateValues(): 0.000055s\n\trobotPeriodic(): 0.004322s\n\tLiveWindow.updateValues(): 0.000000s\n\tShuffleboard.update(): 0.000019s\n\tautonomousPeriodic(): 0.000631s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.91998291015625,
+        "seqNumber": 709,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tautonomousInit(): 0.320841s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9202880859375,
+        "seqNumber": 710,
+        "line": "\tSmartDashboard.updateValues(): 0.000055s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.92059326171875,
+        "seqNumber": 711,
+        "line": "\trobotPeriodic(): 0.004322s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.92083740234375,
+        "seqNumber": 712,
+        "line": "\tLiveWindow.updateValues(): 0.000000s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.92144775390625,
+        "seqNumber": 713,
+        "line": "\tShuffleboard.update(): 0.000019s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.921875,
+        "seqNumber": 714,
+        "line": "\tautonomousPeriodic(): 0.000631s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.92205810546875,
+        "seqNumber": 715,
+        "line": ""
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9478759765625,
+        "seqNumber": 716,
+        "line": "CommandScheduler loop overrun"
+    },
+    {
+        "timestamp": 10.97735595703125,
+        "seqNumber": 717,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "\tAprilTagOdometry.periodic(): 0.000464s\n\tSwerveDrive.periodic(): 0.001595s\n\tCoralManipulatorSubsystem.periodic(): 0.000093s\n\tShuffleBoard.periodic(): 0.000408s\n\tElevatorControllerCommand.execute(): 0.003098s\n\tFunnelSubsystem.periodic(): 0.000037s\n\tClimberSubsystem.periodic(): 0.000019s\n\tRunCommand.execute(): 0.019162s\n\tbuttons.run(): 0.000130s\n\tAlgaeManipulatorSubsystem.periodic(): 0.000018s\n\tElevatorSubsystem.periodic(): 0.000037s\n",
+        "location": "edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.97772216796875,
+        "seqNumber": 718,
+        "line": "Warning at edu.wpi.first.wpilibj.Tracer.lambda$printEpochs$0(Tracer.java:62): \tAprilTagOdometry.periodic(): 0.000464s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.97802734375,
+        "seqNumber": 719,
+        "line": "\tSwerveDrive.periodic(): 0.001595s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9783935546875,
+        "seqNumber": 720,
+        "line": "\tCoralManipulatorSubsystem.periodic(): 0.000093s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9786376953125,
+        "seqNumber": 721,
+        "line": "\tShuffleBoard.periodic(): 0.000408s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9788818359375,
+        "seqNumber": 722,
+        "line": "\tElevatorControllerCommand.execute(): 0.003098s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.979248046875,
+        "seqNumber": 723,
+        "line": "\tFunnelSubsystem.periodic(): 0.000037s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9794921875,
+        "seqNumber": 724,
+        "line": "\tClimberSubsystem.periodic(): 0.000019s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9798583984375,
+        "seqNumber": 725,
+        "line": "\tRunCommand.execute(): 0.019162s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.98028564453125,
+        "seqNumber": 726,
+        "line": "\tbuttons.run(): 0.000130s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.98052978515625,
+        "seqNumber": 727,
+        "line": "\tAlgaeManipulatorSubsystem.periodic(): 0.000018s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9808349609375,
+        "seqNumber": 728,
+        "line": "\tElevatorSubsystem.periodic(): 0.000037s"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 10.9810791015625,
+        "seqNumber": 729,
+        "line": ""
+    }
+]

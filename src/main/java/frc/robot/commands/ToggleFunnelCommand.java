@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.FunnelSubsystem;
 
-public class FunnelUpCommand extends Command {
-private FunnelSubsystem subsystem;
+public class ToggleFunnelCommand extends Command {
+private FunnelSubsystem m_funnelSubsystem;
 private boolean isDone = false;
-public FunnelUpCommand(FunnelSubsystem subsystem) {
-    this.subsystem = subsystem;
+public ToggleFunnelCommand(FunnelSubsystem subsystem) {
+    this.m_funnelSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -21,7 +21,11 @@ public FunnelUpCommand(FunnelSubsystem subsystem) {
     @Override
     public void execute() {
           //when activated makes funnel go up so we can intake
-        subsystem.pistonIsPowered(true);
+          if(m_funnelSubsystem.isPistonDeployed()){
+            m_funnelSubsystem.setFunnelPiston(false);
+        } else{
+            m_funnelSubsystem.setFunnelPiston(true);
+        }
         isDone = true;
     }
 

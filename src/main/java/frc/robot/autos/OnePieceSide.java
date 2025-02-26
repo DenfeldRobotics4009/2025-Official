@@ -9,7 +9,6 @@ import org.json.simple.parser.ParseException;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.library.auto.pathing.FollowControllers;
@@ -35,18 +34,19 @@ import frc.library.auto.pathing.pathObjects.Path;
 import frc.library.auto.pathing.pathObjects.PathPoint;
 import frc.robot.subsystems.SwerveDrive;
 
-public class OnePieceCageAuto extends SequentialCommandGroup {
+public class OnePieceSide extends SequentialCommandGroup {
     
-    public OnePieceCageAuto(PurePursuitSettings config, Alliance alliance, GameField gameField){
+    
+
+    public OnePieceSide(PurePursuitSettings config, Alliance alliance, GameField gameField){
         super(
+            new SetDrivePosition(SwerveDrive.getInstance(), ()-> new Pose2d(7.265, 7.531, Rotation2d.fromDegrees(180))),
             new ParallelCommandGroup(
-            new SetDrivePosition(SwerveDrive.getInstance(), ()-> new Pose2d(7.265, 4.175, Rotation2d.fromDegrees(180))),
-            new ParallelRaceGroup(new WaitCommand(10), new FollowControllers(new PurePursuitController(new Path(config, alliance, 
-            new PathPoint(gameField, new Pose2d(7.265, 4.175, Rotation2d.fromDegrees(180)), 1),
-            new PathPoint(gameField, new Pose2d(6.5, 4.175, Rotation2d.fromDegrees(180)), .5),
-            new PathPoint(gameField, new Pose2d(5.814, 4.175, Rotation2d.fromDegrees(180)), 0)
-            // new PathPoint(gameField, new Pose2d(6.965, 4.175, new Rotation2d(0)), 0)
-            )), SwerveDrive.getInstance())),
+            new FollowControllers(new PurePursuitController(new Path(config, alliance, 
+            new PathPoint(gameField, new Pose2d(7.265, 7.531, Rotation2d.fromDegrees(180)), 1),
+            new PathPoint(gameField, new Pose2d(6.5, 6.5, Rotation2d.fromDegrees(200)), .8),
+            new PathPoint(gameField, new Pose2d(5.08, 5.3, Rotation2d.fromDegrees(244.537)), 0.1)
+            )), SwerveDrive.getInstance()),
 
             new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(), ElevatorSubsystem.ElevatorSetpoint.P4, ElevatorSubsystem.WristAngle.UP)
             ),
