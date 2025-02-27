@@ -41,12 +41,17 @@ public class OnePieceCageAuto extends SequentialCommandGroup {
         super(
             new ParallelCommandGroup(
             new SetDrivePosition(SwerveDrive.getInstance(), ()-> new Pose2d(7.265, 4.175, Rotation2d.fromDegrees(180))),
-            new ParallelRaceGroup(new WaitCommand(10), new FollowControllers(new PurePursuitController(new Path(config, alliance, 
-            new PathPoint(gameField, new Pose2d(7.265, 4.175, Rotation2d.fromDegrees(180)), 1),
-            new PathPoint(gameField, new Pose2d(6.5, 4.175, Rotation2d.fromDegrees(180)), .5),
-            new PathPoint(gameField, new Pose2d(5.814, 4.175, Rotation2d.fromDegrees(180)), 0)
+            new ParallelRaceGroup(
+                new WaitCommand(10), 
+                new FollowControllers(
+                    new PurePursuitController(
+                        new Path(config, alliance, 
+                            new PathPoint(gameField, new Pose2d(7.265, 4.175, Rotation2d.fromDegrees(180)), 1),
+                            new PathPoint(gameField, new Pose2d(6.5, 4.175, Rotation2d.fromDegrees(180)), .5),
+                            new PathPoint(gameField, new Pose2d(5.814, 4.175, Rotation2d.fromDegrees(180)), 0)
             // new PathPoint(gameField, new Pose2d(6.965, 4.175, new Rotation2d(0)), 0)
-            )), SwerveDrive.getInstance())),
+                )), SwerveDrive.getInstance())
+            ),
 
             new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(), ElevatorSubsystem.ElevatorSetpoint.P4, ElevatorSubsystem.WristAngle.UP)
             ),
