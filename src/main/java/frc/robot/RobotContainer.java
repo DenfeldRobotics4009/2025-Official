@@ -27,7 +27,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.autos.AutoTest;
+import frc.robot.autos.AutoTestBlue;
 import frc.robot.autos.OnePieceCageAuto;
 import frc.robot.autos.OnePieceSide;
 import frc.robot.commands.SetElevatorTargetCommand;
@@ -96,7 +96,7 @@ public class RobotContainer {
 
     // The driver's controller
     public final Compressor m_compressor = new Compressor(20,PneumaticsModuleType.REVPH);
-    private final ShuffleBoard m_shuffleboard = new ShuffleBoard();
+    private ShuffleBoard m_shuffleboard = null;
     GameField gameField = null;
     PurePursuitSettings config = null;
 
@@ -143,6 +143,8 @@ public class RobotContainer {
         .setMaxVelocityMeters(Constants.DriveConstants.kMaxSpeedMetersPerSecond);
         
         config.setTurningPID(1, 0, 0);
+
+        m_shuffleboard = new ShuffleBoard(config, gameField);
 
         //populateSendable
     }
@@ -210,16 +212,14 @@ public class RobotContainer {
         );
 
         // manual elevator control - operator left joystick
-        new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() > 0.5;}).whileTrue(
+        new Trigger(()->{return m_controlsSubsystem.operateController.getLeftY() > 0.5;}).whileTrue(
             (new SetElevatorOffset(m_ElevatorSubsystem, 5))
         );
+
         // manual elevator control - operator right joystick
-        new Trigger(()->{return m_controlsSubsystem.driveController.getRightY() > 0.5;}).whileTrue(
+        new Trigger(()->{return m_controlsSubsystem.operateController.getRightY() > 0.5;}).whileTrue(
             (new SlowCoralManiuplatorOuttakeCommand(m_coralManipulatorSubsystem))
             );
-        new Trigger(()->{return m_controlsSubsystem.driveController.getLeftY() < -0.5;}).whileTrue(
-            (new SetElevatorOffset(m_ElevatorSubsystem, -1))
-        );
 
         // climber down - operator right bumper
         new JoystickButton(m_controlsSubsystem.operateController, Button.kRightBumper.value).whileTrue(
@@ -276,6 +276,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        return new OnePieceCageAuto(config, DriverStation.getAlliance().get(), gameField);
+        return m_shuffleboard.getSelectedAuto();
     }
 }

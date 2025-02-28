@@ -168,7 +168,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         if(getWristAbsoluteEncoderValue() <= Constants.ElevatorSubsystemConstants.wristMinAngle && speed < 0){
             speed = 0;
         }
-        wristMotor.set(-speed-Constants.ElevatorSubsystemConstants.WristF * Math.sin(getWristAbsoluteEncoderValue()));
+       
+        wristMotor.set(speed+Constants.ElevatorSubsystemConstants.WristF * Math.sin(getWristAbsoluteEncoderValue()));
         double minAngle = Constants.ElevatorSubsystemConstants.wristMinAngle;
         double maxAngle = Constants.ElevatorSubsystemConstants.wristMaxAngle;
     }

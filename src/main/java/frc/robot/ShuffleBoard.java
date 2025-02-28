@@ -3,15 +3,21 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.GameField;
-import frc.robot.autos.AutoTest;
+import frc.robot.autos.AutoTestBlue;
+import frc.robot.autos.AutoTestRed;
 import frc.robot.autos.OnePieceCageAuto;
+import frc.robot.autos.OnePieceCageAutoRed;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
@@ -25,8 +31,20 @@ public class ShuffleBoard extends SubsystemBase {
   public Field2d m_field = new Field2d();
   public PurePursuitSettings config = new PurePursuitSettings(null, Alliance.Blue);
 
-  public ShuffleBoard() {
+  SendableChooser<SequentialCommandGroup> autoChooser = new SendableChooser<>();
+  public static final ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
+
+  public ShuffleBoard(PurePursuitSettings config, GameField field) {
+    autoChooser.setDefaultOption("TestAutoBlue", new AutoTestBlue(config, Alliance.Blue, field));
+    autoChooser.addOption("TestAutoRed", new AutoTestRed(config, Alliance.Blue, field));
+    autoChooser.addOption("One Piece Cage Auto", new OnePieceCageAuto(config, Alliance.Blue, field));
+    autoChooser.addOption("One Piece Cage Auto Red", new OnePieceCageAutoRed(config, Alliance.Blue, field));    
+    SmartDashboard.putData("Autonomous", autoChooser);
   }
+
+  public SequentialCommandGroup getSelectedAuto() {
+    return autoChooser.getSelected();
+}
 
 
   

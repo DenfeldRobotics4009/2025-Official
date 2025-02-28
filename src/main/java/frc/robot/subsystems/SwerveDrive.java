@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.RobotConfig;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
@@ -63,6 +65,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
 
     boolean precisionMode;
 
+    ChassisSpeeds chassisSpeeds = null;
+    
   // The gyro sensor
   public final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
@@ -80,6 +84,18 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   public SwerveDrive() {
     // Usage reporting for MAXSwerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
+    RobotConfig config;
+    try {
+      config = RobotConfig.fromGUISettings();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    // AutoBuilder.configure(
+    //         this::getPosition,
+    //         this::zeroHeading,
+
+    // );
   }
 
   @Override
@@ -160,6 +176,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
+
+  
 
   /**
    * Sets the wheels into an X formation to prevent movement.

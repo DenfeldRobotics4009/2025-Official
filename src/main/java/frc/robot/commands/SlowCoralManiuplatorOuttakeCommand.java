@@ -21,12 +21,7 @@ public class SlowCoralManiuplatorOuttakeCommand extends Command {
 
     @Override
     public void initialize() {
-        if(ElevatorSubsystem.getInstance().getElevatorTarget() == ElevatorSubsystem.ElevatorSetpoint.P4){
-            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowOuttakeMotorSpeed);
-        }else{
-            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralP4ManipulatorP4SlowOuttakeMotorSpeed);
-            
-        }
+        subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowOuttakeMotorSpeed);
     }
 
     @Override
