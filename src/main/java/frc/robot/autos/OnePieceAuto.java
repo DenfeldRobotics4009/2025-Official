@@ -14,7 +14,7 @@ import frc.robot.subsystems.SwerveDrive;
 public class OnePieceAuto extends SequentialCommandGroup{
     
     public OnePieceAuto(){
-        new SequentialCommandGroup( 
+        super( 
             new ParallelRaceGroup(
                 new WaitCommand(5), 
                 new DriveForwardCommand()

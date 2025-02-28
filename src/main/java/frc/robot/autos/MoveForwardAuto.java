@@ -12,7 +12,7 @@ import frc.robot.subsystems.SwerveDrive;
 public class MoveForwardAuto extends SequentialCommandGroup{
     
     public MoveForwardAuto(){
-        new SequentialCommandGroup( 
+        super( 
             new ParallelRaceGroup(
             new WaitCommand(3), new DriveForwardCommand()
         ),
