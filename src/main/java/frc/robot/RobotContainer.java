@@ -29,7 +29,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.autos.AutoTestBlue;
 import frc.robot.autos.OnePieceCageAuto;
-import frc.robot.autos.OnePieceSide;
+import frc.robot.autos.OnePieceSideP4;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;

@@ -17,8 +17,10 @@ import frc.library.auto.pathing.field.GameField;
 import frc.robot.autos.AutoTestBlue;
 import frc.robot.autos.AutoTestRed;
 import frc.robot.autos.MoveForwardAuto;
+import frc.robot.autos.OnePieceAuto;
 import frc.robot.autos.OnePieceCageAuto;
 import frc.robot.autos.OnePieceCageAutoRed;
+import frc.robot.autos.OnePieceSideAuto;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
@@ -38,9 +40,11 @@ public class ShuffleBoard extends SubsystemBase {
   public ShuffleBoard(PurePursuitSettings config, GameField field) {
     autoChooser.setDefaultOption("TestAutoBlue", new AutoTestBlue(config, Alliance.Blue, field));
     autoChooser.addOption("TestAutoRed", new AutoTestRed(config, Alliance.Blue, field));
-    autoChooser.addOption("One Piece Cage Auto", new OnePieceCageAuto(config, Alliance.Blue, field));
+    autoChooser.addOption("One Piece Cage Auto Blue", new OnePieceCageAuto(config, Alliance.Blue, field));
     autoChooser.addOption("One Piece Cage Auto Red", new OnePieceCageAutoRed(config, Alliance.Blue, field));
-    autoChooser.addOption("Drive Forward Auto", new MoveForwardAuto());    
+    autoChooser.addOption("Drive Forward Auto", new MoveForwardAuto());
+    autoChooser.addOption("One Piece Auto", new OnePieceAuto());
+    autoChooser.addOption("One Piece Auto Side", new OnePieceSideAuto());    
     SmartDashboard.putData("Autonomous", autoChooser);
   }
 
