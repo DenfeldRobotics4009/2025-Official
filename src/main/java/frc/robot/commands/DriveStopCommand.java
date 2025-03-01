@@ -11,12 +11,12 @@ public class DriveStopCommand extends Command{
 
     @Override
     public void end(boolean interrupted) {
-        SwerveDrive.getInstance().drive(0, 0, 0, true);
+        SwerveDrive.getInstance().drive(0, 0, 0, false);
     }
 
     @Override
     public void execute() {
-        SwerveDrive.getInstance().drive(0, 0, 0, true);
+        SwerveDrive.getInstance().drive(0, 0, 0, false);
     }
 
     @Override

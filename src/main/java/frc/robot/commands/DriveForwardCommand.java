@@ -4,18 +4,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveDrive;
 
 public class DriveForwardCommand extends Command{
-    private double xSpeed = 1;
+    private double xSpeed = 0.15;
     private double ySpeed = 0;
     private double rot = 0;
-    private boolean fieldRelative = true;
+    private boolean fieldRelative = false;
 
     public DriveForwardCommand(){
-        
+        addRequirements(SwerveDrive.getInstance());
     }
 
     @Override
     public void end(boolean interrupted) {
-        SwerveDrive.getInstance().drive(0, 0, 0, true);
+        SwerveDrive.getInstance().drive(0, 0, 0, fieldRelative);
     }
 
     @Override
