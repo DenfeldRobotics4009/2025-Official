@@ -59,16 +59,6 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
         // Return with optional null value
         return tagPose;
     }
-    
-    // Gets distance from robot to apriltag
-    public double getDistanceToTarget(PhotonTrackedTarget target) {
-        Optional<Pose3d> tagPose = getTargetPose(target);
-        // Ensure the existence of this tag id
-        if (tagPose.isEmpty()) {return -1;}
-
-        Transform3d cameraToTarget = target.getBestCameraToTarget();
-        return Math.hypot(cameraToTarget.getX(), cameraToTarget.getY());
-    }
 
     // Gets ID of the nearest AprilTag
     public PhotonTrackedTarget bestTarget() {
@@ -80,13 +70,13 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
     // Convert an <Optional>Pose3d to a Pose2d
     public static Pose2d convertToPose2d(Optional<Pose3d> optionalPose3d) {
         if (optionalPose3d.isEmpty()) {
-            return new Pose2d(); // Default Pose2d (0,0,0)
+            return new Pose2d();
         }
 
         Pose3d pose3d = optionalPose3d.get();
         double x = pose3d.getX();
         double y = pose3d.getY();
-        Rotation2d rotation2d = new Rotation2d(pose3d.getRotation().getZ()); // Extract Yaw
+        Rotation2d rotation2d = new Rotation2d(pose3d.getRotation().getZ());
 
         return new Pose2d(x, y, rotation2d);
     }
