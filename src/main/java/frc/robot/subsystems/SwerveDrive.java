@@ -120,7 +120,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       return;
     }
 
-    ChassisSpeeds speeds = holonomicController.calculate(currentPose, targetPose, 0.0, targetPose.getRotation()); // TODO: change desired linear velocity
+    ChassisSpeeds speeds = holonomicController.calculate(currentPose, targetPose, 0.25, targetPose.getRotation()); // TODO: change desired linear velocity
     SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
     setModuleStates(moduleStates);
     atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
