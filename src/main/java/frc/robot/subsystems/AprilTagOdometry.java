@@ -15,6 +15,7 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -35,7 +36,7 @@ public class AprilTagOdometry extends SubsystemBase{
         return instance;
         }
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
-    public PhotonCamera backCam = new PhotonCamera("BackCam");
+    // public PhotonCamera backCam = new PhotonCamera("BackCam");
     Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
@@ -74,6 +75,20 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
         PhotonPipelineResult result = frontCam.getLatestResult();
         PhotonTrackedTarget targetID = result.getBestTarget();
         return targetID;
+    }
+
+    // Convert an <Optional>Pose3d to a Pose2d
+    public static Pose2d convertToPose2d(Optional<Pose3d> optionalPose3d) {
+        if (optionalPose3d.isEmpty()) {
+            return new Pose2d(); // Default Pose2d (0,0,0)
+        }
+
+        Pose3d pose3d = optionalPose3d.get();
+        double x = pose3d.getX();
+        double y = pose3d.getY();
+        Rotation2d rotation2d = new Rotation2d(pose3d.getRotation().getZ()); // Extract Yaw
+
+        return new Pose2d(x, y, rotation2d);
     }
 
     @Override
