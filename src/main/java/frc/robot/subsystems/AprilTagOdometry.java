@@ -16,6 +16,7 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -36,7 +37,7 @@ public class AprilTagOdometry extends SubsystemBase{
         return instance;
         }
     public PhotonCamera frontCam = new PhotonCamera("FrontCam");
-    public PhotonCamera backCam = new PhotonCamera("BackCam");
+    // public PhotonCamera backCam = new PhotonCamera("BackCam");
     Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.5, 0.0, 0.5), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
@@ -59,21 +60,6 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
         // Return with optional null value
         return tagPose;
     }
-
-    // Converts an Optional<Pose3d> to a Pose2d
-    public Pose2d convertToPose2d(Optional<Pose3d> pose3dOptional) {
-        if (pose3dOptional.isPresent()) {
-            Pose3d pose3d = pose3dOptional.get();
-
-            // Convert Rotation3d to Rotation2d
-            Rotation3d rotation3d = pose3d.getRotation();
-            Rotation2d rotation2d = rotation3d.toRotation2d();
-            
-            return new Pose2d(pose3d.getX(), pose3d.getY(), rotation2d);
-        } else {
-            return new Pose2d(0, 0, new Rotation2d(0));
-        }
-    }
     
     // Gets distance from robot to apriltag
     public double getDistanceToTarget(PhotonTrackedTarget target) {
@@ -90,6 +76,20 @@ PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagF
         PhotonPipelineResult result = frontCam.getLatestResult();
         PhotonTrackedTarget targetID = result.getBestTarget();
         return targetID;
+    }
+
+    // Convert an <Optional>Pose3d to a Pose2d
+    public static Pose2d convertToPose2d(Optional<Pose3d> optionalPose3d) {
+        if (optionalPose3d.isEmpty()) {
+            return new Pose2d();
+        }
+
+        Pose3d pose3d = optionalPose3d.get();
+        double x = pose3d.getX();
+        double y = pose3d.getY();
+        Rotation2d rotation2d = new Rotation2d(pose3d.getRotation().getZ());
+
+        return new Pose2d(x, y, rotation2d);
     }
 
     @Override

@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -26,6 +27,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.ChaseAprilTagCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
@@ -189,7 +191,11 @@ public class RobotContainer {
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP));
 
         new JoystickButton(m_controlsSubsystem.operateController, Button.kLeftBumper.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN));    
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
+
+        // Automatically move robot 3 ft in front of AprilTag (for testing)
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
+        .onTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, Units.inchesToMeters(36), 0));
     }
 
     public Command getAutonomousCommand() {

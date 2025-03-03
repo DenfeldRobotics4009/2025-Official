@@ -7,9 +7,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 
+import com.pathplanner.lib.trajectory.SwerveModuleTrajectoryState;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -27,7 +31,33 @@ import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
+
   private static SwerveDrive instance;
+
+  // PID controllers for auto align
+  private final PIDController xController = new PIDController(1.0, 0, 0); // TODO: tune PID
+  private final PIDController yController = new PIDController(1.0, 0, 0);
+  private final ProfiledPIDController thetaController = new ProfiledPIDController(1.0, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
+
+  private final HolonomicDriveController holonomicController = 
+  new HolonomicDriveController(xController, yController, thetaController);
+
+  private Pose2d currentPose = getPosition();
+  private Pose2d targetPose;
+  private boolean atTarget = false;
+  
+  public void driveToPosition(Pose2d target) {
+    targetPose = target;
+    atTarget = false;
+  }
+
+  public boolean atTargetPosition() {
+    return atTarget;
+  }
+  
+  private Pose2d getPose() {
+    return currentPose;
+  }
 
   /**
    * Returns the Scheduler instance.
@@ -40,6 +70,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     }
     return instance;
     }
+    
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
@@ -83,6 +114,22 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
 
   @Override
   public void periodic() {
+    Pose2d currentPose = getPose();
+
+    if(targetPose == null){
+      return;
+    }
+
+    ChassisSpeeds speeds = holonomicController.calculate(currentPose, targetPose, 0.0, targetPose.getRotation()); // TODO: change desired linear velocity
+    SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
+    setModuleStates(moduleStates);
+    atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
+
+    if(atTarget){
+      stopModules();
+      targetPose = null;
+    }
+    
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
     System.out.println("Angle: " + m_gyro.getAngle());
@@ -134,18 +181,6 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    */
   @Override
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-    if(xSpeed>0.5){
-      xSpeed = 0.5;
-    }
-    if(xSpeed<-0.5){
-      xSpeed = -0.5;
-    }
-    if(ySpeed>0.5){
-      ySpeed = 0.5;
-    }
-    if(ySpeed<-0.5){
-      ySpeed = -0.5;
-    }
     // Convert the commanded speeds into the correct units for the drivetrain
     double xSpeedDelivered = xSpeed * DriveConstants.kMaxSpeedMetersPerSecond;
     double ySpeedDelivered = ySpeed * DriveConstants.kMaxSpeedMetersPerSecond;
@@ -174,6 +209,16 @@ System.out.println("gyro angle: "+m_gyro.getAngle());
     m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+  }
+
+  /**
+   * Stops swerve modules.
+   */
+  private void stopModules() {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
   }
 
   /**
