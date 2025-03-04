@@ -9,6 +9,7 @@ import edu.wpi.first.hal.FRCNetComm.tResourceType;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
@@ -43,6 +44,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     return instance;
     }
   // Create MAXSwerveModules
+ 
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
       DriveConstants.kFrontLeftTurningCanId,
@@ -91,11 +93,12 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       e.printStackTrace();
     }
 
-    // AutoBuilder.configure(
-    //         this::getPosition,
-    //         this::zeroHeading,
+    AutoBuilder.configure(
+            this::getPosition,
+            this::zeroHeading
 
-    // );
+    );
+
   }
 
   @Override
@@ -141,6 +144,10 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
         pose);
   }
 
+  // Returns ChassisSpeeds
+  public ChassisSpeeds getSpeeds() {
+    return Constants.DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
+  }
 
   /**
    * Method to drive the robot using joystick info.
@@ -201,6 +208,17 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_frontRight.setDesiredState(desiredStates[1]);
     m_rearLeft.setDesiredState(desiredStates[2]);
     m_rearRight.setDesiredState(desiredStates[3]);
+  }
+
+  public SwerveModuleState getModuleStates() {
+    SwerveModuleState[] states = new SwerveModuleState[];
+    m_frontLeft.getState();
+    m_frontRight.getState();
+    m_rearLeft.getState();
+    m_rearRight.getState();
+        
+    return
+
   }
 
   /** Resets the drive encoders to currently read a position of 0. */
