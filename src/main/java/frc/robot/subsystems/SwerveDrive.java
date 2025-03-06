@@ -93,17 +93,17 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       e.printStackTrace();
     }
 
-    AutoBuilder.configure(
-            this::getPosition,
-            this::zeroHeading,
-            this::getModuleStates,
-            (speeds, feedforwards) -> drive(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
-            new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-                    new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-                    new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
-            );
+    // AutoBuilder.configure(
+    //         this::getPosition,
+    //         this::zeroHeading,
+    //         this::getModuleStates,
+    //         (speeds, feedforwards) -> drive(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+    //         new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
+    //                 new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+    //                 new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+    //         );
 
-    );
+    // );
 
   }
 
@@ -151,9 +151,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   }
 
   // Returns ChassisSpeeds
-  public ChassisSpeeds getSpeeds() {
-    return Constants.DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
-  }
+  // public ChassisSpeeds getSpeeds() {
+  //   return Constants.DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
+  // }
 
   /**
    * Method to drive the robot using joystick info.
@@ -216,16 +216,16 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_rearRight.setDesiredState(desiredStates[3]);
   }
 
-  public SwerveModuleState getModuleStates() {
-    SwerveModuleState[] states = new SwerveModuleState[];
-    m_frontLeft.getState();
-    m_frontRight.getState();
-    m_rearLeft.getState();
-    m_rearRight.getState();
+  // public SwerveModuleState getModuleStates() {
+  //   SwerveModuleState[] states = new SwerveModuleState[];
+  //   m_frontLeft.getState();
+  //   m_frontRight.getState();
+  //   m_rearLeft.getState();
+  //   m_rearRight.getState();
         
-    return
+  //   return
 
-  }
+  // }
 
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
@@ -263,7 +263,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     // per the robotPoseEstimator recommendations.
 
     // If the AprilTag is wildly different from the Swerve Pose, don't update.
-    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 100) {
+    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
       swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
     }
   }
