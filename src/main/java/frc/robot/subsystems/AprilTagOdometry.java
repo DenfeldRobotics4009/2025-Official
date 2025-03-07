@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class AprilTagOdometry extends SubsystemBase{
-    //createds a singleton for the AprilTagOdometry subsystem
+    //creates a singleton for the AprilTagOdometry subsystem
     private static AprilTagOdometry instance;
 
     public static  AprilTagOdometry getInstance() {
@@ -62,5 +62,7 @@ public class AprilTagOdometry extends SubsystemBase{
                 positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
             );
         }
+        System.out.println(frontCam);
     }
 }
+//WHY DOES THIS NOT WORKKKKKKKKKKKKKKKKKKKKKK -Tanner

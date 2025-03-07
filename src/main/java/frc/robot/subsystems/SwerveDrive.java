@@ -30,6 +30,7 @@ import frc.robot.Constants.DriveConstants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
+  //creates inverse kinematics
   private static SwerveDrive instance;
 
   /**
@@ -73,8 +74,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   public final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
   // Odometry class for tracking robot pose
-  SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
-  Rotation2d.fromDegrees(m_gyro.getAngle()),
+  private SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+  Rotation2d.fromDegrees(-m_gyro.getAngle()),
   new SwerveModulePosition[] {
     m_frontLeft.getPosition(),
     m_frontRight.getPosition(),
@@ -111,18 +112,18 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   public void periodic() {
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
-    swerveDrivePoseEstimator.update(
-        Rotation2d.fromDegrees(-m_gyro.getAngle()),
-        new SwerveModulePosition[] {
-            m_frontLeft.getPosition(),
-            m_frontRight.getPosition(),
-            m_rearLeft.getPosition(),
-            m_rearRight.getPosition()
-        });
+      swerveDrivePoseEstimator.updateWithTime(System.nanoTime(), m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
+        m_frontLeft.getPosition(),
+        m_frontRight.getPosition(),
+        m_rearLeft.getPosition(),
+        m_rearRight.getPosition()
+    }
+  );
 
         SmartDashboard.putNumber("Odometry X", getPosition().getX());
     SmartDashboard.putNumber("Odometry Y", getPosition().getY());
-  }
+    System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
+  };
 
   /**
    * Returns the currently-estimated pose of the robot.
