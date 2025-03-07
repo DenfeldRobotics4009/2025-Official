@@ -18,6 +18,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,23 +35,25 @@ public class AprilTagOdometry extends SubsystemBase{
         return instance;
         }
         //creates the variables for our objects
-    public PhotonCamera frontCam = new PhotonCamera("FrontCam");
+    public PhotonCamera frontCam = new PhotonCamera("BackCam");
     // public PhotonCamera backCam = new PhotonCamera("BackCam");
     Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.26035, 0.250825, 0.22225), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
     AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
     // Construct PhotonPoseEstimator MULTI_TAG_PNP_ON_COPROCESSOR or CLOSEST_TO_REFERENCE_POSE
     PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToFrontCam);// private final Controls m_controlsSubsystem = new Controls();
-    
+
     public AprilTagOdometry(){
+        PortForwarder.add(5800, "photon4009.local", 5800);
     }
 
     public Optional<EstimatedRobotPose> getFrontEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
         photonFrontPoseEstimator.setReferencePose(prevEstimatedRobotPose);
-        if (frontCam.getAllUnreadResults().size() == 0){
+        List<PhotonPipelineResult> result = frontCam.getAllUnreadResults();
+        if (result.size() == 0){
             return Optional.empty();
         }
-        return photonFrontPoseEstimator.update(frontCam.getAllUnreadResults().get(0));
+        return photonFrontPoseEstimator.update(result.get(0));
     }
 
     @Override
@@ -61,8 +64,9 @@ public class AprilTagOdometry extends SubsystemBase{
             SwerveDrive.getInstance().addVisionMeasurement(
                 positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
             );
+            System.out.println(positionSample.get().estimatedPose.toPose2d());
         }
-        System.out.println(frontCam);
+        System.out.println(frontCam.isConnected());
     }
 }
 //WHY DOES THIS NOT WORKKKKKKKKKKKKKKKKKKKKKK -Tanner

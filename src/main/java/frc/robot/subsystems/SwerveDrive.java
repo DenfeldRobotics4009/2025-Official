@@ -112,7 +112,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   public void periodic() {
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
-      swerveDrivePoseEstimator.updateWithTime(System.nanoTime(), m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
+      swerveDrivePoseEstimator.update(m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
         m_frontLeft.getPosition(),
         m_frontRight.getPosition(),
         m_rearLeft.getPosition(),
@@ -122,7 +122,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
 
         SmartDashboard.putNumber("Odometry X", getPosition().getX());
     SmartDashboard.putNumber("Odometry Y", getPosition().getY());
-    System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
+    //System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
   };
 
   /**
