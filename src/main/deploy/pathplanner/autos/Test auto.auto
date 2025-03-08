@@ -78,6 +78,18 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Test auto path 2"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "Coral outtake"
