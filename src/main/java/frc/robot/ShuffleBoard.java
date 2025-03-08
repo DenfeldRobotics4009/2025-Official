@@ -46,6 +46,7 @@ public class ShuffleBoard extends SubsystemBase {
     autoChooser.addOption("One Piece Auto", new OnePieceAuto());
     autoChooser.addOption("One Piece Auto Side", new OnePieceSideAuto());
     SmartDashboard.putData("Autonomous", autoChooser);
+    SmartDashboard.putData("Field", m_field);
   }
 
   public SequentialCommandGroup getSelectedAuto() {
@@ -70,7 +71,7 @@ public class ShuffleBoard extends SubsystemBase {
     
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
 
-    SmartDashboard.putData("Field", m_field);
+    
     m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));
     
   }

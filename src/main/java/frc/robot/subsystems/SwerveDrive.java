@@ -94,17 +94,17 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       e.printStackTrace();
     }
 
-    // AutoBuilder.configure(
-    //         this::getPosition,
-    //         this::zeroHeading,
-    //         this::getModuleStates,
-    //         (speeds, feedforwards) -> drive(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
-    //         new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-    //                 new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-    //                 new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
-    //         );
+     //AutoBuilder.configure(
+       //      this::getPosition,
+         //    this::zeroHeading,
+           //  this::getModuleStates,
+             //(speeds, feedforwards) -> drive(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+             //new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
+               //      new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+                 //    new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+            // );
 
-    // );
+   //  );
 
   }
 
@@ -264,9 +264,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     // per the robotPoseEstimator recommendations.
 
     // If the AprilTag is wildly different from the Swerve Pose, don't update.
-    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
+    //if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
       swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
-    }
+    //}
   }
 
   public boolean setPrecisionMode(boolean precisionMode) {
