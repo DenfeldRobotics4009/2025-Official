@@ -9,15 +9,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Test auto path"
+                  "name": "Elevator L2"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Elevator L2"
+                  "name": "Toggle funnel"
                 }
               }
             ]
@@ -57,6 +57,30 @@
           "type": "named",
           "data": {
             "name": "Elevator ZERO"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral outtake"
           }
         }
       ]
