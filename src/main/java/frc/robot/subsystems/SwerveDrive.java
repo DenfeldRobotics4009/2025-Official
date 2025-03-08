@@ -139,6 +139,21 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
 
   @Override
   public void periodic() {
+    Pose2d currentPose = getPose();
+
+    if(targetPose == null){
+      return;
+    }
+
+    ChassisSpeeds speeds = holonomicController.calculate(currentPose, targetPose, 0.25, targetPose.getRotation()); // TODO: change desired linear velocity
+    SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
+    setModuleStates(moduleStates);
+    atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
+
+    if(atTarget){
+      stopModules();
+      targetPose = null;
+    }
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
       swerveDrivePoseEstimator.update(m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
@@ -230,6 +245,16 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+  }
+
+    /**
+   * Stops the swerve modules.
+   */
+  public void stopModules() {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
   }
 
   /**
