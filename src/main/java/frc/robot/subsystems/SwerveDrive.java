@@ -12,6 +12,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.events.EventTrigger;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
@@ -30,9 +31,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.CoralIntakeCommand;
+import frc.robot.commands.CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   //creates inverse kinematics
@@ -139,6 +143,11 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       ElevatorSubsystem.getInstance(),
       ElevatorSubsystem.ElevatorSetpoint.ZERO,
       ElevatorSubsystem.WristAngle.MOVING));
+      NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
+      NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
+      NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
+     // new EventTrigger("Coral wait").and(new Trigger(CoralManipulatorSubsystem::getCoralManipulatorSensor()));
+
 
   }
   
