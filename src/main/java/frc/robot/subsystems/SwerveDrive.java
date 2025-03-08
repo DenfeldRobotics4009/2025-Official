@@ -13,6 +13,9 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -44,6 +47,32 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     }
     return instance;
     }
+
+  // PID controllers for auto align
+  private final PIDController xController = new PIDController(1.0, 0, 0); // TODO: tune PID
+  private final PIDController yController = new PIDController(1.0, 0, 0);
+  private final ProfiledPIDController thetaController = new ProfiledPIDController(1.0, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
+
+  private final HolonomicDriveController holonomicController = 
+  new HolonomicDriveController(xController, yController, thetaController);
+
+  private Pose2d currentPose = getPosition();
+  private Pose2d targetPose;
+  private boolean atTarget = false;
+  
+  public void driveToPosition(Pose2d target) {
+    targetPose = target;
+    atTarget = false;
+  }
+
+  public boolean atTargetPosition() {
+    return atTarget;
+  }
+  
+  private Pose2d getPose() {
+    return currentPose;
+  }
+
   // Create MAXSwerveModules
  
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
