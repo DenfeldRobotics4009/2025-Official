@@ -8,6 +8,7 @@ import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -29,6 +30,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.ToggleFunnelCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
@@ -121,6 +124,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       e.printStackTrace();
     }
 
+    NamedCommands.registerCommand("Elevator L2", new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(), ElevatorSubsystem.ElevatorSetpoint.P2, ElevatorSubsystem.WristAngle.DOWN));
   }
 private ChassisSpeeds getRobotRelativeSpeeds(){
   return DriveConstants.kDriveKinematics.toChassisSpeeds(
