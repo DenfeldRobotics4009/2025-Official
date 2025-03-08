@@ -146,11 +146,11 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
       NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
       NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
-     // new EventTrigger("Coral wait").and(new Trigger(CoralManipulatorSubsystem::getCoralManipulatorSensor()));
+    
 
-
+    
   }
-  
+ 
 private ChassisSpeeds getRobotRelativeSpeeds(){
   return DriveConstants.kDriveKinematics.toChassisSpeeds(
   m_frontLeft.getState(),
