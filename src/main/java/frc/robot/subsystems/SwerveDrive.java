@@ -123,9 +123,25 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    NamedCommands.registerCommand("Elevator L4", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSubsystem.ElevatorSetpoint.P4,
+      ElevatorSubsystem.WristAngle.UP));
+      NamedCommands.registerCommand("Elevator L3", new SetElevatorTargetCommand(
+        ElevatorSubsystem.getInstance(),
+        ElevatorSubsystem.ElevatorSetpoint.P3,
+        ElevatorSubsystem.WristAngle.MOVING));
+    NamedCommands.registerCommand("Elevator L2", new SetElevatorTargetCommand(
+    ElevatorSubsystem.getInstance(),
+    ElevatorSubsystem.ElevatorSetpoint.P2,
+    ElevatorSubsystem.WristAngle.MOVING));
+    NamedCommands.registerCommand("Elevator ZERO", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSubsystem.ElevatorSetpoint.ZERO,
+      ElevatorSubsystem.WristAngle.MOVING));
 
-    NamedCommands.registerCommand("Elevator L2", new SetElevatorTargetCommand(ElevatorSubsystem.getInstance(), ElevatorSubsystem.ElevatorSetpoint.P2, ElevatorSubsystem.WristAngle.DOWN));
   }
+  
 private ChassisSpeeds getRobotRelativeSpeeds(){
   return DriveConstants.kDriveKinematics.toChassisSpeeds(
   m_frontLeft.getState(),

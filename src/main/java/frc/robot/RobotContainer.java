@@ -272,7 +272,7 @@ public class RobotContainer {
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
       //  return m_shuffleboard.getSelectedAuto();
     
-        return new PathPlannerAuto("Example Auto");
+        return new PathPlannerAuto("Test auto");
       }
     }
 
