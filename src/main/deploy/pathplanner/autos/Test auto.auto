@@ -5,9 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Test auto path"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Test auto path"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator L2"
+                }
+              }
+            ]
           }
         }
       ]
