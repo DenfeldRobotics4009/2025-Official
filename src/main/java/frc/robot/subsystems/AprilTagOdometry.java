@@ -66,7 +66,6 @@ public class AprilTagOdometry extends SubsystemBase{
             );
             System.out.println(positionSample.get().estimatedPose.toPose2d());
         }
-        System.out.println(frontCam.isConnected());
     }
     
     
