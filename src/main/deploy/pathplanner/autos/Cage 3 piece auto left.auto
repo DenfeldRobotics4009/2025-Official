@@ -5,34 +5,34 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "proceser 3 piece auto path 1"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Elevator L4"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Toggle funnel"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Auto 2 path 1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Elevator L4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Toggle funnel"
+                      }
+                    }
+                  ]
+                }
+              },
               {
                 "type": "wait",
                 "data": {
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "proceser 3 piece auto path 2"
+                  "pathName": "auto 2 path 2"
                 }
               },
               {
@@ -93,28 +93,28 @@
           }
         },
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "proceser 3 piece auto path 3"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Elevator L4"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Auto 2 path 3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Elevator L4"
+                      }
+                    }
+                  ]
+                }
+              },
               {
                 "type": "wait",
                 "data": {
@@ -143,7 +143,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "proceser 3 piece auto path 4"
+                  "pathName": "Auto 2 path 4"
                 }
               },
               {
@@ -175,28 +175,28 @@
           }
         },
         {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "proceser 3 piece auto path 5"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Elevator L4"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "sequential",
           "data": {
             "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Auto 2 path 5"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Elevator L4"
+                      }
+                    }
+                  ]
+                }
+              },
               {
                 "type": "wait",
                 "data": {
