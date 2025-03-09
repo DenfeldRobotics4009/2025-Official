@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.04075,
-        "y": 2.815999999999999
+        "x": 4.9263157894736835,
+        "y": 2.7453125
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.90774075237084,
-        "y": 0.7247576380782852
+        "x": 5.793306541844523,
+        "y": 0.6540701380782861
       },
       "isLocked": false,
       "linkedName": "End Path Start"
     },
     {
       "anchor": {
-        "x": 1.3951480263157894,
-        "y": 1.0326480263157896
+        "x": 1.4625,
+        "y": 0.5900493421052636
       },
       "prevControl": {
-        "x": 2.4631578947368418,
-        "y": 2.8030427631578947
+        "x": 2.5305098684210536,
+        "y": 2.3604440789473675
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,8 +38,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 4.8,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
@@ -47,7 +47,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 55.71312302279104
+    "rotation": 52.88313931672978
   },
   "reversed": false,
   "folder": "Processer 3 piece auto paths",

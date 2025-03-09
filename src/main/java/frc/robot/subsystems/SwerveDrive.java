@@ -106,8 +106,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
       (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
       new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0) // Rotation PID constants
+              new PIDConstants(3.5, 0.0, 1.75), // Translation PID constants
+              new PIDConstants(3, 0.0, 0.5) // Rotation PID constants
       ),
       config, // The robot configuration
       () -> {
@@ -142,7 +142,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     NamedCommands.registerCommand("Elevator ZERO", new SetElevatorTargetCommand(
       ElevatorSubsystem.getInstance(),
       ElevatorSubsystem.ElevatorSetpoint.ZERO,
-      ElevatorSubsystem.WristAngle.MOVING));
+      ElevatorSubsystem.WristAngle.DOWN));
       NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
       NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
       NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));

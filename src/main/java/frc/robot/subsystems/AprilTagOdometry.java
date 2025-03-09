@@ -64,7 +64,7 @@ public class AprilTagOdometry extends SubsystemBase{
             SwerveDrive.getInstance().addVisionMeasurement(
                 positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
             );
-            System.out.println(positionSample.get().estimatedPose.toPose2d());
+            // System.out.println(positionSample.get().estimatedPose.toPose2d());
         }
     }
     
