@@ -119,9 +119,7 @@ public class AprilTagOdometry extends SubsystemBase{
             );
             System.out.println(positionSample.get().estimatedPose.toPose2d());
         }
-    }
-    
-    
+    } 
 }
 
 //WHY DOES THIS NOT WORKKKKKKKKKKKKKKKKKKKKKK -Tanner
