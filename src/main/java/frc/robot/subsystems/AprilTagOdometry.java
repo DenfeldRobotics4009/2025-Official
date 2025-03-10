@@ -21,6 +21,7 @@ import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -59,14 +60,17 @@ public class AprilTagOdometry extends SubsystemBase{
         return photonFrontPoseEstimator.update(result.get(0));
     }
     public Optional<Pose3d> getTargetPose(PhotonTrackedTarget target) {
-        int fiducialId = target.getFiducialId();
-        Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
-        // Ensure the existence of this tag id, print warning
-        if (tagPose.isEmpty()) {
-            DriverStation.reportWarning("Fiducial id " + fiducialId + " not recognized", false);
+        if (target != null) {
+            int fiducialId = target.getFiducialId();
+            Optional<Pose3d> tagPose = aprilTagFieldLayout.getTagPose(fiducialId);
+            // Ensure the existence of this tag id, print warning
+                if (tagPose.isEmpty()) {
+                    DriverStation.reportWarning("Fiducial id " + fiducialId + " not recognized", false);
+                }
+            // Return with optional null value
+            return tagPose;
         }
-        // Return with optional null value
-        return tagPose;
+        return null;
     }
     
     // Gets distance from robot to apriltag
@@ -82,8 +86,13 @@ public class AprilTagOdometry extends SubsystemBase{
     // Gets ID of the nearest AprilTag
     public PhotonTrackedTarget bestTarget() {
         PhotonPipelineResult result = frontCam.getLatestResult();
-        PhotonTrackedTarget targetID = result.getBestTarget();
-        return targetID;
+
+        if (result.hasTargets()) {
+            PhotonTrackedTarget targetID = result.getBestTarget();
+            SmartDashboard.putNumber("Target ID", targetID.getFiducialId());
+            return targetID;
+        }
+        return null;
     }
 
     // Convert an <Optional>Pose3d to a Pose2d

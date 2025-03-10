@@ -58,14 +58,13 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     }
 
   // PID controllers for auto align
-  private final PIDController xController = new PIDController(1.0, 0, 0); // TODO: tune PID
-  private final PIDController yController = new PIDController(1.0, 0, 0);
-  private final ProfiledPIDController thetaController = new ProfiledPIDController(1.0, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
+  private final PIDController xController = new PIDController(4, 0, 0.5); // TODO: tune PID
+  private final PIDController yController = new PIDController(4, 0, 0.5);
+  private final ProfiledPIDController thetaController = new ProfiledPIDController(3, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
 
   private final HolonomicDriveController holonomicController = 
   new HolonomicDriveController(xController, yController, thetaController);
 
-  private Pose2d currentPose = getPosition();
   private Pose2d targetPose;
   private boolean atTarget = false;
   
@@ -79,7 +78,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   }
   
   private Pose2d getPose() {
-    return currentPose;
+    return getPosition();
   }
 
   // Create MAXSwerveModules
@@ -198,21 +197,23 @@ m_rearRight.setDesiredState(swerveModuleStates[3]);
 }
   @Override
   public void periodic() {
-    Pose2d currentPose = getPose();
 
     if(targetPose == null){
       return;
     }
 
-    ChassisSpeeds speeds = holonomicController.calculate(currentPose, targetPose, 0.25, targetPose.getRotation()); // TODO: change desired linear velocity
-    SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
-    setModuleStates(moduleStates);
-    atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
-
     if(atTarget){
       stopModules();
       targetPose = null;
     }
+
+    if (getPose() != null && targetPose != null) {
+      ChassisSpeeds speeds = holonomicController.calculate(getPose(), targetPose, 0.25, targetPose.getRotation()); // TODO: change desired linear velocity
+      SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
+      setModuleStates(moduleStates);
+      atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
+    }
+
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
       swerveDrivePoseEstimator.update(m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
@@ -234,7 +235,9 @@ m_rearRight.setDesiredState(swerveModuleStates[3]);
    * @return The pose.
    */
   public Pose2d getPosition() {
-    return swerveDrivePoseEstimator.getEstimatedPosition();
+    var x = swerveDrivePoseEstimator.getEstimatedPosition();
+    // SmartDashboard.putData("Current pose", x);
+    return x;
   }
 
   /**
