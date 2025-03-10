@@ -19,7 +19,8 @@ import frc.robot.subsystems.Controls;
 public class ChaseAprilTagCommand extends Command{
     private AprilTagOdometry camera;
     private SwerveDrive swerveDrive;
-    private double targetX, targetY;
+    private double targetX;
+    private double targetY;
 
         public ChaseAprilTagCommand(SwerveDrive swerveDrive, AprilTagOdometry camera, double offsetX, double offsetY) {
             this.swerveDrive = swerveDrive;
@@ -39,18 +40,19 @@ public class ChaseAprilTagCommand extends Command{
         Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
 
         if (targetAprilTagPose3d != null) {
-            Pose2d targetAprilTagPose2d = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
+            Pose2d tagPose = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
 
             // Calculate target position relative to the tag
-            Translation2d targetTranslation = targetAprilTagPose2d.getTranslation().plus(new Translation2d(targetX, targetY));
+            Translation2d targetTranslation = new Translation2d(targetX, targetY).rotateBy(tagPose.getRotation());
+            Pose2d targetPose = new Pose2d(tagPose.getTranslation().plus(targetTranslation), Rotation2d.fromDegrees(180));
 
             // Move robot to the calculated position
-            swerveDrive.driveToPosition(new Pose2d(targetTranslation, targetAprilTagPose2d.getRotation().minus(Rotation2d.fromDegrees(180))));
+            swerveDrive.driveToPosition(targetPose);
         }
     }
     @Override
     public boolean isFinished() {
-        return false;
+        return swerveDrive.atTargetPosition();
     }
     @Override
     public void execute() {
