@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.AprilTagOdometry;
@@ -36,12 +37,13 @@ public class ChaseAprilTagCommand extends Command{
     public void initialize() {
         // Get AprilTag Pose
         Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
-        Pose2d targetAprilTagPose2d = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
 
-        if (targetAprilTagPose2d != null) {
+        if (targetAprilTagPose3d != null) {
+            Pose2d targetAprilTagPose2d = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
+
             // Calculate target position relative to the tag
             Translation2d targetTranslation = targetAprilTagPose2d.getTranslation().plus(new Translation2d(targetX, targetY));
-            
+
             // Move robot to the calculated position
             swerveDrive.driveToPosition(new Pose2d(targetTranslation, targetAprilTagPose2d.getRotation().minus(Rotation2d.fromDegrees(180))));
         }
@@ -52,11 +54,5 @@ public class ChaseAprilTagCommand extends Command{
     }
     @Override
     public void execute() {
-        // // Gets pose of nearest AprilTag
-        // Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
-        // Pose2d targetAprilTagPose2d = targetAprilTagPose3d.toPose2d();
-
-        // // Set drive position to target (left or right)
-        // swerveDrive.setPosition(targetAprilTagPose2d);
     }
 }

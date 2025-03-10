@@ -31,6 +31,7 @@ import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
+import frc.robot.commands.ChaseAprilTagCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
@@ -259,6 +260,9 @@ public class RobotContainer {
         // elevator P4 - operator x
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP)); 
+
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
+        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0, 0));
         
         // manually zero wrist - operator right stick click
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
