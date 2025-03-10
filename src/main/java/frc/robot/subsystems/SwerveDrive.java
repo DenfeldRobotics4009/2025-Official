@@ -49,9 +49,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     }
 
   // PID controllers for auto align
-  private final PIDController xController = new PIDController(2.0, 0, 0); // TODO: tune PID
-  private final PIDController yController = new PIDController(2.0, 0, 0);
-  private final ProfiledPIDController thetaController = new ProfiledPIDController(1.0, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
+  private final PIDController xController = new PIDController(4, 0, 0.5); // TODO: tune PID
+  private final PIDController yController = new PIDController(4, 0, 0.5);
+  private final ProfiledPIDController thetaController = new ProfiledPIDController(3, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
 
   private final HolonomicDriveController holonomicController = 
   new HolonomicDriveController(xController, yController, thetaController);
@@ -139,13 +139,13 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   @Override
   public void periodic() {
 
+    if(targetPose == null){
+      return;
+    }
+
     if(atTarget){
       stopModules();
       targetPose = null;
-    }
-
-    if(targetPose == null){
-      return;
     }
 
     if (getPose() != null && targetPose != null) {

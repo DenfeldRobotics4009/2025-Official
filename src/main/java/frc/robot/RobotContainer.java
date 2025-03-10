@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
@@ -152,14 +153,14 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
-    // Locks robot movement - driver y
-    new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
+    // Locks robot movement - driver x
+    new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value)
         .whileTrue(new RunCommand(
             () -> m_robotDrive.setX(),
             m_robotDrive));
 
-        // Reset driver gryo - driver b
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
+        // Reset driver gryo - driver y
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
         .onTrue(new ResetSwerveOdometry());
     
         // Toggle algae manipulator - operator down dpad
@@ -187,9 +188,9 @@ public class RobotContainer {
             (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         );
         //Makes manipulator output coral - driver x
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value).whileTrue(
-            (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
-        );
+        // new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value).whileTrue(
+        //     (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
+        // );
 
         // Set precision mode - driver right bumper and left bumper
         new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value).whileTrue(
@@ -261,8 +262,14 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP)); 
 
+
+        // Auto reef align left - driver a
         new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0, 0));
+        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.4619, Units.inchesToMeters(-7)));
+
+        // Auto reef align right - driver b
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
+        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.4619, Units.inchesToMeters(7)));
         
         // manually zero wrist - operator right stick click
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)

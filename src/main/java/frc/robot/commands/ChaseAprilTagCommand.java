@@ -44,7 +44,7 @@ public class ChaseAprilTagCommand extends Command{
 
             // Calculate target position relative to the tag
             Translation2d targetTranslation = new Translation2d(targetX, targetY).rotateBy(tagPose.getRotation());
-            Pose2d targetPose = new Pose2d(tagPose.getTranslation().plus(targetTranslation), Rotation2d.fromDegrees(180));
+            Pose2d targetPose = new Pose2d(tagPose.getTranslation().plus(targetTranslation), tagPose.getRotation().minus(Rotation2d.fromDegrees(180)));
 
             // Move robot to the calculated position
             swerveDrive.driveToPosition(targetPose);
