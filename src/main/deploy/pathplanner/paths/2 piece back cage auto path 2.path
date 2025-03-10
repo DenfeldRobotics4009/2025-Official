@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.159,
-        "y": 4.181
+        "x": 3.271381578947368,
+        "y": 4.2944078947368425
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9866148418832483,
-        "y": 4.408180954395446
+        "x": 3.009098012632779,
+        "y": 4.730052985530369
       },
       "isLocked": false,
       "linkedName": "2 piece back cage auto path 1"
     },
     {
       "anchor": {
-        "x": 1.6575,
-        "y": 7.3985
+        "x": 1.3374177631578945,
+        "y": 7.1328125
       },
       "prevControl": {
-        "x": 1.9498962802219264,
-        "y": 6.797615346012856
+        "x": 2.4920230263157883,
+        "y": 7.229029605263157
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.8,
-    "maxAcceleration": 10.7,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,

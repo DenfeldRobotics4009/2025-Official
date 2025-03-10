@@ -63,6 +63,8 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.FieldMirrorType;
@@ -242,7 +244,7 @@ public class RobotContainer {
 
         // elevator zero/P1 - operator A
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.MOVING)); //Zero is the same as L1
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); //Zero is the same as L1
 
         // elevator P2 - operator B
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)
@@ -268,6 +270,9 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        return m_shuffleboard.getSelectedAuto();
+      //  return m_shuffleboard.getSelectedAuto();
+    
+        return new PathPlannerAuto("Cage 3 piece auto left");
+      }
     }
-}
+

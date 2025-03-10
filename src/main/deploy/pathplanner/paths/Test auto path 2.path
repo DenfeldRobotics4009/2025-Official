@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.22475,
-        "y": 1.8
+        "x": 2.3,
+        "y": 6.806
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.157894736842105,
-        "y": 1.600328947368421
+        "x": 2.6166592604617303,
+        "y": 6.818398952357389
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.9263157894736835,
-        "y": 2.7453125
+        "x": 2.482,
+        "y": 6.806
       },
       "prevControl": {
-        "x": 5.225615131578946,
-        "y": 2.2993782894736854
+        "x": 2.2326267228254295,
+        "y": 6.788309080543545
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End Path Start"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1.0,
-      "rotationDegrees": 119.99999999999999
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.99999999999999
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Processer 3 piece auto paths",
+  "folder": "Test auto",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
