@@ -13,8 +13,10 @@ public class AutoResetOdometry extends Command {
 
     @Override
     public void initialize() {
-        double targetAprilTagYaw = AprilTagOdometry.getInstance().bestTarget().getYaw();
-        SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw - 180);
+        if (AprilTagOdometry.getInstance().bestTarget() != null) {
+            double targetAprilTagYaw = AprilTagOdometry.getInstance().bestTarget().getYaw();
+            SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw - 180);
+        }
     }
 
     @Override
