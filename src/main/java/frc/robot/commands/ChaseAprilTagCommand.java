@@ -39,7 +39,7 @@ public class ChaseAprilTagCommand extends Command{
         // Get AprilTag Pose
         Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
 
-        if (targetAprilTagPose3d != null) {
+        if (targetAprilTagPose3d.isPresent()) {
             Pose2d tagPose = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
 
             // Calculate target position relative to the tag

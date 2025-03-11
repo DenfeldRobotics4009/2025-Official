@@ -77,7 +77,7 @@ import frc.library.auto.pathing.field.GameField;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems
+    // The robot's subsystems
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
@@ -94,21 +94,20 @@ public class RobotContainer {
     GameField gameField = null;
     PurePursuitSettings config = null;
 
-        /**
-         * The container for the robot. Contains subsystems, OI devices, and commands.
-         */
-        public RobotContainer() {
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() {
            
-    
-            try {
-                m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                m_ElevatorSubsystem = null;
+        try {
+            m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            m_ElevatorSubsystem = null;
         }
         m_compressor.enableDigital();
-    // Configure the button bindings
+        // Configure the button bindings
         configureButtonBindings();
         
         // Configure default commands
@@ -121,13 +120,15 @@ public class RobotContainer {
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftX(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getRightX(), OIConstants.kDriveDeadband),
                     !m_controlsSubsystem.driveController.getLeftBumperButton()),
-                m_robotDrive));
+                m_robotDrive
+            )
+        );
 
         try {
-        gameField = new GameField(AprilTagFields.k2025ReefscapeAndyMark.loadAprilTagLayoutField(), FieldMirrorType.Rotated);
+            gameField = new GameField(AprilTagFields.k2025ReefscapeAndyMark.loadAprilTagLayoutField(), FieldMirrorType.Rotated);
         } catch (IOException e) {
-        // AprilTagFields file not found
-        e.printStackTrace();
+            // AprilTagFields file not found
+            e.printStackTrace();
         }
 
         this.config = new PurePursuitSettings(gameField, Alliance.Blue)
