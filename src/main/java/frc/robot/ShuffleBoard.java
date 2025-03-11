@@ -54,12 +54,12 @@ public class ShuffleBoard extends SubsystemBase {
 
   public SequentialCommandGroup getSelectedAuto() {
     return autoChooser.getSelected();
-}
+  }
 
 
   
-    @Override
-    public void periodic() {
+  @Override
+  public void periodic() {
     SmartDashboard.putBoolean("Coral Manipulator laser Tripped", m_coralManipulatorSubsystem.getCoralManipulatorSensor());
     SmartDashboard.putNumber("Manipulator Motor Encoder Value", m_coralManipulatorSubsystem.getManipulatorMotorEncoder());
     SmartDashboard.putNumber("Manipulator Motor Speed", m_coralManipulatorSubsystem.getCoralManipulatorMotorSpeed());
@@ -78,5 +78,4 @@ public class ShuffleBoard extends SubsystemBase {
     m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));
     
   }
-
 }

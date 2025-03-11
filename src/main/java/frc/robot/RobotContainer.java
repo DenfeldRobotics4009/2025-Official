@@ -87,7 +87,6 @@ public class RobotContainer {
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
-    
     private final AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
 
     // The driver's controller
@@ -99,18 +98,16 @@ public class RobotContainer {
         /**
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */
-        public RobotContainer() {
-           
-    
-            try {
-                m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                m_ElevatorSubsystem = null;
+    public RobotContainer() {
+        try {
+            m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            m_ElevatorSubsystem = null;
         }
         m_compressor.enableDigital();
-    // Configure the button bindings
+        // Configure the button bindings
         configureButtonBindings();
         
         // Configure default commands
@@ -123,7 +120,8 @@ public class RobotContainer {
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getLeftX(), OIConstants.kDriveDeadband),
                     -MathUtil.applyDeadband(m_controlsSubsystem.driveController.getRightX(), OIConstants.kDriveDeadband),
                     !m_controlsSubsystem.driveController.getLeftBumperButton()),
-                m_robotDrive));
+            m_robotDrive)
+        );
 
         try {
         gameField = new GameField(AprilTagFields.k2025ReefscapeAndyMark.loadAprilTagLayoutField(), FieldMirrorType.Rotated);
@@ -137,8 +135,8 @@ public class RobotContainer {
         .setDistanceToGoalTolerance(0.1)
         .setDefaultEndpointTolerance(0.1)
         .setMaxVelocityMeters(Constants.DriveConstants.kMaxSpeedMetersPerSecond);
-        
-        config.setTurningPID(1, 0, 0);
+            
+         config.setTurningPID(1, 0, 0);
 
         m_shuffleboard = new ShuffleBoard(config, gameField);
 
@@ -153,7 +151,7 @@ public class RobotContainer {
      * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling
      * passing it to a
      * {@link JoystickButton}.
-     */
+    */
     private void configureButtonBindings() {
     // Locks robot movement - driver x
     new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value)
@@ -284,6 +282,6 @@ public class RobotContainer {
       //  return m_shuffleboard.getSelectedAuto();
     
         return new PathPlannerAuto("Cage 3 piece auto left");
-      }
     }
+}
 

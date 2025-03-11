@@ -118,7 +118,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_frontRight.getPosition(),
     m_rearLeft.getPosition(),
     m_rearRight.getPosition()
-}, new Pose2d());
+  }, new Pose2d());
 
   /** Creates a new DriveSubsystem. */
   public SwerveDrive() {
@@ -150,7 +150,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
         return false;
       },
       this // Reference to this subsystem to set requirements
-);
+
+      );
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -184,22 +185,22 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
   }
  
-private ChassisSpeeds getRobotRelativeSpeeds(){
-  return DriveConstants.kDriveKinematics.toChassisSpeeds(
-  m_frontLeft.getState(),
-  m_frontRight.getState(),
-  m_rearLeft.getState(),
-  m_rearRight.getState());
-}
-private void driveRobotRelative(ChassisSpeeds speed){
-  var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(speed);
-SwerveDriveKinematics.desaturateWheelSpeeds(
-    swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
-m_frontLeft.setDesiredState(swerveModuleStates[0]);
-m_frontRight.setDesiredState(swerveModuleStates[1]);
-m_rearLeft.setDesiredState(swerveModuleStates[2]);
-m_rearRight.setDesiredState(swerveModuleStates[3]);
-}
+  private ChassisSpeeds getRobotRelativeSpeeds(){
+    return DriveConstants.kDriveKinematics.toChassisSpeeds(
+    m_frontLeft.getState(),
+    m_frontRight.getState(),
+    m_rearLeft.getState(),
+    m_rearRight.getState());
+  }
+  private void driveRobotRelative(ChassisSpeeds speed){
+    var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(speed);
+  SwerveDriveKinematics.desaturateWheelSpeeds(
+      swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+  m_frontLeft.setDesiredState(swerveModuleStates[0]);
+  m_frontRight.setDesiredState(swerveModuleStates[1]);
+  m_rearLeft.setDesiredState(swerveModuleStates[2]);
+  m_rearRight.setDesiredState(swerveModuleStates[3]);
+  }
   @Override
   public void periodic() {
 
@@ -222,17 +223,17 @@ m_rearRight.setDesiredState(swerveModuleStates[3]);
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
       swerveDrivePoseEstimator.update(m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
-        m_frontLeft.getPosition(),
-        m_frontRight.getPosition(),
-        m_rearLeft.getPosition(),
-        m_rearRight.getPosition()
-    }
-  );
+          m_frontLeft.getPosition(),
+          m_frontRight.getPosition(),
+          m_rearLeft.getPosition(),
+          m_rearRight.getPosition()
+        }
+      );
 
-        SmartDashboard.putNumber("Odometry X", getPosition().getX());
-    SmartDashboard.putNumber("Odometry Y", getPosition().getY());
-    //System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
-  };
+      SmartDashboard.putNumber("Odometry X", getPosition().getX());
+      SmartDashboard.putNumber("Odometry Y", getPosition().getY());
+      //System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
+    };
 
   /**
    * Returns the currently-estimated pose of the robot.
@@ -259,7 +260,7 @@ m_rearRight.setDesiredState(swerveModuleStates[3]);
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         },
-        pose);
+    pose);
   }
 
   // Returns ChassisSpeeds
@@ -290,10 +291,11 @@ m_rearRight.setDesiredState(swerveModuleStates[3]);
     double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
-        fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                Rotation2d.fromDegrees(-m_gyro.getAngle()))
-            : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
+       fieldRelative
+          ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
+            Rotation2d.fromDegrees(-m_gyro.getAngle()))
+            : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered)
+    );
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
