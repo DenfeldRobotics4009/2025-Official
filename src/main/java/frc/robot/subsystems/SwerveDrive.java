@@ -16,6 +16,9 @@ import com.pathplanner.lib.events.EventTrigger;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -52,7 +55,32 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       instance = new SwerveDrive();
     }
     return instance;
+    }
+
+  // PID controllers for auto align
+  private final PIDController xController = new PIDController(4, 0, 0.5); // TODO: tune PID
+  private final PIDController yController = new PIDController(4, 0, 0.5);
+  private final ProfiledPIDController thetaController = new ProfiledPIDController(3, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
+
+  private final HolonomicDriveController holonomicController = 
+  new HolonomicDriveController(xController, yController, thetaController);
+
+  private Pose2d targetPose;
+  private boolean atTarget = false;
+  
+  public void driveToPosition(Pose2d target) {
+    targetPose = target;
+    atTarget = false;
   }
+
+  public boolean atTargetPosition() {
+    return atTarget;
+  }
+  
+  private Pose2d getPose() {
+    return getPosition();
+  }
+
   // Create MAXSwerveModules
  
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
@@ -131,22 +159,30 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     NamedCommands.registerCommand("Elevator L4", new SetElevatorTargetCommand(
       ElevatorSubsystem.getInstance(),
       ElevatorSubsystem.ElevatorSetpoint.P4,
-      ElevatorSubsystem.WristAngle.UP));
+      ElevatorSubsystem.WristAngle.UP)
+    );
+
     NamedCommands.registerCommand("Elevator L3", new SetElevatorTargetCommand(
       ElevatorSubsystem.getInstance(),
       ElevatorSubsystem.ElevatorSetpoint.P3,
-      ElevatorSubsystem.WristAngle.MOVING));
+      ElevatorSubsystem.WristAngle.MOVING)
+    );
+
     NamedCommands.registerCommand("Elevator L2", new SetElevatorTargetCommand(
       ElevatorSubsystem.getInstance(),
       ElevatorSubsystem.ElevatorSetpoint.P2,
-      ElevatorSubsystem.WristAngle.MOVING));
+      ElevatorSubsystem.WristAngle.MOVING)
+    );
+
     NamedCommands.registerCommand("Elevator ZERO", new SetElevatorTargetCommand(
       ElevatorSubsystem.getInstance(),
       ElevatorSubsystem.ElevatorSetpoint.ZERO,
-      ElevatorSubsystem.WristAngle.DOWN));
+      ElevatorSubsystem.WristAngle.DOWN)
+    );
+
     NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
-    NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance())); 
+    NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
   }
  
   private ChassisSpeeds getRobotRelativeSpeeds(){
@@ -167,6 +203,23 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
   }
   @Override
   public void periodic() {
+
+    if(targetPose == null){
+      return;
+    }
+
+    if(atTarget){
+      stopModules();
+      targetPose = null;
+    }
+
+    if (getPose() != null && targetPose != null) {
+      ChassisSpeeds speeds = holonomicController.calculate(getPose(), targetPose, 0.25, targetPose.getRotation()); // TODO: change desired linear velocity
+      SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
+      setModuleStates(moduleStates);
+      atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
+    }
+
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
       swerveDrivePoseEstimator.update(m_gyro.getRotation2d(), new SwerveModulePosition[]{ 
@@ -188,7 +241,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @return The pose.
    */
   public Pose2d getPosition() {
-    return swerveDrivePoseEstimator.getEstimatedPosition();
+    var x = swerveDrivePoseEstimator.getEstimatedPosition();
+    // SmartDashboard.putData("Current pose", x);
+    return x;
   }
 
   /**
@@ -259,6 +314,16 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+  }
+
+    /**
+   * Stops the swerve modules.
+   */
+  public void stopModules() {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
   }
 
   /**

@@ -16,6 +16,8 @@ import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutoResetOdometry;
+import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.subsystems.SwerveDrive;
 
 /**
@@ -99,6 +101,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    new ResetSwerveOdometry();
+    new AutoResetOdometry();
   }
 
   /** This function is called periodically during autonomous. */

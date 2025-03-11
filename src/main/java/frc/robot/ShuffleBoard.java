@@ -2,6 +2,7 @@ package frc.robot;
 
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -22,6 +23,7 @@ import frc.robot.autos.OnePieceCageAuto;
 import frc.robot.autos.OnePieceCageAutoRed;
 import frc.robot.autos.OnePieceSideAuto;
 import frc.robot.commands.Autos;
+import frc.robot.subsystems.AprilTagOdometry;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
 
@@ -29,6 +31,7 @@ import frc.robot.subsystems.SwerveDrive;
 public class ShuffleBoard extends SubsystemBase {
   public CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
   public SwerveDrive m_swerveDrive = SwerveDrive.getInstance();
+  public AprilTagOdometry m_AprilTagOdometry = AprilTagOdometry.getInstance();
   public FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
   public ElevatorSubsystem m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
   public Field2d m_field = new Field2d();
@@ -46,7 +49,7 @@ public class ShuffleBoard extends SubsystemBase {
     autoChooser.addOption("One Piece Auto", new OnePieceAuto());
     autoChooser.addOption("One Piece Auto Side", new OnePieceSideAuto());
     SmartDashboard.putData("Autonomous", autoChooser);
-    SmartDashboard.putData("Field", m_field);
+    // SmartDashboard.putData("Field", m_field);
   }
 
   public SequentialCommandGroup getSelectedAuto() {
@@ -70,10 +73,9 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
     
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
-
-    m_field.setRobotPose(m_swerveDrive.getPosition()
-      .getX(),m_swerveDrive.getPosition()
-      .getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading())
-    );
+    
+    SmartDashboard.putData("Field", m_field);
+    m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));
+    
   }
 }
