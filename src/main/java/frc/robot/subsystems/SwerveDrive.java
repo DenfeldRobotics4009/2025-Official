@@ -162,13 +162,13 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
         m_frontRight.getPosition(),
         m_rearLeft.getPosition(),
         m_rearRight.getPosition()
-    }
-  );
+      }
+    );
 
-        SmartDashboard.putNumber("Odometry X", getPosition().getX());
+    SmartDashboard.putNumber("Odometry X", getPosition().getX());
     SmartDashboard.putNumber("Odometry Y", getPosition().getY());
     //System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
-  };
+  }
 
   /**
    * Returns the currently-estimated pose of the robot.

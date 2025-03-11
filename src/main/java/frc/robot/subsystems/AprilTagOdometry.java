@@ -32,17 +32,25 @@ public class AprilTagOdometry extends SubsystemBase{
     //creates a singleton for the AprilTagOdometry subsystem
     private static AprilTagOdometry instance;
 
+    /**
+     * Gets the instance of the AprilTagOdometry subsystem.
+     * @return The AprilTagOdometry instance.
+     */
     public static  AprilTagOdometry getInstance() {
         if (instance == null) {
           instance = new AprilTagOdometry();
         }
+
         return instance;
-        }
-        //creates the variables for our objects
+    }
+
+    /**
+     * PhotonCamera on the front of the robot.
+     */
     public PhotonCamera frontCam = new PhotonCamera("BackCam");
     // public PhotonCamera backCam = new PhotonCamera("BackCam");
     Transform3d robotToFrontCam = new Transform3d(new Translation3d(0.26035, 0.250825, 0.22225), new Rotation3d(0,0,0)); //Cam mounted facing forward, half a meter forward of center, half a meter up from center.
-    AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
+    public AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
 
     // Construct PhotonPoseEstimator MULTI_TAG_PNP_ON_COPROCESSOR or CLOSEST_TO_REFERENCE_POSE
     PhotonPoseEstimator photonFrontPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToFrontCam);// private final Controls m_controlsSubsystem = new Controls();
@@ -51,6 +59,11 @@ public class AprilTagOdometry extends SubsystemBase{
         PortForwarder.add(5800, "photon4009.local", 5800);
     }
 
+    /**
+     * 
+     * @param prevEstimatedRobotPose
+     * @return
+     */
     public Optional<EstimatedRobotPose> getFrontEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
         photonFrontPoseEstimator.setReferencePose(prevEstimatedRobotPose);
         List<PhotonPipelineResult> result = frontCam.getAllUnreadResults();
@@ -59,6 +72,12 @@ public class AprilTagOdometry extends SubsystemBase{
         }
         return photonFrontPoseEstimator.update(result.get(0));
     }
+
+    /**
+     * 
+     * @param target
+     * @return
+     */
     public Optional<Pose3d> getTargetPose(PhotonTrackedTarget target) {
         if (target != null) {
             int fiducialId = target.getFiducialId();
@@ -73,17 +92,25 @@ public class AprilTagOdometry extends SubsystemBase{
         return null;
     }
     
-    // Gets distance from robot to apriltag
+    /**
+     * Gets distance from robot to apriltag
+     * @param target April tag target.
+     * @return distance in meters to target.
+     */
     public double getDistanceToTarget(PhotonTrackedTarget target) {
         Optional<Pose3d> tagPose = getTargetPose(target);
         // Ensure the existence of this tag id
-        if (tagPose.isEmpty()) {return -1;}
+        if (tagPose.isEmpty()) {
+            return -1;
+        }
 
         Transform3d cameraToTarget = target.getBestCameraToTarget();
         return Math.hypot(cameraToTarget.getX(), cameraToTarget.getY());
     }
 
-    // Gets ID of the nearest AprilTag
+    /**
+     * @return The ID of the nearest AprilTag.
+     */
     public PhotonTrackedTarget bestTarget() {
         PhotonPipelineResult result = frontCam.getLatestResult();
 
@@ -95,7 +122,11 @@ public class AprilTagOdometry extends SubsystemBase{
         return null;
     }
 
-    // Convert an <Optional>Pose3d to a Pose2d
+    /**
+     * Convert an <Optional>Pose3d to a Pose2d.
+     * @param optionalPose3d <Optional>Pose3d to convert.
+     * @return A new Pose2d.
+     */
     public static Pose2d convertToPose2d(Optional<Pose3d> optionalPose3d) {
         if (optionalPose3d.isEmpty()) {
             return new Pose2d();
