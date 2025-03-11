@@ -22,19 +22,27 @@ public class AlgaeManipulatorSubsystem extends SubsystemBase{
           instance = new AlgaeManipulatorSubsystem();
         }
         return instance;
-        }
-
+    }
+    /**
+     * Creates an algae manipulator subsystem.
+     */
     public AlgaeManipulatorSubsystem(){
-        this.algaeManipulatorMotor = new SparkMax(Constants.AlgaeManipulatorConstants.algaeManipulatorMotorID, MotorType.kBrushless);
-        this.algaePiston = new DoubleSolenoid(Constants.AlgaeManipulatorConstants.AlgaeManipulatorModule,
-        PneumaticsModuleType.REVPH,
-        Constants.AlgaeManipulatorConstants.AlgaeManipulatorForwardChannel,
-        Constants.AlgaeManipulatorConstants.AlgaeManipulatorReverseChannel); //TODO: Find out what to put for channels and module type
+        this.algaeManipulatorMotor = new SparkMax(
+            Constants.AlgaeManipulatorConstants.algaeManipulatorMotorID, 
+            MotorType.kBrushless
+        );
+        this.algaePiston = new DoubleSolenoid(
+            Constants.AlgaeManipulatorConstants.AlgaeManipulatorModule,
+            PneumaticsModuleType.REVPH,
+            Constants.AlgaeManipulatorConstants.AlgaeManipulatorForwardChannel,
+            Constants.AlgaeManipulatorConstants.AlgaeManipulatorReverseChannel
+        );
     }
 
     public void setAlgaeManipulatorSpeed(double speed){
         algaeManipulatorMotor.set(speed);
     }
+
     public void setAlgaePiston(boolean pistonOn){
         if(pistonOn){
             algaePiston.set(DoubleSolenoid.Value.kForward);
@@ -44,6 +52,7 @@ public class AlgaeManipulatorSubsystem extends SubsystemBase{
         }
         this.setPiston = pistonOn;
     }
+    
     public boolean isPistonDeployed(){
         return setPiston;
     }
