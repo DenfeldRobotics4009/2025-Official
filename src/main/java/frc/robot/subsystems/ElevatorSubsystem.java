@@ -18,7 +18,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     //Positive value is up
     private SparkMax shaftMotor;
     private SparkMax wristMotor;
-
     private DigitalInput bottomLimitSwitch;
     private Encoder elevatorEncoder;
 
@@ -34,12 +33,12 @@ public class ElevatorSubsystem extends SubsystemBase {
      * @return the instance
           * @throws Exception If our motors are not configured, fail creating instance
           */
-         public static  ElevatorSubsystem getInstance() {
+    public static  ElevatorSubsystem getInstance() {
       if (instance == null) {
         instance = new ElevatorSubsystem();
       }
       return instance;
-      }
+    }
 
     public double getElevatorRelativeEncoderValue(){
         return elevatorEncoder.getDistance();
@@ -65,7 +64,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         
         //plugged into DIO 9 on roborio
         bottomLimitSwitch = new DigitalInput(Constants.ElevatorSubsystemConstants.ElevatorLimitSwitchPort);
-        
+
         shaftMotor = new SparkMax(Constants.ElevatorSubsystemConstants.ElevatormotorID, MotorType.kBrushless);
         wristMotor = new SparkMax(Constants.ElevatorSubsystemConstants.wristMotorID, MotorType.kBrushless); 
         
@@ -120,7 +119,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public ElevatorSetpoint elevatorTarget;
-
     public ElevatorSetpoint getElevatorTarget(){
         return elevatorTarget;
     }
