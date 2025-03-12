@@ -32,6 +32,7 @@ import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
+import frc.robot.commands.AutoResetOdometry;
 import frc.robot.commands.ChaseAprilTagCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
@@ -161,7 +162,7 @@ public class RobotContainer {
 
         // Reset driver gryo - driver y
         new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
-        .onTrue(new ResetSwerveOdometry());
+        .onTrue(new AutoResetOdometry());
     
         // Toggle algae manipulator - operator down dpad
         m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(

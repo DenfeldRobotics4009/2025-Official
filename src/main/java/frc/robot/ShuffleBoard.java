@@ -77,7 +77,8 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putData("Field", m_field);
     m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));
 
-    SmartDashboard.putNumber("Detected AprilTag Yaw", AprilTagOdometry.getInstance().bestTarget().getYaw());
-    
+    if (m_AprilTagOdometry.bestTarget() != null) {
+      SmartDashboard.putNumber("Detected AprilTag Yaw", AprilTagOdometry.getInstance().bestTarget().getYaw());
+    }
   }
 }

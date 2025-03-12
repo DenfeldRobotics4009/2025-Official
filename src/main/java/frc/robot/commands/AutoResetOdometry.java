@@ -17,17 +17,18 @@ public class AutoResetOdometry extends Command {
     public void initialize() {
         if (AprilTagOdometry.getInstance().bestTarget() != null) {
             double targetAprilTagYaw = AprilTagOdometry.getInstance().bestTarget().getYaw();
-            if (DriverStation.Alliance.valueOf(getName()).equals(DriverStation.Alliance.Blue)) {
-                SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw - 180);
-            } else {
-                SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw);
-            }
+            // if (DriverStation.Alliance.valueOf(getName()).equals(DriverStation.Alliance.Blue)) {
+            //     SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw - 180);
+            // } else {
+            //     SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw);
+            // }
+            SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
     
 }
