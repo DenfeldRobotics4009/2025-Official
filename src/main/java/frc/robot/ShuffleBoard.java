@@ -3,6 +3,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -79,6 +80,7 @@ public class ShuffleBoard extends SubsystemBase {
 
     if (m_AprilTagOdometry.bestTarget() != null) {
       SmartDashboard.putNumber("Detected AprilTag Yaw", AprilTagOdometry.getInstance().bestTarget().getYaw());
+      SmartDashboard.putData("Alliance", (Sendable) -> DriverStation.getAlliance());
     }
   }
 }
