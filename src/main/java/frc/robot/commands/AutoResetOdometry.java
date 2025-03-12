@@ -33,7 +33,7 @@ public class AutoResetOdometry extends Command {
             // else {
             //     SwerveDrive.getInstance().m_gyro.setAngleAdjustment(0);
             // }
-            SwerveDrive.getInstance().m_gyro.setAngleAdjustment(0);
+            SwerveDrive.getInstance().m_gyro.setAngleAdjustment(targetAprilTagYaw);
         }
     }
 
