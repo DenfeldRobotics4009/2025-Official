@@ -163,8 +163,7 @@ public class RobotContainer {
         // Reset driver gryo - driver y
         if (m_AprilTagOdometry.bestTarget() != null) {
         new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
-        .onTrue(new AutoResetOdometry());
-        }
+        .onTrue(new ResetSwerveOdometry());
     
         // Toggle algae manipulator - operator down dpad
         m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(
