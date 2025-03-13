@@ -117,8 +117,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    new ResetSwerveOdometry();
-    new AutoResetOdometry();
+    // new ResetSwerveOdometry();
+    // new AutoResetOdometry();
   }
 
   /** This function is called periodically during operator control. */
