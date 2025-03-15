@@ -37,22 +37,23 @@ public class ChaseAprilTagCommand extends Command{
     @Override
     public void initialize() {
         // Get AprilTag Pose
-        Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
+        // Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
 
-        if (targetAprilTagPose3d != null) {
-            Pose2d tagPose = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
+        // if (targetAprilTagPose3d != null) {
+        //     Pose2d tagPose = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
 
-            // Calculate target position relative to the tag
-            Translation2d targetTranslation = new Translation2d(targetX, targetY).rotateBy(tagPose.getRotation());
-            Pose2d targetPose = new Pose2d(tagPose.getTranslation().plus(targetTranslation), tagPose.getRotation().minus(Rotation2d.fromDegrees(180)));
+        //     // Calculate target position relative to the tag
+        //     Translation2d targetTranslation = new Translation2d(targetX, targetY).rotateBy(tagPose.getRotation());
+        //     Pose2d targetPose = new Pose2d(tagPose.getTranslation().plus(targetTranslation), tagPose.getRotation().minus(Rotation2d.fromDegrees(180)));
 
-            // Move robot to the calculated position
-            swerveDrive.driveToPosition(targetPose);
-        }
+        //     // Move robot to the calculated position
+        //     swerveDrive.driveToPosition(targetPose);
+        // }
     }
     @Override
     public boolean isFinished() {
-        return swerveDrive.atTargetPosition();
+        // return swerveDrive.atTargetPosition();
+        return false;
     }
     @Override
     public void execute() {

@@ -102,7 +102,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.schedule();
     }
   
-    new AutoResetOdometry();
+    // new AutoResetOdometry();
   }
 
   /** This function is called periodically during autonomous. */

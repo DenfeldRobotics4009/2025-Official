@@ -73,6 +73,8 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
     
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
+    SmartDashboard.putNumber("Odometry X", m_swerveDrive.getPosition().getX());
+    SmartDashboard.putNumber("Odometry Y", m_swerveDrive.getPosition().getY());
     
     SmartDashboard.putData("Field", m_field);
     m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));

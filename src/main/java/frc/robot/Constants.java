@@ -193,7 +193,7 @@ public final class Constants {
     public static final double wristUp = 0.455;
     public static final double topWristAlgae = 0.316; //TODO: tune this value
     public static final double bottomWristAlgae = 0.316; //TODO: tune this value
-    public static final double wristDown = 0.082;
+    public static final double wristDown = 0.078;
     public static final double wristMoving = 0.137;
     //"fake" zero: 0.122
 
