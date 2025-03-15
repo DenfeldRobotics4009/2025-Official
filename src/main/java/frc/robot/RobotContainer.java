@@ -64,6 +64,8 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.FieldMirrorType;
@@ -272,6 +274,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
-        return m_shuffleboard.getSelectedAuto();
+        return new PathPlannerAuto("getAutonomousCommand()");
     }
 }
