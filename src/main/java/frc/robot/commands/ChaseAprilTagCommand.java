@@ -24,8 +24,8 @@ import frc.robot.subsystems.Controls;
 
 public class ChaseAprilTagCommand extends Command{
     // PID controllers for auto align
-    private final PIDController xController = new PIDController(4, 0, 0.5); // TODO: tune PID
-    private final PIDController yController = new PIDController(4, 0, 0.5);
+    private final PIDController xController = new PIDController(0.5, 0, 0); // TODO: tune PID
+    private final PIDController yController = new PIDController(0.5, 0, 0);
     private final ProfiledPIDController thetaController = new ProfiledPIDController(3, 0, 0, new edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints(Math.PI, Math.PI / 2));
     private AprilTagOdometry camera;
     private SwerveDrive swerveDrive;
@@ -60,27 +60,28 @@ public class ChaseAprilTagCommand extends Command{
     @Override
     public void initialize() {
         // Get AprilTag Pose
-        // Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
+        Optional<Pose3d> targetAprilTagPose3d = camera.getTargetPose(camera.bestTarget());
 
-        // if (targetAprilTagPose3d != null) {
-        //     Pose2d tagPose = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
+        if (targetAprilTagPose3d != null) {
+            Pose2d targetAprilTagPose2d = AprilTagOdometry.convertToPose2d(targetAprilTagPose3d);
 
-        //     // Calculate target position relative to the tag
-        //     Translation2d targetTranslation = new Translation2d(targetX, targetY).rotateBy(tagPose.getRotation());
-        //     Pose2d targetPose = new Pose2d(tagPose.getTranslation().plus(targetTranslation), tagPose.getRotation().minus(Rotation2d.fromDegrees(180)));
+            // Calculate target position relative to the tag
+            Translation2d targetTranslation = targetAprilTagPose2d.getTranslation().minus(new Translation2d(targetX, targetY));
 
-        //     // Move robot to the calculated position
-        //     swerveDrive.driveToPosition(targetPose);
-        // }
+            // Move robot to the calculated position
+            driveToPosition(new Pose2d(targetTranslation, targetAprilTagPose2d.getRotation()));
+        }
     }
     @Override
     public boolean isFinished() {
-        // return swerveDrive.atTargetPosition();
-        return false;
+        return atTargetPosition();
     }
 
     @Override
     public void execute() {
+        System.out.println(targetPose.getY());
+        SmartDashboard.putNumber("Target Pose X", targetPose.getX());
+        SmartDashboard.putNumber("Target Pose Y", targetPose.getY());
 
         if(targetPose == null){
         return;
@@ -92,8 +93,8 @@ public class ChaseAprilTagCommand extends Command{
 
         if (SwerveDrive.getInstance().getPosition() != null && targetPose != null) {
         ChassisSpeeds speeds = holonomicController.calculate(SwerveDrive.getInstance().getPosition(), targetPose, 0.25, targetPose.getRotation()); // TODO: change desired linear velocity
-        SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
-        SwerveDrive.getInstance().driveRobotRelative(speeds);
+        // SwerveModuleState[] moduleStates = Constants.DriveConstants.kDriveKinematics.toSwerveModuleStates(speeds);
+        SwerveDrive.getInstance().driveRobotRelative(new ChassisSpeeds(-speeds.vxMetersPerSecond, speeds.vyMetersPerSecond, speeds.omegaRadiansPerSecond));
         atTarget = xController.atSetpoint() && yController.atSetpoint() && thetaController.atGoal();
         }
     }

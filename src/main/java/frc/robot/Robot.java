@@ -43,17 +43,24 @@ public class Robot extends TimedRobot {
     m_visionThread =
       new Thread(
         () -> {
-        UsbCamera camera = CameraServer.startAutomaticCapture();
-        camera.setResolution(640, 480);
+        UsbCamera camera0 = CameraServer.startAutomaticCapture(0);
+        UsbCamera camera1 = CameraServer.startAutomaticCapture(1);
+        camera0.setResolution(640, 480);
+        camera1.setResolution(640, 480);
 
-        CvSink cvSink = CameraServer.getVideo();
+        CvSink cvSink0 = CameraServer.getVideo(camera0);
+        CvSink cvSink1 = CameraServer.getVideo(camera1);
         CvSource outputStream = CameraServer.putVideo("Rectangle", 640, 480);
 
         Mat mat = new Mat();
 
         while (!Thread.interrupted()) {
-          if (cvSink.grabFrame(mat) == 0) {
-            outputStream.notifyError(cvSink.getError());
+          if (cvSink0.grabFrame(mat) == 0) {
+            outputStream.notifyError(cvSink0.getError());
+            continue;
+          }
+          if (cvSink1.grabFrame(mat) == 0) {
+            outputStream.notifyError(cvSink1.getError());
             continue;
           }
           Imgproc.rectangle(

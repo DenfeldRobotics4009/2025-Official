@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -266,11 +267,11 @@ public class RobotContainer {
 
         // Auto reef align left - driver a
         new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.4619, Units.inchesToMeters(-7)));
+        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.5, Units.inchesToMeters(0)));
 
         // Auto reef align right - driver b
         new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
-        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.4619, Units.inchesToMeters(7)));
+        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.5, Units.inchesToMeters(0)));
         
         // manually zero wrist - operator right stick click
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
@@ -282,7 +283,7 @@ public class RobotContainer {
         // return AutoShuffleboardTab.getInstance().getSelectedAuto();
       //  return m_shuffleboard.getSelectedAuto();
     
-        return new PathPlannerAuto("Test auto");
+        return m_shuffleboard.getSelectedAuto();
     }
 }
 
