@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -12,7 +14,7 @@ import frc.robot.commands.CoralIntakeCommand;
 
 public class CoralManipulatorSubsystem extends SubsystemBase{
 //    objects
-    SparkMax coralManipulatorMotor;
+    SparkBase coralManipulatorMotor;
     AnalogInput coralManipulatorSensor;
     PneumaticHub lightHub = new PneumaticHub(Constants.CoralManipulatorCommandConstants.PneumaticHubID);
     Solenoid lightStripA = lightHub.makeSolenoid(Constants.CoralManipulatorConstants.lightStripAID);
@@ -35,7 +37,7 @@ public class CoralManipulatorSubsystem extends SubsystemBase{
     }
     //constructor
     public CoralManipulatorSubsystem() {
-        this.coralManipulatorMotor = new SparkMax(Constants.CoralManipulatorConstants.coralManipulatorMotorID, MotorType.kBrushless);
+        this.coralManipulatorMotor = new SparkFlex(Constants.CoralManipulatorConstants.coralManipulatorMotorID, MotorType.kBrushless);
         this.coralManipulatorSensor = new AnalogInput(Constants.CoralManipulatorConstants.coralManipulatorSensorChannel); 
     }
     //sets the motor speed to the speed that is defined
