@@ -27,7 +27,7 @@ import frc.robot.subsystems.SwerveDrive;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private AutoResetOdometry m_AutoResetOdometry;
+  // private AutoResetOdometry m_AutoResetOdometry;
   Thread m_visionThread;
 
   private final RobotContainer m_robotContainer;

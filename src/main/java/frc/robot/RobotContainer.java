@@ -161,7 +161,6 @@ public class RobotContainer {
             m_robotDrive));
 
         // Reset driver gryo - driver y
-        if (m_AprilTagOdometry.bestTarget() != null) {
         new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
         .onTrue(new ResetSwerveOdometry());
     
