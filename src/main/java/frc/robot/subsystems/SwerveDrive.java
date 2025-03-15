@@ -7,9 +7,18 @@ package frc.robot.subsystems;
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.events.EventTrigger;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,13 +29,20 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.CoralIntakeCommand;
+import frc.robot.commands.CoralManipulatorOuttakeCommand;
+import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.ToggleFunnelCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
+  //creates inverse kinematics
   private static SwerveDrive instance;
 
   /**
@@ -40,7 +56,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     }
     return instance;
     }
+
   // Create MAXSwerveModules
+ 
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(
       DriveConstants.kFrontLeftDrivingCanId,
       DriveConstants.kFrontLeftTurningCanId,
@@ -63,41 +81,119 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
 
     boolean precisionMode;
 
+    ChassisSpeeds chassisSpeeds = null;
+    
   // The gyro sensor
   public final AHRS m_gyro = new AHRS(AHRS.NavXComType.kMXP_SPI, 100);
   
   // Odometry class for tracking robot pose
-  SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
-  Rotation2d.fromDegrees(m_gyro.getAngle()),
+  private SwerveDrivePoseEstimator swerveDrivePoseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+  Rotation2d.fromDegrees(-m_gyro.getAngle()),
   new SwerveModulePosition[] {
     m_frontLeft.getPosition(),
     m_frontRight.getPosition(),
     m_rearLeft.getPosition(),
     m_rearRight.getPosition()
-}, new Pose2d());
+  }, new Pose2d());
 
   /** Creates a new DriveSubsystem. */
   public SwerveDrive() {
     // Usage reporting for MAXSwerve template
     HAL.report(tResourceType.kResourceType_RobotDrive, tInstances.kRobotDriveSwerve_MaxSwerve);
-  }
+    RobotConfig config;
+    try {
+      config = RobotConfig.fromGUISettings();
+       // Configure AutoBuilder last
+    AutoBuilder.configure(
+      this::getPosition, // Robot pose supplier
+      this::setPosition, // Method to reset odometry (will be called if your auto has a starting pose)
+      this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+      (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+      new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
+              new PIDConstants(3.5, 0.0, 0.75), // Translation PID constants
+              new PIDConstants(3, 0.0, 0.25) // Rotation PID constants
+      ),
+      config, // The robot configuration
+      () -> {
+        // Boolean supplier that controls when the path will be mirrored for the red alliance
+        // This will flip the path being followed to the red side of the field.
+        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent()) {
+          return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return false;
+      },
+      this // Reference to this subsystem to set requirements
+
+      );
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    NamedCommands.registerCommand("Elevator L4", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSubsystem.ElevatorSetpoint.P4,
+      ElevatorSubsystem.WristAngle.UP)
+    );
+
+    NamedCommands.registerCommand("Elevator L3", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSubsystem.ElevatorSetpoint.P3,
+      ElevatorSubsystem.WristAngle.MOVING)
+    );
+
+    NamedCommands.registerCommand("Elevator L2", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSubsystem.ElevatorSetpoint.P2,
+      ElevatorSubsystem.WristAngle.MOVING)
+    );
+
+    NamedCommands.registerCommand("Elevator ZERO", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSubsystem.ElevatorSetpoint.ZERO,
+      ElevatorSubsystem.WristAngle.DOWN)
+    );
+
+    NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
+    NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
+    NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
+  }
+ 
+  private ChassisSpeeds getRobotRelativeSpeeds(){
+    return DriveConstants.kDriveKinematics.toChassisSpeeds(
+    m_frontLeft.getState(),
+    m_frontRight.getState(),
+    m_rearLeft.getState(),
+    m_rearRight.getState());
+  }
+  public void driveRobotRelative(ChassisSpeeds speed){
+    var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(speed);
+  SwerveDriveKinematics.desaturateWheelSpeeds(
+      swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
+  m_frontLeft.setDesiredState(swerveModuleStates[0]);
+  m_frontRight.setDesiredState(swerveModuleStates[1]);
+  m_rearLeft.setDesiredState(swerveModuleStates[2]);
+  m_rearRight.setDesiredState(swerveModuleStates[3]);
+  }
   @Override
   public void periodic() {
+
     // Update the odometry in the periodic block
     SmartDashboard.putNumber("gyro:", getHeading());
-    swerveDrivePoseEstimator.update(
-        Rotation2d.fromDegrees(-m_gyro.getAngle()),
-        new SwerveModulePosition[] {
-            m_frontLeft.getPosition(),
-            m_frontRight.getPosition(),
-            m_rearLeft.getPosition(),
-            m_rearRight.getPosition()
-        });
+      swerveDrivePoseEstimator.update(Rotation2d.fromDegrees(-m_gyro.getAngle()), new SwerveModulePosition[]{ 
+          m_frontLeft.getPosition(),
+          m_frontRight.getPosition(),
+          m_rearLeft.getPosition(),
+          m_rearRight.getPosition()
+        }
+      );
 
-        SmartDashboard.putNumber("Odometry X", getPosition().getX());
-    SmartDashboard.putNumber("Odometry Y", getPosition().getY());
-  }
+      SmartDashboard.putNumber("Odometry X", getPosition().getX());
+      SmartDashboard.putNumber("Odometry Y", getPosition().getY());
+      //System.out.println("Inverse Kinematics Statement: " + m_rearLeft.getPosition());
+    };
 
   /**
    * Returns the currently-estimated pose of the robot.
@@ -105,7 +201,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
    * @return The pose.
    */
   public Pose2d getPosition() {
-    return swerveDrivePoseEstimator.getEstimatedPosition();
+    var x = swerveDrivePoseEstimator.getEstimatedPosition();
+    // SmartDashboard.putData("Current pose", x);
+    return x;
   }
 
   /**
@@ -122,9 +220,13 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         },
-        pose);
+    pose);
   }
 
+  // Returns ChassisSpeeds
+  // public ChassisSpeeds getSpeeds() {
+  //   return Constants.DriveConstants.kDriveKinematics.toChassisSpeeds(getModuleStates());
+  // }
 
   /**
    * Method to drive the robot using joystick info.
@@ -149,10 +251,11 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     double rotDelivered = rot * DriveConstants.kMaxAngularSpeed;
 
     var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
-        fieldRelative
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                Rotation2d.fromDegrees(-m_gyro.getAngle()))
-            : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
+       fieldRelative
+          ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
+            Rotation2d.fromDegrees(-m_gyro.getAngle()))
+            : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered)
+    );
     SwerveDriveKinematics.desaturateWheelSpeeds(
         swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);
     m_frontLeft.setDesiredState(swerveModuleStates[0]);
@@ -160,6 +263,8 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_rearLeft.setDesiredState(swerveModuleStates[2]);
     m_rearRight.setDesiredState(swerveModuleStates[3]);
   }
+
+  
 
   /**
    * Sets the wheels into an X formation to prevent movement.
@@ -169,6 +274,16 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
     m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+  }
+
+    /**
+   * Stops the swerve modules.
+   */
+  public void stopModules() {
+    m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
+    m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(0)));
   }
 
   /**
@@ -184,6 +299,17 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     m_rearLeft.setDesiredState(desiredStates[2]);
     m_rearRight.setDesiredState(desiredStates[3]);
   }
+
+  // public SwerveModuleState getModuleStates() {
+  //   SwerveModuleState[] states = new SwerveModuleState[];
+  //   m_frontLeft.getState();
+  //   m_frontRight.getState();
+  //   m_rearLeft.getState();
+  //   m_rearRight.getState();
+        
+  //   return
+
+  // }
 
   /** Resets the drive encoders to currently read a position of 0. */
   public void resetEncoders() {
@@ -221,9 +347,9 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     // per the robotPoseEstimator recommendations.
 
     // If the AprilTag is wildly different from the Swerve Pose, don't update.
-    if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 100) {
+    //if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
       swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
-    }
+    //}
   }
 
   public boolean setPrecisionMode(boolean precisionMode) {

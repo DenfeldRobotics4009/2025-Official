@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.216282894736842,
-        "y": 7.517680921052631
+        "x": 7.242380136986301,
+        "y": 6.654
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0597039473728858,
-        "y": 7.4503289473677725
+        "x": 6.129591064816889,
+        "y": 6.6409613429014485
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.271381578947368,
-        "y": 4.2944078947368425
+        "x": 6.0,
+        "y": 6.654
       },
       "prevControl": {
-        "x": 0.4972500000044646,
-        "y": 4.542519736841457
+        "x": 5.750141854364343,
+        "y": 6.662420632963798
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "2 piece back cage auto",
+  "folder": "Test auto",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

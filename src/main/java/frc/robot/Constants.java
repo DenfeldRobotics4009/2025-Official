@@ -148,8 +148,8 @@ public final class Constants {
 
     public static final double coralManipulatorOuttakeMotorSpeed = 0.9;
     public static final double coralP4ManipulatorOuttakeMotorSpeed = -0.9;
-    public static final double coralManipulatorSlowOuttakeMotorSpeed = 0.5;
-    public static final double coralP4ManipulatorP4SlowOuttakeMotorSpeed = -0.5;
+    public static final double coralManipulatorSlowOuttakeMotorSpeed = -0.1;
+    // public static final double coralP4ManipulatorP4SlowOuttakeMotorSpeed = -0.5;
   }
   public static final class CoralManipulatorCommandConstants{
     public static final double coralManipulatorIntakeMotorSpeed = -0.3;
@@ -190,15 +190,15 @@ public final class Constants {
     public static final double Elevatorf = .01;
 
     public static final int wristMotorID = 31;
-    public static final double wristUp = 0.418;
-    public static final double topWristAlgae = 0.279; //TODO: tune this value
-    public static final double bottomWristAlgae = 0.279; //TODO: tune this value
-    public static final double wristDown = 0.045;
-    public static final double wristMoving = 0.1;
+    public static final double wristUp = 0.455;
+    public static final double topWristAlgae = 0.316; //TODO: tune this value
+    public static final double bottomWristAlgae = 0.316; //TODO: tune this value
+    public static final double wristDown = 0.078;
+    public static final double wristMoving = 0.137;
     //"fake" zero: 0.122
 
-    public static final double wristMinAngle = 0.045; //TODO: find actual value
-    public static final double wristMaxAngle = 0.43; //TODO: find actual value
+    public static final double wristMinAngle = 0.082; //TODO: find actual value
+    public static final double wristMaxAngle = 0.467; //TODO: find actual value
 
     public static final double Wristp = 1.5; //TODO: tune
     public static final double Wristi = 0; //TODO: tune

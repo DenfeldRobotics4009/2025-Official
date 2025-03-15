@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.4879999999999995,
-        "y": 6.199249999999999
+        "x": 7.187417763157893,
+        "y": 5.785773026315789
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.466112988839527,
-        "y": 5.80923049735922
+        "x": 6.76403640550104,
+        "y": 5.62993535140059
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.991999999996555,
-        "y": 5.273000000002878
+        "x": 5.349671052631578,
+        "y": 5.044901315789473
       },
       "prevControl": {
-        "x": 6.128835691688924,
-        "y": 5.713310480432509
+        "x": 5.590213815789473,
+        "y": 5.545230263157895
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.74,
-    "maxAcceleration": 10.7,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
@@ -45,10 +45,10 @@
     "rotation": -119.99999999999999
   },
   "reversed": false,
-  "folder": "Cage 3 piece auto paths",
+  "folder": "Cage 3 piece auto left paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -118.95099520746682
   },
   "useDefaultConstraints": true
 }
