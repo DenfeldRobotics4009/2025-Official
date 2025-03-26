@@ -23,8 +23,6 @@ import frc.robot.autos.AutoTestBlue;
 import frc.robot.autos.AutoTestRed;
 import frc.robot.autos.MoveForwardAuto;
 import frc.robot.autos.OnePieceAuto;
-import frc.robot.autos.OnePieceCageAuto;
-import frc.robot.autos.OnePieceCageAutoRed;
 import frc.robot.autos.OnePieceSideAuto;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ChaseAprilTagCommand;

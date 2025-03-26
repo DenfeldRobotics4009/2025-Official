@@ -27,7 +27,6 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.autos.AutoTestBlue;
-import frc.robot.autos.OnePieceCageAuto;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
@@ -194,7 +193,7 @@ public class RobotContainer {
         //     (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         // );
 
-        // Set precision mode - driver right bumper and left bumper
+        // Set precision mode - drive right bumper and left bumper
         new JoystickButton(m_controlsSubsystem.driveController, Button.kRightBumper.value).whileTrue(
             (new PrecisionModeCommand())
         );
@@ -263,15 +262,6 @@ public class RobotContainer {
         // elevator P4 - operator x
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP)); 
-
-
-        // Auto reef align left - driver a
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.5, Units.inchesToMeters(0)));
-
-        // Auto reef align right - driver b
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
-        .whileTrue(new ChaseAprilTagCommand(m_robotDrive, m_AprilTagOdometry, 0.5, Units.inchesToMeters(0)));
         
         // manually zero wrist - operator right stick click
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
