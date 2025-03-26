@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.264549180327867,
-        "y": 4.1748463114754095
+        "x": 7.252561475409835,
+        "y": 4.186834016393442
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.214096451142166,
-        "y": 4.169234783132602
+        "x": 7.002561475409835,
+        "y": 4.186834016393442
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.826024590163935,
-        "y": 4.1748463114754095
+        "x": 5.838012295081967,
+        "y": 4.186834016393442
       },
       "prevControl": {
-        "x": 6.814777754937631,
-        "y": 4.207066450409248
+        "x": 6.485348360655738,
+        "y": 4.126895491803278
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Auto 3 Path 1 end"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "cage One piece auto paths",
+  "folder": "One Piece Side",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
