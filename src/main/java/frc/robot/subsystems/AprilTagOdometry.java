@@ -95,7 +95,7 @@ public class AprilTagOdometry extends SubsystemBase{
         return null;
     }
 
-    // Convert an <Optional>Pose3d to a Pose2d
+    // Convert an <Optional>Pose3d to Pose2d
     public static Pose2d convertToPose2d(Optional<Pose3d> optionalPose3d) {
         if (optionalPose3d.isEmpty()) {
             return new Pose2d();
