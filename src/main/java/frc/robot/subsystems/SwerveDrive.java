@@ -34,10 +34,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.library.auto.pathing.DriveSubsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ToggleFunnelCommand;
+import frc.robot.subsystems.ElevatorSubsystem.ElevatorSetpoint;
+import frc.robot.subsystems.ElevatorSubsystem.WristAngle;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -156,9 +159,16 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
       ElevatorSubsystem.WristAngle.DOWN)
     );
 
+    NamedCommands.registerCommand("Elevator LOW ALGAE", new SetElevatorTargetCommand(
+      ElevatorSubsystem.getInstance(),
+      ElevatorSetpoint.LOW_ALGAE,
+      WristAngle.MOVING)
+      );
+
     NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
+    NamedCommands.registerCommand("Algae intake", new AlgaeRemoveCommand());
   }
  
   private ChassisSpeeds getRobotRelativeSpeeds(){

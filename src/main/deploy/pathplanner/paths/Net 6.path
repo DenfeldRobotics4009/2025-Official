@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.252561475409835,
-        "y": 4.186834016393442
+        "x": 5.164790604202835,
+        "y": 2.8714779352258746
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.936514917638043,
-        "y": 4.178507118205725
+        "x": 5.5631979822229445,
+        "y": 2.467943406281647
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Net 5 End"
     },
     {
       "anchor": {
-        "x": 5.838012295081967,
-        "y": 4.186834016393442
+        "x": 8.080641824227792,
+        "y": 4.935776717574508
       },
       "prevControl": {
-        "x": 6.086433382587943,
-        "y": 4.21488688224255
+        "x": 7.8309845562018525,
+        "y": 4.922690521724514
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "One Piece R End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.7878458523671096,
+      "minWaypointRelativePos": 0.6452993602055648,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 179.79685672967094
   },
   "reversed": false,
-  "folder": "One Piece Side",
+  "folder": "3 Algae Net Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 120.77587125381035
   },
   "useDefaultConstraints": true
 }

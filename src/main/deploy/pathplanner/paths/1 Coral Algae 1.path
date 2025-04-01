@@ -3,47 +3,33 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.252561475409835,
+        "x": 6.6873578954626005,
         "y": 4.186834016393442
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.936514917638043,
-        "y": 4.178507118205725
+        "x": 6.302554072627314,
+        "y": 4.1875202207212086
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Back up End"
     },
     {
       "anchor": {
-        "x": 5.838012295081967,
-        "y": 4.186834016393442
+        "x": 5.827583363850911,
+        "y": 4.021965108800817
       },
       "prevControl": {
-        "x": 6.086433382587943,
-        "y": 4.21488688224255
+        "x": 6.077580147600727,
+        "y": 4.0206969941580075
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "One Piece R End"
+      "linkedName": "Net 1 End"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.7878458523671096,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 1542.0,
-        "nominalVoltage": 12.0,
-        "unlimited": false
-      }
-    }
-  ],
+  "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -59,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "One Piece Side",
+  "folder": "3 Algae Net Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
