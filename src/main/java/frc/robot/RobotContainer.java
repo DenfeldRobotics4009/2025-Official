@@ -246,10 +246,14 @@ public class RobotContainer {
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
         // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
 
+        // numpad testing
+        new JoystickButton(m_controlsSubsystem.numPad, )
+        .onTrue(System.out.println("pluh"));
+
         // Auto Align to front A - driver a (for testing)
         // TODO make this work
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-        .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front A"), new PathConstraints(3.0, 3, Units.degreesToRadians(540), Units.degreesToRadians(720))));
+        // new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
+        // .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front A"), new PathConstraints(3.0, 3, Units.degreesToRadians(540), Units.degreesToRadians(720))));
     }
 
     public Command getAutonomousCommand() {
