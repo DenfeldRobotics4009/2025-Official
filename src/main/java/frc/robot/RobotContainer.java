@@ -23,6 +23,7 @@ import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.PrecisionModeCommand;
+import frc.robot.commands.PrintLine;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
@@ -247,8 +248,8 @@ public class RobotContainer {
         // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
 
         // numpad testing
-        new JoystickButton(m_controlsSubsystem.numPad, )
-        .onTrue(System.out.println("pluh"));
+        new JoystickButton(m_controlsSubsystem.numPad, 1)
+        .onTrue(new PrintLine());
 
         // Auto Align to front A - driver a (for testing)
         // TODO make this work
