@@ -6,39 +6,22 @@ package frc.robot;
 
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.autos.AutoTestBlue;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
-import frc.robot.commands.AutoResetOdometry;
-import frc.robot.commands.ChaseAprilTagCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
-import frc.robot.commands.ElevatorControllerCommand;
 import frc.robot.commands.PrecisionModeCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
@@ -56,19 +39,14 @@ import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.WristAngle;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.io.IOException;
-import java.util.List;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 
-import org.json.simple.parser.ParseException;
-
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
-import frc.library.auto.pathing.PurePursuitController;
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.FieldMirrorType;
 import frc.library.auto.pathing.field.GameField;
@@ -100,6 +78,7 @@ public class RobotContainer {
          * The container for the robot. Contains subsystems, OI devices, and commands.
          */
     public RobotContainer() {
+        
         try {
             m_ElevatorSubsystem = ElevatorSubsystem.getInstance();
         } catch (Exception e) {
@@ -266,6 +245,11 @@ public class RobotContainer {
         // manually zero wrist - operator right stick click
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
         // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
+
+        // Auto Align to front A - driver a (for testing)
+        // TODO make this work
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
+        .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front A"), new PathConstraints(3.0, 3, Units.degreesToRadians(540), Units.degreesToRadians(720))));
     }
 
     public Command getAutonomousCommand() {
