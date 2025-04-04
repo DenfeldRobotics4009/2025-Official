@@ -15,25 +15,29 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
-import frc.robot.commands.ToggleAlgaeManipulatorCommand;
+import frc.robot.commands.ToggleL1CoralManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
+import frc.robot.commands.ToggleL1CoralManipulatorCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
-import frc.robot.commands.AlgaeManipulatorIntakeCommand;
-import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
+import frc.robot.commands.L1CoralManipulatorIntakeCommand;
+import frc.robot.commands.L1CoralManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.PrecisionModeCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
+import frc.robot.commands.L1CoralManipulatorIntakeCommand;
+import frc.robot.commands.L1CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorOffset;
-import frc.robot.subsystems.AlgaeManipulatorSubsystem;
+import frc.robot.subsystems.L1CoralManipulatorSubsystem;
 import frc.robot.subsystems.AprilTagOdometry;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
+import frc.robot.subsystems.L1CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.ElevatorSetpoint;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.WristAngle;
@@ -66,7 +70,7 @@ public class RobotContainer {
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
-    public final AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
+    public final L1CoralManipulatorSubsystem m_l1CoralManipulatorSubsystem = L1CoralManipulatorSubsystem.getInstance();
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
@@ -149,17 +153,17 @@ public class RobotContainer {
     
         // Toggle algae manipulator - operator down dpad
         m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(
-            new ToggleAlgaeManipulatorCommand(m_AlgaeManipulatorSubsystem)    
+            new ToggleL1CoralManipulatorCommand(m_l1CoralManipulatorSubsystem)    
         );
 
         // Algae intake - operator left dpad
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new AlgaeManipulatorIntakeCommand(m_AlgaeManipulatorSubsystem)    
+            new L1CoralManipulatorIntakeCommand(m_l1CoralManipulatorSubsystem)    
         );
 
         // Outtake algae - operator right dpad
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new AlgaeManipulatorOuttakeCommand(m_AlgaeManipulatorSubsystem)
+            new L1CoralManipulatorOuttakeCommand(m_l1CoralManipulatorSubsystem)
         );
 
         // Toggle funnel - operator up dpad
@@ -252,28 +256,28 @@ public class RobotContainer {
 
         // Auto align buttons w/ keypad
 
-        // front 1 - 1 (simulated A)
+        // back 1 - 1 (simulated A)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kA.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front 1"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 1"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         } 
 
-        // front 2 - 2 (simulated B)
+        // back right 2 - 2 (simulated B)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kB.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front 2"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Right 2"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        // front right 3 - 3 (simulated X)
+        // back right 3 - 3 (simulated X)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kX.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Right 3"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Right 3"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
@@ -288,46 +292,46 @@ public class RobotContainer {
             e.printStackTrace();
         }
 
-        // back right 5 - 5 (simulated left bumper)
+        // front right 5 - 5 (simulated left bumper)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kLeftBumper.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Right 5"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Right 5"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        // back right 6 - 6 (simulated right bumper)
+        // front 6 - 6 (simulated right bumper)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kRightBumper.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Right 6"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front 6"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        // back 7 - 7 (simulated up dpad)
+        // front 7 - 7 (simulated up dpad)
         try {
             m_controlsSubsystem.getNumpadPOVTrigger(0).onTrue(
-                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 7"),
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front 7"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        // back 8 - 8 (simulated down dpad)
+        // front left 8 - 8 (simulated down dpad)
         try {
             m_controlsSubsystem.getNumpadPOVTrigger(180).onTrue(
-                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 8"),
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 8"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
         
-        // back left 9 - 9 (simulated left dpad)
+        // front left 9 - 9 (simulated left dpad)
         try {
             m_controlsSubsystem.getNumpadPOVTrigger(90).onTrue(
-                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Left 9"),
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 9"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
@@ -342,16 +346,16 @@ public class RobotContainer {
             e.printStackTrace();
         }
 
-        // front left 11 - * (simulated left joystick click)
+        // back left 11 - * (simulated left joystick click)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kLeftStick.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 11"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Left 11"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        // front left 12 - backspace (simulated right joystick click)
+        // back 12 - backspace (simulated right joystick click)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kRightStick.value)
             .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 12"),
