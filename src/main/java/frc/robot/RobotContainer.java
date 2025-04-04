@@ -23,7 +23,6 @@ import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.PrecisionModeCommand;
-import frc.robot.commands.PrintLine;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
@@ -44,9 +43,13 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.FileVersionException;
 
 import frc.library.auto.pathing.PurePursuitSettings;
 import frc.library.auto.pathing.field.FieldMirrorType;
@@ -247,14 +250,116 @@ public class RobotContainer {
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
         // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
 
-        // numpad testing
-        new JoystickButton(m_controlsSubsystem.numPad, 1)
-        .onTrue(new PrintLine());
+        // Auto align buttons w/ keypad
 
-        // Auto Align to front A - driver a (for testing)
-        // TODO make this work
-        // new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-        // .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front A"), new PathConstraints(3.0, 3, Units.degreesToRadians(540), Units.degreesToRadians(720))));
+        // front 1 - 1 (simulated A)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kA.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front 1"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        } 
+
+        // front 2 - 2 (simulated B)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kB.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front 2"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // front right 3 - 3 (simulated X)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kX.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Right 3"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // front right 4 - 4 (simulated Y)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kY.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Right 4"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // back right 5 - 5 (simulated left bumper)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kLeftBumper.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Right 5"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // back right 6 - 6 (simulated right bumper)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kRightBumper.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Right 6"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // back 7 - 7 (simulated up dpad)
+        try {
+            m_controlsSubsystem.getNumpadPOVTrigger(0).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 7"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // back 8 - 8 (simulated down dpad)
+        try {
+            m_controlsSubsystem.getNumpadPOVTrigger(180).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 8"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        
+        // back left 9 - 9 (simulated left dpad)
+        try {
+            m_controlsSubsystem.getNumpadPOVTrigger(90).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Left 9"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // back left 10 - / (simulated right dpad)
+        try {
+            m_controlsSubsystem.getNumpadPOVTrigger(270).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Left 10"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // front left 11 - * (simulated left joystick click)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kLeftStick.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 11"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // front left 12 - backspace (simulated right joystick click)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kRightStick.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 12"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    
     }
 
     public Command getAutonomousCommand() {
