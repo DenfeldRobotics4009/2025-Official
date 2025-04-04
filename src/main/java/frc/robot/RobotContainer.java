@@ -29,6 +29,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.autos.AutoTestBlue;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
+import frc.robot.commands.SlowCoralManiuplatorReverseCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
@@ -206,12 +207,12 @@ public class RobotContainer {
         (new CoralIntakeCommand(m_coralManipulatorSubsystem))
         );
 
-        // manual elevator control - operator left joystick
-        new Trigger(()->{return m_controlsSubsystem.operateController.getLeftY() > 0.5;}).whileTrue(
-            (new SetElevatorOffset(m_ElevatorSubsystem, 5))
+        // Bump Coral Reverse control - operator left joystick
+        new Trigger(()->{return m_controlsSubsystem.operateController.getRightY() > 0.5;}).whileTrue(
+            (new SlowCoralManiuplatorReverseCommand(m_coralManipulatorSubsystem))
         );
 
-        // manual elevator control - operator right joystick
+        // Bump Coral Outtake control - operator right joystick
         new Trigger(()->{return m_controlsSubsystem.operateController.getRightY() > 0.5;}).whileTrue(
             (new SlowCoralManiuplatorOuttakeCommand(m_coralManipulatorSubsystem))
             );
