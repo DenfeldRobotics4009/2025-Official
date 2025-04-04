@@ -25,7 +25,6 @@ import frc.robot.autos.MoveForwardAuto;
 import frc.robot.autos.OnePieceAuto;
 import frc.robot.autos.OnePieceSideAuto;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ChaseAprilTagCommand;
 import frc.robot.subsystems.AprilTagOdometry;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
