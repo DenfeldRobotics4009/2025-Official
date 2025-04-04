@@ -20,7 +20,7 @@ public class SlowCoralManiuplatorReverseCommand extends Command {
 
     @Override
     public void initialize() {
-        subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowOuttakeMotorSpeed);
+        subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowReverseMotorSpeed);
     }
 
     @Override

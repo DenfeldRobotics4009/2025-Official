@@ -208,7 +208,7 @@ public class RobotContainer {
         );
 
         // Bump Coral Reverse control - operator left joystick
-        new Trigger(()->{return m_controlsSubsystem.operateController.getRightY() > -0.5;}).whileTrue(
+        new Trigger(()->{return m_controlsSubsystem.operateController.getRightY() < -0.5;}).whileTrue(
             (new SlowCoralManiuplatorReverseCommand(m_coralManipulatorSubsystem))
         );
 
