@@ -6,6 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+
+import com.pathplanner.lib.path.PathConstraints;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -64,6 +67,9 @@ public final class Constants {
     public static final double precisionModeSpeed = 0.15;
 
     public static final boolean kGyroReversed = true;
+
+    public static final PathConstraints pathConstraints = new PathConstraints(2, 2, 540, 720);
+    
   }
 
   public static final class ModuleConstants {
