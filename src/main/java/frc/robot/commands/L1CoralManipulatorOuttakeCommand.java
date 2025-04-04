@@ -1,10 +1,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AlgaeManipulatorSubsystem;
+import frc.robot.subsystems.L1CoralManipulatorSubsystem;
 
-public class AlgaeManipulatorIntakeCommand extends Command{private AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem;
-    public AlgaeManipulatorIntakeCommand(AlgaeManipulatorSubsystem algaeManipulator) {
+public class L1CoralManipulatorOuttakeCommand extends Command{
+private L1CoralManipulatorSubsystem m_AlgaeManipulatorSubsystem;
+public L1CoralManipulatorOuttakeCommand(L1CoralManipulatorSubsystem algaeManipulator) {
     this.m_AlgaeManipulatorSubsystem = algaeManipulator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_AlgaeManipulatorSubsystem);
@@ -16,7 +17,7 @@ public class AlgaeManipulatorIntakeCommand extends Command{private AlgaeManipula
 
     @Override
     public void execute() {
-        m_AlgaeManipulatorSubsystem.setAlgaeManipulatorSpeed(1);//TODO: Find out which way is positive and negative
+        m_AlgaeManipulatorSubsystem.setAlgaeManipulatorSpeed(-1);//TODO: Find out which way is positive and negative
     }
 
     @Override

@@ -10,28 +10,28 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class AlgaeManipulatorSubsystem extends SubsystemBase{
-    private SparkMax algaeManipulatorMotor;
-    private DoubleSolenoid algaePiston;
+public class L1CoralManipulatorSubsystem extends SubsystemBase{
+    private SparkMax l1CoralManipulatorMotor;
+    private DoubleSolenoid l1CoralPiston;
     private boolean setPiston;
     
-    private static AlgaeManipulatorSubsystem instance;
+    private static L1CoralManipulatorSubsystem instance;
 
-    public static  AlgaeManipulatorSubsystem getInstance() {
+    public static  L1CoralManipulatorSubsystem getInstance() {
         if (instance == null) {
-          instance = new AlgaeManipulatorSubsystem();
+          instance = new L1CoralManipulatorSubsystem();
         }
         return instance;
     }
     /**
      * Creates an algae manipulator subsystem.
      */
-    public AlgaeManipulatorSubsystem(){
-        this.algaeManipulatorMotor = new SparkMax(
+    public L1CoralManipulatorSubsystem(){
+        this.l1CoralManipulatorMotor = new SparkMax(
             Constants.AlgaeManipulatorConstants.algaeManipulatorMotorID, 
             MotorType.kBrushless
         );
-        this.algaePiston = new DoubleSolenoid(
+        this.l1CoralPiston = new DoubleSolenoid(
             Constants.AlgaeManipulatorConstants.AlgaeManipulatorModule,
             PneumaticsModuleType.REVPH,
             Constants.AlgaeManipulatorConstants.AlgaeManipulatorForwardChannel,
@@ -40,15 +40,15 @@ public class AlgaeManipulatorSubsystem extends SubsystemBase{
     }
 
     public void setAlgaeManipulatorSpeed(double speed){
-        algaeManipulatorMotor.set(speed);
+        l1CoralManipulatorMotor.set(speed);
     }
 
     public void setAlgaePiston(boolean pistonOn){
         if(pistonOn){
-            algaePiston.set(DoubleSolenoid.Value.kForward);
+            l1CoralPiston.set(DoubleSolenoid.Value.kForward);
         }
         else{
-            algaePiston.set(DoubleSolenoid.Value.kReverse);
+            l1CoralPiston.set(DoubleSolenoid.Value.kReverse);
         }
         this.setPiston = pistonOn;
     }
