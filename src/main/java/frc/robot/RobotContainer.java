@@ -39,7 +39,7 @@ import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
-import frc.robot.commands.L1HumanPlayerSignalCommand;
+import frc.robot.commands.LightStripBlinkCommand;
 import frc.robot.commands.PrecisionModeCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
@@ -165,10 +165,10 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.driveController, Button.kY.value)
         .onTrue(new ResetSwerveOdometry());
 
-        // Reset driver gryo - driver B
+        // Blink Lights - driver B
         //TODO: Find out what buttons John actually wants to use
         new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
-        .onTrue(new L1HumanPlayerSignalCommand(m_coralManipulatorSubsystem));
+        .onTrue(new LightStripBlinkCommand(m_coralManipulatorSubsystem));
     
         // Toggle algae manipulator - operator down dpad
         m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(

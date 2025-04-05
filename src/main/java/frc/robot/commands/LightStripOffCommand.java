@@ -1,9 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 
 public class LightStripOffCommand extends Command{
+    public static boolean isBlinking = false;
     private final CoralManipulatorSubsystem subsystem;
     public LightStripOffCommand(CoralManipulatorSubsystem subsystem){
         this.subsystem = subsystem;
@@ -11,24 +16,23 @@ public class LightStripOffCommand extends Command{
     }
     @Override
     public void end(boolean interrupted) {
-        subsystem.setLightStripPowered(false);
+        
     }
 
     @Override
     public void execute() {
-        subsystem.setLightStripPowered(false);
+        isBlinking = true;
+        subsystem.setLightStripPowered(true);
     }
 
     @Override
     public void initialize() {
-        // TODO Auto-generated method stub
-        super.initialize();
+        
     }
 
     @Override
     public boolean isFinished() {
-        // TODO Auto-generated method stub
-        return super.isFinished();
+        return false;
     }
 
 }

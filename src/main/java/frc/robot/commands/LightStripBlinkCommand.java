@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 
-public class LightStripOnCommand extends Command{
+public class LightStripBlinkCommand extends Command{
     public static boolean isBlinking = false;
     private final CoralManipulatorSubsystem subsystem;
-    public LightStripOnCommand(CoralManipulatorSubsystem subsystem){
+    public LightStripBlinkCommand(CoralManipulatorSubsystem subsystem){
         this.subsystem = subsystem;
         addRequirements(subsystem);
     }
@@ -22,7 +22,7 @@ public class LightStripOnCommand extends Command{
     @Override
     public void execute() {
         isBlinking = true;
-        subsystem.setLightStripPowered(true);
+            new LightStripOnCommand(subsystem);
     }
 
     @Override
