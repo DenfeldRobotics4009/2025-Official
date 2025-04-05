@@ -150,7 +150,7 @@ public final class Constants {
     public static final double coralP4ManipulatorOuttakeMotorSpeed = -0.9;
     public static final double coralManipulatorSlowOuttakeMotorSpeed = -0.1;
     public static final double coralManipulatorSlowReverseMotorSpeed = 0.25;
-    // public static final double coralP4ManipulatorP4SlowOuttakeMotorSpeed = -0.5;
+    public static final double coralManipulatorSlowReverseMotorSpeedP4 = 0.35;
   }
   public static final class CoralManipulatorCommandConstants{
     public static final double coralManipulatorIntakeMotorSpeed = -0.3;

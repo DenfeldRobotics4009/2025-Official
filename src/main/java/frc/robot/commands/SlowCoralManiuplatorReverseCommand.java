@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class SlowCoralManiuplatorReverseCommand extends Command {
     private final CoralManipulatorSubsystem subsystem;
@@ -14,13 +15,16 @@ public class SlowCoralManiuplatorReverseCommand extends Command {
 
     @Override
     public void execute() {
-        
-        super.execute();
+      if(ElevatorSubsystem.getInstance().getElevatorTarget() == ElevatorSubsystem.ElevatorSetpoint.P4){
+            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowReverseMotorSpeedP4);
+        }else{
+            subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowReverseMotorSpeed);
+            
+        }
     }
 
     @Override
     public void initialize() {
-        subsystem.coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorSlowReverseMotorSpeed);
     }
 
     @Override
