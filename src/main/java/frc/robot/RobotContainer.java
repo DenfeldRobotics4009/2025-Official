@@ -363,6 +363,25 @@ public class RobotContainer {
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        // TODO find out what - and + are simulated as
+        // left human player station - - (simulated -)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kRightStick.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("HP Station Left"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // right human player station - + (simulated +)
+        try {
+            new JoystickButton(m_controlsSubsystem.numPad, Button.kRightStick.value)
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("HP Station Right"),
+            Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
     
     }
 
