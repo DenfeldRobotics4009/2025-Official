@@ -1,0 +1,103 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "h1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral intake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral outtake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "h2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "h3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral outtake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "h4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "h5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral outtake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "h6"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Coral outtake"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "New Folder",
+  "choreoAuto": false
+}
