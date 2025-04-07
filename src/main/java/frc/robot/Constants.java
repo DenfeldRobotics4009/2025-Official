@@ -68,7 +68,7 @@ public final class Constants {
 
     public static final boolean kGyroReversed = true;
 
-    public static final PathConstraints pathConstraints = new PathConstraints(2, 2, 540, 720);
+    public static final PathConstraints pathConstraints = new PathConstraints(3, 3, 540, 720);
     
   }
 
