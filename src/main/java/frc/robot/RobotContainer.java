@@ -33,6 +33,7 @@ import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.AutoResetOdometry;
+import frc.robot.commands.BlinkLightStripCommand;
 import frc.robot.commands.ChaseAprilTagCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
@@ -266,6 +267,10 @@ public class RobotContainer {
         // manually zero wrist - operator right stick click
         // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
         // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
+
+        // blink LEDs to signal L1 intake
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
+        .onTrue(new BlinkLightStripCommand(m_coralManipulatorSubsystem)); 
     }
 
     public Command getAutonomousCommand() {
