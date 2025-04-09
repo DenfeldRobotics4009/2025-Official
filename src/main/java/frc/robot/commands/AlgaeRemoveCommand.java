@@ -6,21 +6,24 @@ import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class AlgaeRemoveCommand extends Command{
-     public AlgaeRemoveCommand(){
 
-     }
+    public AlgaeRemoveCommand(){
+    }
+
     @Override
     public void end(boolean interrupted) {
-        // TODO Auto-generated method stub
         CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(0);
         ElevatorSubsystem.getInstance().setWristTarget(ElevatorSubsystem.WristAngle.MOVING);
-        
     }
 
     @Override
     public void execute() {
         CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
-        ElevatorSubsystem.getInstance().setWristTarget(ElevatorSubsystem.WristAngle.BOTTOMALGAEREMOVAL);
+        if(ElevatorSubsystem.getInstance().getElevatorTarget().equals(ElevatorSubsystem.ElevatorSetpoint.P4)) {
+            ElevatorSubsystem.getInstance().setWristTarget(ElevatorSubsystem.WristAngle.UP);
+        } else {
+            ElevatorSubsystem.getInstance().setWristTarget(ElevatorSubsystem.WristAngle.BOTTOMALGAEREMOVAL);
+        }
     }
 
     @Override
