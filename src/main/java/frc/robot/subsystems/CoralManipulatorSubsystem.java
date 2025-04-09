@@ -51,7 +51,6 @@ public class CoralManipulatorSubsystem extends SubsystemBase{
         // System.out.println("sensor voltage: "+ coralManipulatorSensor.getValue());
     }
 
-    //get commands for Elastic
     public double getManipulatorMotorEncoder() {
         return coralManipulatorMotor.getAbsoluteEncoder().getPosition();
     }
