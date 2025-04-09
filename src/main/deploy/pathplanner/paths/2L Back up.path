@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3374177631578945,
-        "y": 7.1328125
+        "x": 3.1532468838161885,
+        "y": 3.8609325352421506
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6177631578947365,
-        "y": 6.844161184210526
+        "x": 2.9032681074431896,
+        "y": 3.8641900439617367
       },
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 2"
+      "linkedName": "4L Back 3 End"
     },
     {
       "anchor": {
-        "x": 3.1559210526315784,
-        "y": 3.9768914473684207
+        "x": 2.518177816602918,
+        "y": 3.998066762288411
       },
       "prevControl": {
-        "x": 1.5202302631578941,
-        "y": 3.7267269736842104
+        "x": 2.767084826588093,
+        "y": 4.021418429899949
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "2L Algae Back up end"
     }
   ],
   "rotationTargets": [],
@@ -45,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "2 piece back cage auto",
+  "folder": "Back Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

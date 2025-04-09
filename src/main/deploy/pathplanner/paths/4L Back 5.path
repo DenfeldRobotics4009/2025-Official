@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4505122950819673,
-        "y": 7.303637295081967
+        "x": 0.7385919542665823,
+        "y": 6.679312385276512
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5794001159771445,
-        "y": 7.089422613921005
+        "x": 0.7163539038764093,
+        "y": 5.350589158799912
       },
       "isLocked": false,
-      "linkedName": "4L Coral Station"
+      "linkedName": "4L Back 4 End"
     },
     {
       "anchor": {
-        "x": 3.1767418032786883,
-        "y": 4.186834016393442
+        "x": 3.17399023550528,
+        "y": 4.17936090822573
       },
       "prevControl": {
-        "x": 3.074896583648675,
-        "y": 4.415148604710778
+        "x": 2.9242243942241193,
+        "y": 4.168543120600062
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4L 7 end"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.9337221633085896,
+      "minWaypointRelativePos": 0.833318868744809,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.8951737102110758
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "3.5 and 4 Piece Paths",
+  "folder": "Back Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -52.69605172201651
+    "rotation": -55.50347187106092
   },
   "useDefaultConstraints": false
 }

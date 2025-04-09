@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.271381578947368,
-        "y": 4.2944078947368425
+        "x": 3.1372567240397125,
+        "y": 3.998066762288411
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.009098012632779,
-        "y": 4.730052985530369
+        "x": 2.8886206138859656,
+        "y": 3.971988328140368
       },
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 1"
+      "linkedName": "2L Algae Remove end"
     },
     {
       "anchor": {
-        "x": 1.3374177631578945,
-        "y": 7.1328125
+        "x": 2.3167083090322977,
+        "y": 3.998066762288411
       },
       "prevControl": {
-        "x": 2.4920230263157883,
-        "y": 7.229029605263157
+        "x": 2.5666991320185804,
+        "y": 4.000208822661288
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "2 piece back cage auto",
+  "folder": "Back Auto Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

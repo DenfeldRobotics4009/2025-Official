@@ -3,11 +3,11 @@
   "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
-    "2 piece back cage auto",
     "3 Algae Net Paths",
-    "3.5 Piece Left Paths",
+    "3.5 and 4 Piece Paths",
     "3.5 Piece Processor Paths",
     "Auto Align Paths",
+    "Back Auto Paths",
     "One Piece Side",
     "Processer 3 piece auto paths",
     "Processer one piece auto paths",

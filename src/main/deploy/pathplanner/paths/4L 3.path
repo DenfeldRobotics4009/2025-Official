@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.095887368155219,
-        "y": 6.660463656741764
+        "x": 2.0694194963243264,
+        "y": 6.624139782940899
       },
       "isLocked": false,
-      "linkedName": "end point 2"
+      "linkedName": "4L Coral Station"
     },
     {
       "anchor": {
@@ -25,14 +25,14 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "end point 3"
+      "linkedName": "4L 3 end"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.831919406150583,
+      "minWaypointRelativePos": 0.8983555790593853,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
@@ -59,7 +59,7 @@
     "rotation": -59.99999999999999
   },
   "reversed": false,
-  "folder": "3.5 Piece Left Paths",
+  "folder": "3.5 and 4 Piece Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -52.69605172201651
