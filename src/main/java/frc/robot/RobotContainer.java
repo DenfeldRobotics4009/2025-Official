@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.ShootAlgaeCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleL1CoralManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
@@ -250,11 +251,11 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.operateController, Button.kX.value)
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP)); 
         
-        // manually zero wrist - operator right stick click
-        // new JoystickButton(m_controlsSubsystem.operateController, Button.kRightStick.value)
-        // .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); 
+        // shoot algae - driver start
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value)
+        .whileTrue(new ShootAlgaeCommand(m_ElevatorSubsystem));
 
-        // Auto align buttons w/ keypad
+        // Auto align buttons w/ keypad and driver controllers
 
         // back 1 - 1 (simulated A)
         try {
