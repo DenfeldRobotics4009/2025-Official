@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6701913266568567,
-        "y": 3.999030533352413
+        "x": 3.071870482858585,
+        "y": 3.95452720169474
       },
       "isLocked": false,
       "linkedName": "2 piece back cage auto path 1"
     },
     {
       "anchor": {
-        "x": 0.7208659786648208,
-        "y": 1.3888
+        "x": 1.5985891780146835,
+        "y": 0.7431984965006506
       },
       "prevControl": {
-        "x": 0.8912724516602368,
-        "y": 1.5717252141211335
+        "x": 1.9737831186365187,
+        "y": 0.9485847925256792
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 56.32710102308505
+    "rotation": 53.178629965588264
   },
   "reversed": false,
   "folder": "Back Auto Paths",

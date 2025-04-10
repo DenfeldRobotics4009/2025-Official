@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7208659786648208,
-        "y": 6.663309259767885
+        "x": 1.6637783771091026,
+        "y": 7.344022935937952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.7116057162814658,
-        "y": 5.64845570034451
+        "x": 1.8292307726254065,
+        "y": 7.156604941023065
       },
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 2"
+      "linkedName": "4L Back Coal Station"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 3.8609325352421506
       },
       "prevControl": {
-        "x": 2.9033599819739697,
-        "y": 3.8534134736186894
+        "x": 3.0606770304842392,
+        "y": 4.093162641503379
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,7 +62,7 @@
   "folder": "Back Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": -55.50347187106092
   },
   "useDefaultConstraints": false
 }

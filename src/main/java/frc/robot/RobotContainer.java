@@ -381,6 +381,41 @@ public class RobotContainer {
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        // left cage - driver left dpad
+        try {
+            m_controlsSubsystem.getDrivePOVTrigger(90).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Left Cage"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // mid cage - driver up dpad
+        try {
+            m_controlsSubsystem.getDrivePOVTrigger(0).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Mid Cage"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // right cage - driver right dpad
+        try {
+            m_controlsSubsystem.getDrivePOVTrigger(270).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Right Cage"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        // Cancel auto align - driver A (scuffed ahh solution)
+        try {
+            new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
+            .onTrue(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Test Auto Path")));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
     
     }
 
