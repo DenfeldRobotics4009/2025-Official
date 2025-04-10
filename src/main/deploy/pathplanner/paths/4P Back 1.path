@@ -3,40 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4505122950819673,
-        "y": 0.7478
+        "x": 7.208774131492331,
+        "y": 0.8598
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5932322848457308,
-        "y": 0.9530583847783842
+        "x": -0.6038050595408073,
+        "y": 1.2799445686979816
       },
       "isLocked": false,
-      "linkedName": "4P Coral Station"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.973766447368421,
-        "y": 2.7948
+        "x": 3.174368288958513,
+        "y": 4.18254956845884
       },
       "prevControl": {
-        "x": 3.994496560359708,
-        "y": 2.5456609576654663
+        "x": 0.1408898978619968,
+        "y": 3.085210191881333
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4P 5 end"
+      "linkedName": "2 piece back cage auto path 1"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.8986479800404898,
+      "minWaypointRelativePos": 0.9578322096916527,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 1542.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.3024661041969477,
+      "maxWaypointRelativePos": 0.6482805524553572,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 1542.0,
         "nominalVoltage": 12.0,
@@ -56,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 56.63080718651962
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "3.5 and 4 Coral Paths",
+  "folder": "Back Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 53.864158525131934
+    "rotation": -179.79757115924784
   },
   "useDefaultConstraints": false
 }

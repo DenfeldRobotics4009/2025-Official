@@ -20,8 +20,8 @@
         "y": 4.935776717574508
       },
       "prevControl": {
-        "x": 7.8309845562018525,
-        "y": 4.922690521724514
+        "x": 7.9248960835754865,
+        "y": 4.7402178664103
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.6452993602055648,
+      "minWaypointRelativePos": 0.7823255165074752,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
@@ -47,8 +47,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 6.0,
+    "maxAcceleration": 6.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
@@ -59,10 +59,10 @@
     "rotation": 179.79685672967094
   },
   "reversed": false,
-  "folder": "3 Algae Net Paths",
+  "folder": "3 Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 120.77587125381035
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

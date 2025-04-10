@@ -9,7 +9,7 @@
       "prevControl": null,
       "nextControl": {
         "x": 1.6310105216541577,
-        "y": 0.9207751144075187
+        "y": 0.9207751144075188
       },
       "isLocked": false,
       "linkedName": "4P Coral Station"
@@ -59,7 +59,7 @@
     "rotation": 0.8951737102110758
   },
   "reversed": false,
-  "folder": "3.5 and 4 Piece Paths",
+  "folder": "3.5 and 4 Coral Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 53.864158525131934
