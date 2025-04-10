@@ -3,19 +3,24 @@
   "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
-    "3 Algae Net Paths",
-    "3.5 and 4 Piece Paths",
-    "3.5 Piece Processor Paths",
+    "3 Net Algae Paths",
+    "3.5 Coral Processor Paths",
+    "3.5 and 4 Coral Paths",
     "Auto Align Paths",
     "Back Auto Paths",
-    "One Piece Side",
+    "Old Test Paths",
+    "One Coral Paths",
     "Processer 3 piece auto paths",
     "Processer one piece auto paths",
     "Test auto",
     "cage One piece auto paths"
   ],
   "autoFolders": [
-    "New Folder"
+    "3.5 Coral Autos",
+    "4 Coral Autos",
+    "Back Autos",
+    "Net Autos",
+    "One Piece Autos"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

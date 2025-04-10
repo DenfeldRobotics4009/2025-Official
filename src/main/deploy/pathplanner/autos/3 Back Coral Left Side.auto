@@ -5,17 +5,23 @@
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "parallel",
+                "type": "path",
+                "data": {
+                  "pathName": "4L Back 1"
+                }
+              },
+              {
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "3.5L 1"
+                        "waitTime": 1.5
                       }
                     },
                     {
@@ -23,20 +29,21 @@
                       "data": {
                         "name": "Elevator L4"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Toggle funnel"
-                      }
                     }
                   ]
                 }
-              },
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.2
+                  "waitTime": 0.25
                 }
               },
               {
@@ -48,7 +55,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.1
+                  "waitTime": 0.5
                 }
               }
             ]
@@ -61,7 +68,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3.5L 2"
+                  "pathName": "4L Back 2"
                 }
               },
               {
@@ -87,38 +94,38 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Coral intake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "4L Back 3"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Elevator L4"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "Coral intake"
-                }
-              },
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3.5L 3"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Elevator L4"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.2
+                  "waitTime": 0.25
                 }
               },
               {
@@ -130,7 +137,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.1
+                  "waitTime": 0.5
                 }
               }
             ]
@@ -143,7 +150,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3.5L 4"
+                  "pathName": "4L Back 4"
                 }
               },
               {
@@ -153,7 +160,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 1.0
                       }
                     },
                     {
@@ -169,53 +176,9 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Coral intake"
-                }
-              },
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3.5L 5"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Elevator L4"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.2
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Coral outtake"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.2
-                }
-              }
-            ]
+            "name": "Coral intake"
           }
         },
         {
@@ -225,26 +188,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "3.5L 6"
+                  "pathName": "4L Back 5"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Elevator ZERO"
-                      }
-                    }
-                  ]
+                  "name": "Elevator L2"
                 }
               }
             ]
@@ -255,34 +205,9 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "Coral intake"
-                }
-              },
-              {
-                "type": "parallel",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3.5L 7"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Elevator L4"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.2
+                  "waitTime": 0.25
                 }
               },
               {
@@ -294,7 +219,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.1
+                  "waitTime": 0.25
                 }
               }
             ]
@@ -304,6 +229,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "New Folder",
+  "folder": "Back Autos",
   "choreoAuto": false
 }
