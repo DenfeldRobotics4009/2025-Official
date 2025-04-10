@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6979861351295744,
-        "y": 3.934907268948025
+        "x": 2.9605522198147236,
+        "y": 4.555329380741825
       },
       "isLocked": false,
       "linkedName": "2 piece back cage auto path 1"
     },
     {
       "anchor": {
-        "x": 0.7208659786648208,
-        "y": 6.663309259767885
+        "x": 1.6637783771091026,
+        "y": 7.344022935937952
       },
       "prevControl": {
-        "x": 0.8450014905576343,
-        "y": 5.504676649305555
+        "x": 1.7110167717000255,
+        "y": 7.098526430715429
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 2"
+      "linkedName": "4L Back Coal Station"
     }
   ],
   "rotationTargets": [],
@@ -56,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -55.0
+    "rotation": -55.50347187106092
   },
   "reversed": false,
   "folder": "Back Auto Paths",

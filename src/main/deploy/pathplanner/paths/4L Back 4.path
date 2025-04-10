@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6135098407886637,
-        "y": 3.605102262143735
+        "x": 3.0915679571209207,
+        "y": 4.103204510513167
       },
       "isLocked": false,
       "linkedName": "4L Back 3 End"
     },
     {
       "anchor": {
-        "x": 0.7385919542665823,
-        "y": 6.679312385276512
+        "x": 1.6637783771091026,
+        "y": 7.344022935937952
       },
       "prevControl": {
-        "x": 0.818182897214535,
-        "y": 5.397050608882198
+        "x": 1.8131710621775115,
+        "y": 7.143568887218423
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4L Back 4 End"
+      "linkedName": "4L Back Coal Station"
     }
   ],
   "rotationTargets": [],

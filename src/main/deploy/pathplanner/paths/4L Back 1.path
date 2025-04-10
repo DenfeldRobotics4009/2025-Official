@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": -0.6038050595408073,
-        "y": 7.61173075655515
+        "x": 4.081130633884005,
+        "y": 7.38316079457601
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 4.18254956845884
       },
       "prevControl": {
-        "x": 0.40023671001560945,
-        "y": 4.430661410563454
+        "x": 2.253912993537054,
+        "y": 5.339838974564163
       },
       "nextControl": null,
       "isLocked": false,
@@ -75,7 +75,7 @@
   "folder": "Back Auto Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.79757115924784
+    "rotation": 0.14604777471944122
   },
   "useDefaultConstraints": false
 }
