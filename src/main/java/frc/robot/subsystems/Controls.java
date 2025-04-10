@@ -14,7 +14,7 @@ public class Controls {
     return new Trigger(() -> {return operateController.getPOV() == direction;});
 }
     public Trigger getDrivePOVTrigger(int direction) {
-        return new Trigger(() -> {return operateController.getPOV() == direction;});
+        return new Trigger(() -> {return driveController.getPOV() == direction;});
     }
     public Trigger getNumpadPOVTrigger(int direction) {
         return new Trigger(() -> {return numPad.getPOV() == direction;});
