@@ -1,14 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.L1CoralManipulatorSubsystem;
+import frc.robot.subsystems.AlgaeManipulatorSubsystem;
 
 public class ToggleAlgaeManipulatorCommand extends Command{
-private ToggleAlgaeManipulatorCommand m_l1CoralManipulatorSubsystem;
-    public ToggleL1CoralManipulatorCommand(L1CoralManipulatorSubsystem algaeManipulator) {
-    this.m_l1CoralManipulatorSubsystem = algaeManipulator;
+private AlgaeManipulatorSubsystem m_algaeManipulatorSubsystem;
+    public ToggleAlgaeManipulatorCommand(AlgaeManipulatorSubsystem algaeManipulator) {
+    this.m_algaeManipulatorSubsystem = algaeManipulator;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_l1CoralManipulatorSubsystem);
+    addRequirements(m_algaeManipulatorSubsystem);
   }
 
     @Override
@@ -19,10 +19,10 @@ private ToggleAlgaeManipulatorCommand m_l1CoralManipulatorSubsystem;
 
     @Override
     public void execute() {
-        if(m_l1CoralManipulatorSubsystem.isPistonDeployed()){
-            m_l1CoralManipulatorSubsystem.setAlgaePiston(false);
+        if(m_algaeManipulatorSubsystem.isPistonDeployed()){
+            m_algaeManipulatorSubsystem.setAlgaePiston(false);
         } else{
-            m_l1CoralManipulatorSubsystem.setAlgaePiston(true);;
+            m_algaeManipulatorSubsystem.setAlgaePiston(true);;
         }
     }
 

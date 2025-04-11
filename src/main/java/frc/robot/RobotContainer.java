@@ -16,9 +16,11 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ShootAlgaeCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
+import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleL1CoralManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.ToggleL1CoralManipulatorCommand;
+import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.L1CoralManipulatorIntakeCommand;
 import frc.robot.commands.L1CoralManipulatorOuttakeCommand;
@@ -71,7 +73,7 @@ public class RobotContainer {
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
-    public final L1CoralManipulatorSubsystem m_l1CoralManipulatorSubsystem = L1CoralManipulatorSubsystem.getInstance();
+    public final AlgaeManipulatorSubsystem m_algaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
@@ -154,12 +156,12 @@ public class RobotContainer {
     
         // Toggle algae manipulator - operator down dpad
         m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(
-            new ToggleL1CoralManipulatorCommand(m_l1CoralManipulatorSubsystem)    
+            new ToggleAlgaeManipulatorCommand(m_algaeManipulatorSubsystem)   
         );
 
         // Algae intake - operator left dpad
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new L1CoralManipulatorIntakeCommand(m_l1CoralManipulatorSubsystem)    
+            new AlgaeManipulatorIntakeCommand(m_l1CoralManipulatorSubsystem)    
         );
 
         // Outtake algae - operator right dpad
