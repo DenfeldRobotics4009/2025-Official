@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.AutoResetOdometry;
 import frc.robot.commands.ResetSwerveOdometry;
+import frc.robot.subsystems.L1CoraManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
 
 /**
@@ -86,6 +87,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    //System.out.println("encode: " + L1CoraManipulatorSubsystem.getInstance().getL1ManipulatorMotorEncoder());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

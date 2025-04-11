@@ -164,12 +164,15 @@ public final class Constants {
     public static final int AlgaeManipulatorReverseChannel = 4;
   }
   public static final class L1CoralManipulatorConstants{
-    public static final int L1CoralManipulatorRotationMotorID = 0; //TODO: Find actual motor ID
-    public static final int L1CoralManipulatorIntakeMotorID = 0; //TODO: Find actual motor ID
-    public static final int enumManipulatorUP = 0; //TODO: Find encoder values
-    public static final int enumManipulatorDOWN = 0; //TODO: Find encoder values
+    public static final int L1CoralManipulatorRotationMotorID = 16; //TODO: Find actual motor ID
+    public static final int L1CoralManipulatorIntakeMotorID = 17; //TODO: Find actual motor ID
+    public static final double enumManipulatorUP = 3; //TODO: Find encoder values
+    public static final double enumManipulatorDOWN = 1.06; //TODO: Find encoder values
 
-    public static final double L1CoralManipulatorp = 0;
+    public static final double intakeSpeed = -.3;
+    public static final double outakeSpeed = 1;
+
+    public static final double L1CoralManipulatorp = .4;
     public static final double L1CoralManipulatori = 0;
     public static final double L1CoralManipulatord = 0;
   }
