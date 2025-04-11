@@ -1,0 +1,68 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.827583363850911,
+        "y": 4.021965108800817
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.1677632932309745,
+        "y": 4.059361464888961
+      },
+      "isLocked": false,
+      "linkedName": "Net 1 End"
+    },
+    {
+      "anchor": {
+        "x": 8.093185373942056,
+        "y": 4.94399016768844
+      },
+      "prevControl": {
+        "x": 7.593185373942056,
+        "y": 4.94399016768844
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Net 2 End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.7396921888690129,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 1542.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 6.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 1542.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "3 Net Algae Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": false
+}

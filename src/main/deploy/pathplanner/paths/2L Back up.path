@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.1532468838161885,
+        "y": 3.8609325352421506
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.994334370747179,
+        "y": 4.053926869848356
+      },
+      "isLocked": false,
+      "linkedName": "4L Back 3 End"
+    },
+    {
+      "anchor": {
+        "x": 2.518177816602918,
+        "y": 3.998066762288411
+      },
+      "prevControl": {
+        "x": 2.767084826588093,
+        "y": 4.021418429899949
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "2L Algae Back up end"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 1542.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Back Auto Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}

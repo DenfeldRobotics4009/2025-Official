@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.271381578947368,
-        "y": 4.2944078947368425
+        "x": 1.7192696634928373,
+        "y": 7.058894657558865
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.009098012632779,
-        "y": 4.730052985530369
+        "x": 1.6126970865814272,
+        "y": 7.285041260121144
       },
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.3374177631578945,
-        "y": 7.1328125
+        "x": 1.5668704477945952,
+        "y": 7.264173588222928
       },
       "prevControl": {
-        "x": 2.4920230263157883,
-        "y": 7.229029605263157
+        "x": 1.6599333423892462,
+        "y": 7.032140621492627
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "2 piece back cage auto path 2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -45,10 +45,10 @@
     "rotation": -55.0
   },
   "reversed": false,
-  "folder": "2 piece back cage auto",
+  "folder": "Auto Align Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -55.0
   },
   "useDefaultConstraints": true
 }

@@ -21,7 +21,7 @@
       },
       "prevControl": {
         "x": 1.861182868796737,
-        "y": 1.1795377294357559
+        "y": 1.1795377294357556
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 52.09868464807609
   },
   "reversed": false,
-  "folder": "3.5 Piece Left Paths",
+  "folder": "3.5 and 4 Coral Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 60.761835506714625

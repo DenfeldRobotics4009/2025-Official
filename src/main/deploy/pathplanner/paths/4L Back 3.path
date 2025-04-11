@@ -1,0 +1,68 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.6637783771091026,
+        "y": 7.344022935937952
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8292307726254065,
+        "y": 7.156604941023065
+      },
+      "isLocked": false,
+      "linkedName": "4L Back Coal Station"
+    },
+    {
+      "anchor": {
+        "x": 3.1532468838161885,
+        "y": 3.8609325352421506
+      },
+      "prevControl": {
+        "x": 3.0606770304842392,
+        "y": 4.093162641503379
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "4L Back 3 End"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.8982760914140365,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 1542.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 6.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 1542.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Back Auto Paths",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -55.50347187106092
+  },
+  "useDefaultConstraints": false
+}

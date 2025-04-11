@@ -118,7 +118,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         elevatorTarget = var;
     }
 
-    public ElevatorSetpoint elevatorTarget;
+    public static ElevatorSetpoint elevatorTarget;
     public ElevatorSetpoint getElevatorTarget(){
         return elevatorTarget;
     }

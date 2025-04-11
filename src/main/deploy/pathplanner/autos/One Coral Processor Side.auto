@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "One Piece Cage Start"
+            "pathName": "One Piece Side L Start"
           }
         },
         {
@@ -32,6 +32,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "New Folder",
+  "folder": "One Piece Autos",
   "choreoAuto": false
 }
