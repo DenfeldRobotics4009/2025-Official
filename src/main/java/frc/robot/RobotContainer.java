@@ -409,14 +409,11 @@ public class RobotContainer {
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
-
+        
         // Cancel auto align - driver A (scuffed ahh solution)
-        try {
-            new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-            .onTrue(AutoBuilder.followPath(PathPlannerPath.fromPathFile("Test Auto Path")));
-        } catch (FileVersionException | IOException | ParseException e) {
-            e.printStackTrace();
-        }
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
+        .onTrue(new RunCommand(() -> m_robotDrive.getCurrentCommand().cancel()));
+
     
     }
 
