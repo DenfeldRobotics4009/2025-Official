@@ -3,9 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AlgaeManipulatorSubsystem;
 
-public class AlgaeManipulatorIntakeCommand extends Command{private AlgaeManipulatorSubsystem m_algaeManipulatorIntakeCommand;
+public class AlgaeManipulatorIntakeCommand extends Command{
+    private AlgaeManipulatorSubsystem m_algaeManipulatorSubsystem;
     public AlgaeManipulatorIntakeCommand(AlgaeManipulatorSubsystem AlgaeManipulator) {
-    this.m_algaeManipulatorIntakeCommand = AlgaeManipulator;
+    this.m_algaeManipulatorSubsystem = AlgaeManipulator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_algaeManipulatorSubsystem);
   }
