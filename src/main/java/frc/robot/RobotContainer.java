@@ -180,7 +180,7 @@ public class RobotContainer {
 
         // L1 Outtake - operator right dpad
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new L1CoralManipulatorSpeedCommand(Constants.L1CoralManipulatorConstants.outakeSpeed)
+            new L1CoralManipulatorSpeedCommand(m_controlsSubsystem)
         );
 
         // Toggle funnel - operator up dpad
@@ -189,7 +189,9 @@ public class RobotContainer {
         );
 
         //Makes manipulator output coral - operator right trigger
-        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        //check to make sure dpad not pressed for outake pos
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1 
+            && !m_controlsSubsystem.getOperatePOVTrigger(270).getAsBoolean();}).whileTrue(
             (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         );
         //Makes manipulator output coral - driver x
