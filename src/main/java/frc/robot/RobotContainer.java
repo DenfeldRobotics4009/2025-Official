@@ -405,6 +405,15 @@ public class RobotContainer {
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
+
+        // net score - driver right dpad
+        try {
+            m_controlsSubsystem.getDrivePOVTrigger(180).onTrue(
+                AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Net Score"),
+                Constants.DriveConstants.pathConstraints));
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
         
         // Cancel auto align - driver A (scuffed ahh solution)
         new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
