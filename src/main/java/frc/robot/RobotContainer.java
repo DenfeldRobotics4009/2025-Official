@@ -414,7 +414,7 @@ public class RobotContainer {
             e.printStackTrace();
         }
 
-        // net score - driver right dpad
+        // net score - driver down dpad
         try {
             m_controlsSubsystem.getDrivePOVTrigger(180).onTrue(
                 AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Net Score"),
@@ -423,7 +423,7 @@ public class RobotContainer {
             e.printStackTrace();
         }
         
-        // Cancel auto align - driver A (scuffed ahh solution)
+        // Cancel auto align - driver A
         new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
         .onTrue(new RunCommand(() -> m_robotDrive.getCurrentCommand().cancel()));
 

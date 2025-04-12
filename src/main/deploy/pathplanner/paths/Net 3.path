@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.093185373942056,
-        "y": 4.94399016768844
+        "x": 8.027686134620948,
+        "y": 5.017277035183376
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.9077980889214405,
-        "y": 4.925804932205765
+        "x": 6.842298849600333,
+        "y": 4.999091799700701
       },
       "isLocked": false,
-      "linkedName": "Net 2 End"
+      "linkedName": "Net Score point"
     },
     {
       "anchor": {
@@ -59,10 +59,10 @@
     "rotation": -120.17858595888475
   },
   "reversed": false,
-  "folder": "3 Net Algae Paths",
+  "folder": "Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -157.0168393300608
   },
   "useDefaultConstraints": false
 }

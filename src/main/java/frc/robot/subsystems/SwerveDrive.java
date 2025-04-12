@@ -38,6 +38,7 @@ import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
 import frc.robot.commands.SetElevatorTargetCommand;
+import frc.robot.commands.ShootAlgaeCommand;
 import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.subsystems.ElevatorSubsystem.ElevatorSetpoint;
 import frc.robot.subsystems.ElevatorSubsystem.WristAngle;
@@ -169,6 +170,7 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
     NamedCommands.registerCommand("Algae intake", new AlgaeRemoveCommand());
+    NamedCommands.registerCommand("Shoot Algae", new ShootAlgaeCommand(ElevatorSubsystem.getInstance()));
   }
  
   private ChassisSpeeds getRobotRelativeSpeeds(){
