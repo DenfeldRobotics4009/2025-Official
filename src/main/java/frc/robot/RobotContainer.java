@@ -23,6 +23,10 @@ import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
+import frc.robot.commands.ElevatorControllerCommand;
+import frc.robot.commands.L1AlgaeCommand;
+import frc.robot.commands.L1CoralManipulatorSpeedCommand;
+import frc.robot.commands.L1IntakeCommand;
 import frc.robot.commands.PrecisionModeCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
@@ -35,6 +39,7 @@ import frc.robot.subsystems.Controls;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.FunnelSubsystem;
+import frc.robot.subsystems.L1CoraManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.ElevatorSetpoint;
 import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem.WristAngle;
@@ -67,7 +72,8 @@ public class RobotContainer {
     private final SwerveDrive m_robotDrive = SwerveDrive.getInstance();
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
-    public final AlgaeManipulatorSubsystem m_algaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
+    //public final AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
+    public final L1CoraManipulatorSubsystem m_L1CoraManipulatorSubsystem = L1CoraManipulatorSubsystem.getInstance();
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
@@ -149,18 +155,18 @@ public class RobotContainer {
         .onTrue(new ResetSwerveOdometry());
     
         // Toggle algae manipulator - operator down dpad
-        m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(
-            new ToggleAlgaeManipulatorCommand(m_algaeManipulatorSubsystem)   
+        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+            new L1AlgaeCommand() 
         );
 
-        // Algae intake - operator left dpad
+        // L1 intake - operator left dpad
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new AlgaeManipulatorIntakeCommand(m_algaeManipulatorSubsystem)    
+            new L1IntakeCommand()
         );
 
-        // Outtake algae - operator right dpad
+        // L1 Outtake - operator right dpad
         m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new AlgaeManipulatorOuttakeCommand(m_algaeManipulatorSubsystem)
+            new L1CoralManipulatorSpeedCommand(m_controlsSubsystem)
         );
 
         // Toggle funnel - operator up dpad
@@ -169,7 +175,9 @@ public class RobotContainer {
         );
 
         //Makes manipulator output coral - operator right trigger
-        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1;}).whileTrue(
+        //check to make sure dpad not pressed for outake pos
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1 
+            && !m_controlsSubsystem.getOperatePOVTrigger(270).getAsBoolean();}).whileTrue(
             (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
         );
         //Makes manipulator output coral - driver x
