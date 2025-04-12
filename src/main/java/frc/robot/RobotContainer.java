@@ -21,6 +21,7 @@ import frc.robot.commands.ToggleFunnelCommand;
 import frc.robot.commands.AlgaeManipulatorIntakeCommand;
 import frc.robot.commands.AlgaeManipulatorOuttakeCommand;
 import frc.robot.commands.AlgaeRemoveCommand;
+import frc.robot.commands.BlinkLightStripCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
@@ -258,6 +259,10 @@ public class RobotContainer {
         // shoot algae - driver start
         new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value)
         .whileTrue(new ShootAlgaeCommand(m_ElevatorSubsystem));
+
+        // blink LEDs to signal L1 intake - driver b
+        new JoystickButton(m_controlsSubsystem.driveController, Button.kB.value)
+        .onTrue(new BlinkLightStripCommand(m_coralManipulatorSubsystem)); 
 
         // Auto align buttons w/ keypad and driver controllers
 
