@@ -10,14 +10,15 @@ import frc.robot.subsystems.L1CoraManipulatorSubsystem.ManipulatorAngle;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class L1IntakeCommand extends Command {
+public class L1AlgaeCommand extends Command {
 
+  private final double speed = 0;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public L1IntakeCommand() {
+  public L1AlgaeCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(L1CoraManipulatorSubsystem.getInstance());
   }
@@ -25,13 +26,13 @@ public class L1IntakeCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    L1CoraManipulatorSubsystem.getInstance().setManipulatorTarget(ManipulatorAngle.DOWN);
+    L1CoraManipulatorSubsystem.getInstance().setManipulatorTarget(ManipulatorAngle.ALGAE);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    L1CoraManipulatorSubsystem.getInstance().setL1ManipulatorManipulatorSpeed(Constants.L1CoralManipulatorConstants.intakeSpeed);
+    L1CoraManipulatorSubsystem.getInstance().setL1ManipulatorManipulatorSpeed(Constants.L1CoralManipulatorConstants.algaeIntakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

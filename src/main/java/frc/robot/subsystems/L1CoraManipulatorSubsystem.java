@@ -52,13 +52,6 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
         );
         manipulatorpid.enableContinuousInput(0, 2* Math.PI);
         manipulatorpid.setTolerance(0.06);
-
-        
-        setDefaultCommand(new RunCommand(() -> {
-            setManipulatorTarget(ManipulatorAngle.UP);
-            double wristSpeed = L1CoraManipulatorSubsystem.getInstance().getManipulatorPid().calculate(L1CoraManipulatorSubsystem.getInstance().getManipulatorAbsoluteEncoderValue());
-            L1CoraManipulatorSubsystem.getInstance().setL1ManipulatoRotationSpeed(wristSpeed);
-        }, this));
     }
 
     public void setL1ManipulatorManipulatorSpeed(double speed){
@@ -70,20 +63,17 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
     }
 
     public void setL1ManipulatoRotationSpeed(double speed){
-        System.out.println(speed + "  " + getL1ManipulatorMotorEncoder());
-        if(getL1ManipulatorMotorEncoder() > Constants.L1CoralManipulatorConstants.enumManipulatorUP && speed > 0){
-            return;
-        }
+
         double feedforward = Constants.L1CoralManipulatorConstants.pF * Math.sin(getL1ManipulatorMotorEncoder()-.25);
         if(manipulatorpid.atSetpoint()){
             feedforward = 0;
         }
         rotationMotor.set(speed - feedforward);
     }
-
+    private ManipulatorAngle target = ManipulatorAngle.UP;
     public void setManipulatorTarget(ManipulatorAngle var){
         //sets the manipulator's target angle using an encoder and a setpoint
-        manipulatorpid.setSetpoint(var.manipulatorEncoderValue);
+        target  = var;
     }
 
     public ManipulatorAngle manipulatorTarget;
@@ -94,6 +84,7 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
     public enum ManipulatorAngle{
         DOWN(Constants.L1CoralManipulatorConstants.enumManipulatorDOWN), 
         OUTTAKE(Constants.L1CoralManipulatorConstants.enumManipulatorOUTTAKE), 
+        ALGAE(Constants.L1CoralManipulatorConstants.enumManipulatorALGAE), 
         UP(Constants.L1CoralManipulatorConstants.enumManipulatorUP);
         double manipulatorEncoderValue;
         ManipulatorAngle(double val){
@@ -102,6 +93,16 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
         public double getEncoderValue(){
             return manipulatorEncoderValue;
         }
+    }
+
+    @Override
+    public void periodic() {
+        // TODO Auto-generated method stub
+        double wristSpeed = manipulatorpid.calculate(getManipulatorAbsoluteEncoderValue(),target.manipulatorEncoderValue);
+        setL1ManipulatoRotationSpeed(wristSpeed);
+        // if(target == ManipulatorAngle.UP && !manipulatorpid.atSetpoint()){
+        //     setL1ManipulatorManipulatorSpeed(-0.06);
+        // }
     }
 
 }

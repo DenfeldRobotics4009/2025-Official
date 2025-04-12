@@ -20,23 +20,21 @@ public class L1CoralManipulatorSpeedCommand extends Command{
     @Override
     public void end(boolean interrupted) {
         L1CoraManipulatorSubsystem.getInstance().setL1ManipulatorManipulatorSpeed(0);
+        L1CoraManipulatorSubsystem.getInstance().setManipulatorTarget(ManipulatorAngle.UP);
     }
 
     @Override
     public void execute() {
-        L1CoraManipulatorSubsystem.getInstance().setManipulatorTarget(ManipulatorAngle.OUTTAKE);
-        if(controls.operateController.getRightTriggerAxis() > 0.1){
+         if(controls.operateController.getRightTriggerAxis() > 0.1){
             L1CoraManipulatorSubsystem.getInstance().setL1ManipulatorManipulatorSpeed(Constants.L1CoralManipulatorConstants.outakeSpeed);
         }
-    
-        double wristSpeed = L1CoraManipulatorSubsystem.getInstance().getManipulatorPid().calculate(L1CoraManipulatorSubsystem.getInstance().getManipulatorAbsoluteEncoderValue());
-        L1CoraManipulatorSubsystem.getInstance().setL1ManipulatoRotationSpeed(wristSpeed);
     }
 
     @Override
     public void initialize() {
         timer.reset();
         timer.start();
+        L1CoraManipulatorSubsystem.getInstance().setManipulatorTarget(ManipulatorAngle.OUTTAKE);
     }
 
     @Override

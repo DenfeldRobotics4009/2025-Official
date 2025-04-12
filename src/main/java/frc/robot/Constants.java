@@ -163,7 +163,7 @@ public final class Constants {
     public static final double algaeRemovalMotorSpeed = -0.5;
   }
   public static final class AlgaeManipulatorConstants{
-    public static final int algaeManipulatorMotorID = 16;
+    public static final int algaeManipulatorMotorID =16;
 
     public static final int AlgaeManipulatorModule = 20;
     public static final int AlgaeManipulatorForwardChannel = 3;
@@ -173,15 +173,19 @@ public final class Constants {
     public static final int L1CoralManipulatorRotationMotorID = 16; //TODO: Find actual motor ID
     public static final int L1CoralManipulatorIntakeMotorID = 17; //TODO: Find actual motor ID
     public static final double enumManipulatorUP = .25; //TODO: Find encoder values
-    public static final double enumManipulatorDOWN = 2.2; //TODO: Find encoder values
+    public static final double enumManipulatorDOWN = 2.3; //TODO: Find encoder values
     public static final double enumManipulatorOUTTAKE = .8; 
+    public static final double enumManipulatorALGAE = 1.3; 
     public static final double intakeSpeed = -.3;
-    public static final double outakeSpeed = 1;
+    public static final double outakeSpeed = .5;
 
-    public static final double L1CoralManipulatorp = .2;
+    public static final double algaeIntakeSpeed = .4;
+    public static final double algaeOutakeSpeed = -.4;
+
+    public static final double L1CoralManipulatorp = .4;
     public static final double L1CoralManipulatori = 0;
-    public static final double L1CoralManipulatord = 0;
-    public static final double pF = .1;
+    public static final double L1CoralManipulatord = .001;
+    public static final double pF = .05;
   }
   public static final class ClimberSubsystemConstants{
     public static final int winchMotorDeviceID = 13;

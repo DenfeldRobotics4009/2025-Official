@@ -24,6 +24,7 @@ import frc.robot.commands.AlgaeRemoveCommand;
 import frc.robot.commands.ClimberDownCommand;
 import frc.robot.commands.ClimberUpCommand;
 import frc.robot.commands.ElevatorControllerCommand;
+import frc.robot.commands.L1AlgaeCommand;
 import frc.robot.commands.L1CoralManipulatorSpeedCommand;
 import frc.robot.commands.L1IntakeCommand;
 import frc.robot.commands.PrecisionModeCommand;
@@ -154,9 +155,9 @@ public class RobotContainer {
         .onTrue(new ResetSwerveOdometry());
     
         // Toggle algae manipulator - operator down dpad
-        // m_controlsSubsystem.getOperatePOVTrigger(180).onTrue(
-        //     new ToggleAlgaeManipulatorCommand(m_AlgaeManipulatorSubsystem)    
-        // );
+        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+            new L1AlgaeCommand() 
+        );
 
         // L1 intake - operator left dpad
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
