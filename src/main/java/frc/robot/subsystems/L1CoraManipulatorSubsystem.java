@@ -58,7 +58,6 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
         coralIntakeMotor.set(speed);
     }
     public double getL1ManipulatorMotorEncoder() {
-        System.out.println(rotationMotor.getAbsoluteEncoder().getPosition());
         return rotationMotor.getAbsoluteEncoder().getPosition();
     }
 
