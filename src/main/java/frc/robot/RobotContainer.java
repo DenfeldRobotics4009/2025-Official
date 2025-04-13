@@ -262,8 +262,8 @@ public class RobotContainer {
         new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value)
         .whileTrue(new ShootAlgaeCommand(m_ElevatorSubsystem));
 
-        // blink LEDs to signal L1 intake - driver right trigger
-        new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;})
+        // blink LEDs to signal L1 intake - 8 (simulated down dpad)
+        m_controlsSubsystem.getNumpadPOVTrigger(180)
         .onTrue(new BlinkLightStripCommand(m_coralManipulatorSubsystem));
 
         // Auto align buttons w/ keypad and driver controller
@@ -288,7 +288,7 @@ public class RobotContainer {
         // right net score - 5 (simulated left bumper)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kLeftBumper.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Rightt Net Score"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Right Net Score"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
@@ -339,7 +339,7 @@ public class RobotContainer {
             e.printStackTrace();
         }
         
-        // Cancel auto align - driver right stick click
+        // Cancel auto align - 9
         new JoystickButton(m_controlsSubsystem.driveController, Button.kRightStick.value)
         .onTrue(new RunCommand(() -> m_robotDrive.getCurrentCommand().cancel()));
     
