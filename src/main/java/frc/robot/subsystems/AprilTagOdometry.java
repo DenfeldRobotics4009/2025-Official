@@ -84,15 +84,15 @@ public class AprilTagOdometry extends SubsystemBase{
     }
 
     // Gets ID of the nearest AprilTag
-    public PhotonTrackedTarget bestTarget() {
+    public int bestTarget() {
         PhotonPipelineResult result = frontCam.getLatestResult();
 
         if (result.hasTargets()) {
-            PhotonTrackedTarget targetID = result.getBestTarget();
-            SmartDashboard.putNumber("Target ID", targetID.getFiducialId());
+            int targetID = result.getBestTarget().getFiducialId();
+            SmartDashboard.putNumber("Target ID", targetID);
             return targetID;
         }
-        return null;
+        return 0;
     }
 
     // Convert an <Optional>Pose3d to a Pose2d
