@@ -261,9 +261,9 @@ public class RobotContainer {
         // shoot algae - driver start
         new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value)
         .whileTrue(new ShootAlgaeCommand(m_ElevatorSubsystem));
-
-        // blink LEDs to signal L1 intake - 8 (simulated down dpad)
-        m_controlsSubsystem.getNumpadPOVTrigger(180)
+        
+        // blink LEDs to signal L1 intake - driver right trigger
+        new Trigger(() -> {return m_controlsSubsystem.driveController.getRightTriggerAxis() >= 0.1;})
         .onTrue(new BlinkLightStripCommand(m_coralManipulatorSubsystem));
 
         // Auto align buttons w/ keypad and driver controller
@@ -339,8 +339,8 @@ public class RobotContainer {
             e.printStackTrace();
         }
         
-        // Cancel auto align - 9
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kRightStick.value)
+        // Cancel auto align - 9 (simulated left dpad)
+        m_controlsSubsystem.getNumpadPOVTrigger(90)
         .onTrue(new RunCommand(() -> m_robotDrive.getCurrentCommand().cancel()));
     
     }
