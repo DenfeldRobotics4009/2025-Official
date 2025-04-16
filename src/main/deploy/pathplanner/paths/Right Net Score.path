@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.447247156213831,
+        "x": 7.2885245901639335,
         "y": 5.017277035183376
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.697247156213831,
+        "x": 7.5385245901639335,
         "y": 5.017277035183376
       },
       "isLocked": false,
@@ -56,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -157.0168393300608
+    "rotation": -154.8476334301633
   },
   "reversed": false,
   "folder": "Auto Align Paths",
