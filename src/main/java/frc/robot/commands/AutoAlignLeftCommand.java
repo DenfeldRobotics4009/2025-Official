@@ -21,7 +21,11 @@ public class AutoAlignLeftCommand extends Command {
 
     @Override
     public void execute() {
-      // this is giving me an aneurysm
+        
+    }
+    
+    @Override
+    public void initialize() {
       if(AprilTagOdometry.getInstance().bestTarget() == 10 || AprilTagOdometry.getInstance().bestTarget() == 21) {
         try {
           AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 12"),
@@ -67,11 +71,6 @@ public class AutoAlignLeftCommand extends Command {
       } else {
         System.out.println("No april tag target found");
       }
-        
-    }
-    
-    @Override
-    public void initialize() {
         
     }
     
