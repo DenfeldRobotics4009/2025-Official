@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.164790604202835,
-        "y": 2.8714779352258746
+        "x": 7.2885245901639335,
+        "y": 5.017277035183376
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.5631979822229445,
-        "y": 2.467943406281647
+        "x": 7.5385245901639335,
+        "y": 5.017277035183376
       },
       "isLocked": false,
-      "linkedName": "Net 5 End"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.017277035183376
       },
       "prevControl": {
-        "x": 7.871940393968643,
-        "y": 4.8217181840191685
+        "x": 7.794452054821759,
+        "y": 4.927266680111164
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,11 +32,11 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.7823255165074752,
+      "minWaypointRelativePos": 0.5503529900332226,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
+        "maxVelocity": 1.5,
+        "maxAcceleration": 1.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 1542.0,
         "nominalVoltage": 12.0,
@@ -47,8 +47,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 6.0,
-    "maxAcceleration": 6.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
@@ -59,10 +59,10 @@
     "rotation": -154.8476334301633
   },
   "reversed": false,
-  "folder": "Net Algae Paths",
+  "folder": "Auto Align Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 120.77587125381035
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }
