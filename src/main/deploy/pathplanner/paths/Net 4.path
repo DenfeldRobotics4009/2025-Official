@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.1514359000877095,
-        "y": 5.1659998971444585
+        "x": 5.64525,
+        "y": 6.140750000000001
       },
       "isLocked": false,
       "linkedName": "Net 3 End"
@@ -56,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -154.8476334301633
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Net Algae Paths",

@@ -76,7 +76,7 @@ public class RobotContainer {
     private final FunnelSubsystem m_funnelSubsystem = FunnelSubsystem.getInstance();
     public final CoralManipulatorSubsystem m_coralManipulatorSubsystem = CoralManipulatorSubsystem.getInstance();
     //public final AlgaeManipulatorSubsystem m_AlgaeManipulatorSubsystem = AlgaeManipulatorSubsystem.getInstance();
-    public final L1CoraManipulatorSubsystem m_L1CoraManipulatorSubsystem = L1CoraManipulatorSubsystem.getInstance();
+    // public final L1CoraManipulatorSubsystem m_L1CoraManipulatorSubsystem = L1CoraManipulatorSubsystem.getInstance();
     private ElevatorSubsystem m_ElevatorSubsystem;
     private final Controls m_controlsSubsystem = new Controls();
     private final ClimberSubsystem m_ClimberSubsystem = ClimberSubsystem.getInstance();
@@ -158,19 +158,19 @@ public class RobotContainer {
         .onTrue(new ResetSwerveOdometry());
     
         // Toggle algae manipulator - operator down dpad
-        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
-            new L1AlgaeCommand() 
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+        //     new L1AlgaeCommand() 
+        // );
 
         // L1 intake - operator left dpad
-        m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
-            new L1IntakeCommand()
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
+        //     new L1IntakeCommand()
+        // );
 
         // L1 Outtake - operator right dpad
-        m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
-            new L1CoralManipulatorSpeedCommand(m_controlsSubsystem)
-        );
+        // m_controlsSubsystem.getOperatePOVTrigger(270).whileTrue(
+        //     new L1CoralManipulatorSpeedCommand(m_controlsSubsystem)
+        // );
 
         // Toggle funnel - operator up dpad
         m_controlsSubsystem.getOperatePOVTrigger(0).onTrue(
