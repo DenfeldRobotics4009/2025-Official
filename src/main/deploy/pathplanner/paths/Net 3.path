@@ -62,7 +62,7 @@
   "folder": "Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -154.8476334301633
   },
   "useDefaultConstraints": false
 }
