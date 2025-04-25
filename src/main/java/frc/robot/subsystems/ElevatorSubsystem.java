@@ -147,6 +147,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     public enum WristAngle{
         DOWN(Constants.ElevatorSubsystemConstants.wristDown), 
         UP(Constants.ElevatorSubsystemConstants.wristUp),
+        NET(Constants.ElevatorSubsystemConstants.wristNet),
         TOPALGAEREMOVAL(Constants.ElevatorSubsystemConstants.topWristAlgae),
         MOVING(Constants.ElevatorSubsystemConstants.wristMoving),
         BOTTOMALGAEREMOVAL(Constants.ElevatorSubsystemConstants.bottomWristAlgae);
@@ -208,6 +209,7 @@ public class ElevatorSubsystem extends SubsystemBase {
             elevatorEncoder.reset();
             setOffset(0);
         } 
+        // System.out.println(getElevatorRelativeEncoderValue());
     }
 
     //get commands for shuffleboard

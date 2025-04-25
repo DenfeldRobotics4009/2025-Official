@@ -199,7 +199,7 @@ public final class Constants {
     public static final int enumPointLowAlgae = 300;
     public static final int enumP2 = 3500;
     public static final int enumP3 = 9500;
-    public static final int enumP4 = 10400;
+    public static final int enumP4 = 9500;
 
     public static int maxHeight = 10500;
     public static double maxSpeed = 1;
@@ -214,7 +214,8 @@ public final class Constants {
     public static final double Elevatorf = .01;
 
     public static final int wristMotorID = 31;
-    public static final double wristUp = 0.44;
+    public static final double wristUp = 0.45;
+    public static final double wristNet = 0.455;
     public static final double topWristAlgae = 0.316; //TODO: tune this value
     public static final double bottomWristAlgae = 0.316; //TODO: tune this value
     public static final double wristDown = 0.078;

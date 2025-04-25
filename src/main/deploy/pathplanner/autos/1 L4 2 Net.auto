@@ -88,12 +88,6 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "Algae intake"
-                      }
-                    },
-                    {
                       "type": "sequential",
                       "data": {
                         "commands": [
@@ -156,6 +150,25 @@
                           }
                         ]
                       }
+                    },
+                    {
+                      "type": "race",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "Algae intake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 4.5
+                            }
+                          }
+                        ]
+                      }
                     }
                   ]
                 }
@@ -183,12 +196,6 @@
                 "type": "parallel",
                 "data": {
                   "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Algae intake"
-                      }
-                    },
                     {
                       "type": "sequential",
                       "data": {
@@ -248,6 +255,25 @@
                                   }
                                 }
                               ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "race",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "Algae intake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 4.5
                             }
                           }
                         ]

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.743580949571397,
-        "y": 4.960334724143699
+        "x": 6.948927861642797,
+        "y": 5.045726908298346
       },
       "isLocked": false,
       "linkedName": "Net Score point"
     },
     {
       "anchor": {
-        "x": 5.164790604202835,
-        "y": 2.8714779352258746
+        "x": 6.317520491803278,
+        "y": 5.277715163934426
       },
       "prevControl": {
-        "x": 5.6354999999999995,
-        "y": 2.0554999999999994
+        "x": 7.410662357897902,
+        "y": 5.087521418104841
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.77587125381035
+    "rotation": 0.0
   },
   "reversed": false,
   "folder": "Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -154.8476334301633
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

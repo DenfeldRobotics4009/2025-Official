@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.164790604202835,
-        "y": 2.8714779352258746
+        "x": 6.317520491803278,
+        "y": 5.277715163934426
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.859749999999999,
-        "y": 1.5875000000000001
+        "x": 7.012479887600442,
+        "y": 3.993737228708551
       },
       "isLocked": false,
       "linkedName": "Net 5 End"
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -154.8476334301633
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 120.77587125381035
+    "rotation": 0.0
   },
   "useDefaultConstraints": false
 }
