@@ -31,6 +31,8 @@ import frc.robot.commands.L1AlgaeCommand;
 import frc.robot.commands.L1CoralManipulatorSpeedCommand;
 import frc.robot.commands.L1IntakeCommand;
 import frc.robot.commands.PrecisionModeCommand;
+import frc.robot.commands.ProcessorIntakeCommand;
+import frc.robot.commands.ProcessorOuttakeCommand;
 import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.commands.CoralIntakeCommand;
 import frc.robot.commands.CoralManipulatorOuttakeCommand;
@@ -176,12 +178,22 @@ public class RobotContainer {
         m_controlsSubsystem.getOperatePOVTrigger(0).onTrue(
             new ToggleFunnelCommand(m_funnelSubsystem)
         );
+        //Processor Outtake
+        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+            new ProcessorIntakeCommand(m_L1CoraManipulatorSubsystem)
+        );
 
         //Makes manipulator output coral - operator right trigger
         //check to make sure dpad not pressed for outake pos
         new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1 
             && !m_controlsSubsystem.getOperatePOVTrigger(270).getAsBoolean();}).whileTrue(
             (new CoralManipulatorOuttakeCommand(m_coralManipulatorSubsystem))
+        );
+        //Makes manipulator output coral - operator right trigger
+        //check to make sure dpad not pressed for outake pos
+        new Trigger(() -> {return m_controlsSubsystem.operateController.getRightTriggerAxis() >= 0.1 
+            && m_controlsSubsystem.getOperatePOVTrigger(180).getAsBoolean();}).whileTrue(
+            (new ProcessorOuttakeCommand(m_controlsSubsystem))
         );
         //Makes manipulator output coral - driver x
         // new JoystickButton(m_controlsSubsystem.driveController, Button.kX.value).whileTrue(

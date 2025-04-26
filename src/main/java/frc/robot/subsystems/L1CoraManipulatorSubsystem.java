@@ -69,6 +69,9 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
         }
         rotationMotor.set(speed - feedforward);
     }
+    public void setRotationMotorSpeed(double speed){
+        rotationMotor.set(speed);
+    }
     private ManipulatorAngle target = ManipulatorAngle.UP;
     public void setManipulatorTarget(ManipulatorAngle var){
         //sets the manipulator's target angle using an encoder and a setpoint
@@ -84,7 +87,8 @@ public class L1CoraManipulatorSubsystem extends SubsystemBase{
         DOWN(Constants.L1CoralManipulatorConstants.enumManipulatorDOWN), 
         OUTTAKE(Constants.L1CoralManipulatorConstants.enumManipulatorOUTTAKE), 
         ALGAE(Constants.L1CoralManipulatorConstants.enumManipulatorALGAE), 
-        UP(Constants.L1CoralManipulatorConstants.enumManipulatorUP);
+        UP(Constants.L1CoralManipulatorConstants.enumManipulatorUP),
+        ALGAEOUTTAKE(Constants.L1CoralManipulatorConstants.enumALGAEOUTTAKE);
         double manipulatorEncoderValue;
         ManipulatorAngle(double val){
             this.manipulatorEncoderValue = val;
