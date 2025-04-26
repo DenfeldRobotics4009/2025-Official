@@ -173,8 +173,8 @@ public final class Constants {
     public static final int L1CoralManipulatorRotationMotorID = 16; //TODO: Find actual motor ID
     public static final int L1CoralManipulatorIntakeMotorID = 17; //TODO: Find actual motor ID
     public static final double enumManipulatorUP = .25; //TODO: Find encoder values
-    public static final double enumManipulatorDOWN = 2.45; //TODO: Find encoder values
-    public static final double enumManipulatorOUTTAKE = .8; 
+    public static final double enumManipulatorDOWN = 2.45; //TODO: Find encoder values    1.0 algae ground intake
+    public static final double enumManipulatorOUTTAKE = .8; // .9 algae processer outake
     public static final double enumManipulatorALGAE = 1.3; 
     public static final double intakeSpeed = -.3;
     public static final double outakeSpeed = .5;
