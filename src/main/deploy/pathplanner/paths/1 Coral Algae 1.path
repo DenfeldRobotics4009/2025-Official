@@ -20,8 +20,8 @@
         "y": 4.021965108800817
       },
       "prevControl": {
-        "x": 6.077580147600727,
-        "y": 4.0206969941580075
+        "x": 6.122999999999999,
+        "y": 4.015249999999999
       },
       "nextControl": null,
       "isLocked": false,
@@ -59,7 +59,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "3 Net Algae Paths",
+  "folder": "Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

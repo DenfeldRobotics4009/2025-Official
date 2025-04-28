@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.093185373942056,
-        "y": 4.94399016768844
+        "x": 8.027686134620948,
+        "y": 5.017277035183376
       },
       "prevControl": {
-        "x": 7.593185373942056,
-        "y": 4.94399016768844
+        "x": 7.444440188937717,
+        "y": 4.99171407063802
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Net 2 End"
+      "linkedName": "Net Score point"
     }
   ],
   "rotationTargets": [],
@@ -59,7 +59,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "3 Net Algae Paths",
+  "folder": "Net Algae Paths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

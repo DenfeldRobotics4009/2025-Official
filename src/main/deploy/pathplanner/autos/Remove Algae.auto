@@ -7,7 +7,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 1.0
           }
         },
         {
@@ -134,7 +134,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Elevator L4"
+                        "name": "Elevator ZERO"
                       }
                     }
                   ]
@@ -148,15 +148,28 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "Coral outtake"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Algae intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot Algae"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.2
+                  "waitTime": 2.0
                 }
               }
             ]
@@ -229,7 +242,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Elevator L4"
+                        "name": "Elevator ZERO"
                       }
                     }
                   ]
@@ -243,15 +256,28 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "parallel",
                 "data": {
-                  "name": "Coral outtake"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Algae intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot Algae"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.2
+                  "waitTime": 2.5
                 }
               }
             ]

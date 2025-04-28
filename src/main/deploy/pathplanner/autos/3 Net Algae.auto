@@ -7,7 +7,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 1.0
           }
         },
         {
@@ -77,7 +77,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Elevator L4"
+                        "name": "Elevator ZERO"
                       }
                     }
                   ]
@@ -91,15 +91,28 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "Coral outtake"
+                  "waitTime": 2.0
                 }
               },
               {
-                "type": "wait",
+                "type": "parallel",
                 "data": {
-                  "waitTime": 0.25
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Algae intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot Algae"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -172,7 +185,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Elevator L4"
+                        "name": "Elevator ZERO"
                       }
                     }
                   ]
@@ -186,15 +199,28 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "Coral outtake"
+                  "waitTime": 2.0
                 }
               },
               {
-                "type": "wait",
+                "type": "parallel",
                 "data": {
-                  "waitTime": 0.25
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Algae intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot Algae"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -267,7 +293,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Elevator L4"
+                        "name": "Elevator ZERO"
                       }
                     }
                   ]
@@ -281,15 +307,28 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "Coral outtake"
+                  "waitTime": 2.0
                 }
               },
               {
-                "type": "wait",
+                "type": "parallel",
                 "data": {
-                  "waitTime": 0.25
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Algae intake"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot Algae"
+                      }
+                    }
+                  ]
                 }
               }
             ]

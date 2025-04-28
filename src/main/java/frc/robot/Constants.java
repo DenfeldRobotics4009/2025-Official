@@ -170,21 +170,25 @@ public final class Constants {
     public static final int AlgaeManipulatorReverseChannel = 4;
   }
   public static final class L1CoralManipulatorConstants{
-    public static final int L1CoralManipulatorRotationMotorID = 16; //TODO: Find actual motor ID
-    public static final int L1CoralManipulatorIntakeMotorID = 17; //TODO: Find actual motor ID
-    public static final double enumManipulatorUP = .25; //TODO: Find encoder values
-    public static final double enumManipulatorDOWN = 2.3; //TODO: Find encoder values
-    public static final double enumManipulatorOUTTAKE = .8; 
-    public static final double enumManipulatorALGAE = 1.3; 
+    public static final int L1CoralManipulatorRotationMotorID = 16;
+    public static final int L1CoralManipulatorIntakeMotorID = 17;
+    public static final double enumManipulatorUP = .25; 
+    public static final double enumManipulatorDOWN = 2.45; //1.0
+    public static final double enumManipulatorOUTTAKE = .8; // .9 algae processer outake
+    public static final double enumManipulatorALGAE = 1;
+    public static final double enumManipulatorALGAEUP = 0; //TODO: Find encoder value
+    public static final double enumALGAEOUTTAKE = .7;
     public static final double intakeSpeed = -.3;
     public static final double outakeSpeed = .5;
 
-    public static final double algaeIntakeSpeed = .4;
-    public static final double algaeOutakeSpeed = -.4;
+    public static final double algaeIntakeSpeed = -.4;
+    public static final double algaeOuttakeSpeed = -.4;
+    public static final double algaeOuttakeWristSpeed = .25;
+
 
     public static final double L1CoralManipulatorp = .4;
     public static final double L1CoralManipulatori = 0;
-    public static final double L1CoralManipulatord = .001;
+    public static final double L1CoralManipulatord = .008;
     public static final double pF = .05;
   }
   public static final class ClimberSubsystemConstants{
@@ -199,7 +203,7 @@ public final class Constants {
     public static final int enumPointLowAlgae = 300;
     public static final int enumP2 = 3500;
     public static final int enumP3 = 9500;
-    public static final int enumP4 = 10400;
+    public static final int enumP4 = 9500;
 
     public static int maxHeight = 10500;
     public static double maxSpeed = 1;
@@ -214,7 +218,8 @@ public final class Constants {
     public static final double Elevatorf = .01;
 
     public static final int wristMotorID = 31;
-    public static final double wristUp = 0.455;
+    public static final double wristUp = 0.45;
+    public static final double wristNet = 0.455;
     public static final double topWristAlgae = 0.316; //TODO: tune this value
     public static final double bottomWristAlgae = 0.316; //TODO: tune this value
     public static final double wristDown = 0.078;

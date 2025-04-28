@@ -3,8 +3,8 @@
   "robotLength": 0.9398,
   "holonomicMode": true,
   "pathFolders": [
-    "3 Net Algae Paths",
-    "3.5 Coral Processor Paths",
+    "Net Algae Paths",
+    "3.5 Coral Processor Side Paths",
     "3.5 and 4 Coral Paths",
     "Auto Align Paths",
     "Back Auto Paths",

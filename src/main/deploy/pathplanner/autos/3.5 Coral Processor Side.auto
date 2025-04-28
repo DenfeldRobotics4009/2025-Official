@@ -36,7 +36,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.2
+                  "waitTime": 0.4
                 }
               },
               {
@@ -94,6 +94,25 @@
                 "type": "named",
                 "data": {
                   "name": "Coral intake"
+                }
+              },
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Slow Coral Outtake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.05
+                      }
+                    }
+                  ]
                 }
               },
               {
@@ -179,6 +198,25 @@
                 }
               },
               {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Slow Coral Outtake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.05
+                      }
+                    }
+                  ]
+                }
+              },
+              {
                 "type": "parallel",
                 "data": {
                   "commands": [
@@ -258,6 +296,25 @@
                 "type": "named",
                 "data": {
                   "name": "Coral intake"
+                }
+              },
+              {
+                "type": "race",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Slow Coral Outtake"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.05
+                      }
+                    }
+                  ]
                 }
               },
               {

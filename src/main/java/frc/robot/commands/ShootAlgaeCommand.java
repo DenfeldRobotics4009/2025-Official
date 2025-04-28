@@ -22,6 +22,8 @@ public class ShootAlgaeCommand extends Command{
 
         if (ElevatorSubsystem.getInstance().getElevatorRelativeEncoderValue() >= 8750) {
             CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorOuttakeMotorSpeed);
+        } else {
+            CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
         }
 
     }
@@ -29,7 +31,7 @@ public class ShootAlgaeCommand extends Command{
     @Override
     public void initialize() {
         ElevatorSubsystem.getInstance().setElevatorTarget(ElevatorSetpoint.P4);
-        ElevatorSubsystem.getInstance().setWristTarget(WristAngle.UP);
+        ElevatorSubsystem.getInstance().setWristTarget(WristAngle.NET);
     }
 
     @Override

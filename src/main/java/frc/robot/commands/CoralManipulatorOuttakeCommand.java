@@ -31,10 +31,10 @@ public class CoralManipulatorOuttakeCommand extends Command {
     }
 
     // @Override
-    // public boolean isFinished() {
+    public boolean isFinished() {
       
-    //     return !subsystem.getCoralManipulatorSensor();
-    // }
+        return !subsystem.getCoralManipulatorSensor();
+    }
 
     @Override
     public void end(boolean interrupted) {
