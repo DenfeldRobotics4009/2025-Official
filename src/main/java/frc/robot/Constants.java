@@ -182,7 +182,7 @@ public final class Constants {
     public static final double outakeSpeed = .5;
 
     public static final double algaeIntakeSpeed = -.4;
-    public static final double algaeOuttakeSpeed = -.4;
+    public static final double algaeOuttakeSpeed = .4;
     public static final double algaeOuttakeWristSpeed = .25;
 
 
