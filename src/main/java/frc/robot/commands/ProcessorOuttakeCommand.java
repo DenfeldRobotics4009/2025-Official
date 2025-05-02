@@ -26,7 +26,7 @@ public class ProcessorOuttakeCommand extends Command{
     @Override
     public void execute() {
         if(controls.operateController.getRightTriggerAxis() > 0.1){
-            L1CoraManipulatorSubsystem.getInstance().setL1ManipulatorManipulatorSpeed(Constants.L1CoralManipulatorConstants.outakeSpeed);
+            L1CoraManipulatorSubsystem.getInstance().setL1ManipulatorManipulatorSpeed(Constants.L1CoralManipulatorConstants.algaeOuttakeSpeed);
         }
     }
 

@@ -232,7 +232,8 @@ public class RobotContainer {
         );
 
         // remove low algae - driver left trigger
-        new Trigger(() -> {return m_controlsSubsystem.driveController.getLeftTriggerAxis() >= 0.1;}).whileTrue(
+        JoystickButton driverStartButton = new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value);
+        new Trigger(() -> {return m_controlsSubsystem.driveController.getLeftTriggerAxis() >= 0.1 && !driverStartButton.getAsBoolean();}).whileTrue(
         (new AlgaeRemoveCommand())
         );
 
@@ -269,7 +270,7 @@ public class RobotContainer {
         .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.P4, WristAngle.UP)); 
         
         // shoot algae - driver start
-        new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value)
+        driverStartButton
         .whileTrue(new ShootAlgaeCommand(m_ElevatorSubsystem));
         
         // blink LEDs to signal L1 intake - driver right trigger
