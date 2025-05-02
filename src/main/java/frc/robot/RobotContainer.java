@@ -442,7 +442,7 @@ public class RobotContainer {
         
         // Cancel auto align - driver A (scuffed ahh solution)
         new JoystickButton(m_controlsSubsystem.driveController, Button.kA.value)
-        .onTrue(new RunCommand(() -> m_robotDrive.getCurrentCommand().cancel()));
+        .whileTrue(new RunCommand(() -> m_robotDrive.getCurrentCommand().cancel()));
     
     }
 
