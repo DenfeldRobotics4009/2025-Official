@@ -141,7 +141,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         LOW_ALGAE(Constants.ElevatorSubsystemConstants.enumPointLowAlgae),
         P2(Constants.ElevatorSubsystemConstants.enumP2),
         P3(Constants.ElevatorSubsystemConstants.enumP3),
-        P4(Constants.ElevatorSubsystemConstants.enumP4);
+        P4(Constants.ElevatorSubsystemConstants.enumP4),
+        NET(Constants.ElevatorSubsystemConstants.enumNetAlgae);
         double elevatorEncoderValue;
         ElevatorSetpoint(int val){
             this.elevatorEncoderValue = val;

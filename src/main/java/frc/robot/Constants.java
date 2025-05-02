@@ -178,11 +178,11 @@ public final class Constants {
     public static final double enumManipulatorALGAE = 1;
     public static final double enumManipulatorALGAEUP = 0; //TODO: Find encoder value
     public static final double enumALGAEOUTTAKE = .7;
-    public static final double intakeSpeed = -.3;
-    public static final double outakeSpeed = .5;
+    public static final double intakeSpeed = .3;
+    public static final double outakeSpeed = -.5;
 
     public static final double algaeIntakeSpeed = -.4;
-    public static final double algaeOuttakeSpeed = -.4;
+    public static final double algaeOuttakeSpeed = .4;
     public static final double algaeOuttakeWristSpeed = .25;
 
 
@@ -204,6 +204,7 @@ public final class Constants {
     public static final int enumP2 = 3500;
     public static final int enumP3 = 9500;
     public static final int enumP4 = 9500;
+    public static final int enumNetAlgae = 10400;
 
     public static int maxHeight = 10500;
     public static double maxSpeed = 1;

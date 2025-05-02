@@ -30,7 +30,7 @@ public class ShootAlgaeCommand extends Command{
 
     @Override
     public void initialize() {
-        ElevatorSubsystem.getInstance().setElevatorTarget(ElevatorSetpoint.P4);
+        ElevatorSubsystem.getInstance().setElevatorTarget(ElevatorSetpoint.NET);
         ElevatorSubsystem.getInstance().setWristTarget(WristAngle.NET);
     }
 
