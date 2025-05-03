@@ -16,6 +16,7 @@ import com.pathplanner.lib.events.EventTrigger;
 import com.studica.frc.AHRS;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -27,6 +28,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.ADIS16470_IMU;
 import edu.wpi.first.wpilibj.ADIS16470_IMU.IMUAxis;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -356,13 +359,13 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
     return m_gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
-  public void addVisionMeasurement(Pose2d visionPosition, double timestampSeconds) {
+  public void addVisionMeasurement(Pose2d visionPosition, double timestampSeconds, Matrix<N3, N1> standardDeviation) {
     // Check if the vision position is within 1 meter of the current drive position,
     // per the robotPoseEstimator recommendations.
 
     // If the AprilTag is wildly different from the Swerve Pose, don't update.
     //if (visionPosition.getTranslation().getDistance(getPosition().getTranslation()) < 1) {
-      swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds);
+      swerveDrivePoseEstimator.addVisionMeasurement(visionPosition, timestampSeconds, standardDeviation);
     //}
   }
 

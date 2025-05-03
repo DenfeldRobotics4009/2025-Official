@@ -353,7 +353,7 @@ public class RobotContainer {
         
         // front left 9 - 9 (simulated left dpad)
         try {
-            m_controlsSubsystem.getNumpadPOVTrigger(90).onTrue(
+            m_controlsSubsystem.getNumpadPOVTrigger(270).onTrue(
                 AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 9"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
@@ -362,7 +362,7 @@ public class RobotContainer {
 
         // back left 10 - / (simulated right dpad)
         try {
-            m_controlsSubsystem.getNumpadPOVTrigger(270).onTrue(
+            m_controlsSubsystem.getNumpadPOVTrigger(90).onTrue(
                 AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back Left 10"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
@@ -381,7 +381,7 @@ public class RobotContainer {
         // back 12 - backspace (simulated right joystick click)
         try {
             new JoystickButton(m_controlsSubsystem.numPad, Button.kRightStick.value)
-            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Front Left 12"),
+            .onTrue(AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Back 12"),
             Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();

@@ -9,10 +9,14 @@ import edu.wpi.first.math.geometry.Transform3d;
 
 import com.pathplanner.lib.path.PathConstraints;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants.NeoMotorConstants;
@@ -102,6 +106,10 @@ public final class Constants {
       new Rotation3d(0, 0, 0)
         );
         public static double yawToSpeakerOffset = -5;
+        // The standard deviations of our vision estimated poses, which affect correction rate
+        // (Fake values. Experiment and determine estimation noise on an actual robot.)
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
   }
 
     public static Transform3d backCamPose = new Transform3d(
@@ -173,13 +181,13 @@ public final class Constants {
     public static final int L1CoralManipulatorRotationMotorID = 16;
     public static final int L1CoralManipulatorIntakeMotorID = 17;
     public static final double enumManipulatorUP = .25; 
-    public static final double enumManipulatorDOWN = 2.3; //1.0
+    public static final double enumManipulatorDOWN = 2.27; //1.0
     public static final double enumManipulatorOUTTAKE = .8; // .9 algae processer outake
     public static final double enumManipulatorALGAE = 1;
     public static final double enumManipulatorALGAEUP = 0; //TODO: Find encoder value
     public static final double enumALGAEOUTTAKE = .7;
     public static final double intakeSpeed = .3;
-    public static final double outakeSpeed = -.5;
+    public static final double outakeSpeed = -.2;
 
     public static final double algaeIntakeSpeed = -.4;
     public static final double algaeOuttakeSpeed = .4;

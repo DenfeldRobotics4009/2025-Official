@@ -13,6 +13,8 @@ import org.photonvision.targeting.TargetCorner;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,6 +22,8 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -31,6 +35,7 @@ import frc.robot.Constants;
 public class AprilTagOdometry extends SubsystemBase{
     //creates a singleton for the AprilTagOdometry subsystem
     private static AprilTagOdometry instance;
+    private Matrix<N3, N1> curStdDevs;
 
     public static  AprilTagOdometry getInstance() {
         if (instance == null) {
@@ -57,7 +62,10 @@ public class AprilTagOdometry extends SubsystemBase{
         if (result.size() == 0){
             return Optional.empty();
         }
-        return photonFrontPoseEstimator.update(result.get(0));
+       
+        var estimatedRobotPose = photonFrontPoseEstimator.update(result.get(0));
+        updateEstimationStdDevs(estimatedRobotPose, result.get(0).getTargets());
+        return estimatedRobotPose;
     }
     public Optional<Pose3d> getTargetPose(PhotonTrackedTarget target) {
         if (target != null) {
@@ -108,18 +116,83 @@ public class AprilTagOdometry extends SubsystemBase{
 
         return new Pose2d(x, y, rotation2d);
     }
+
+    
     
     @Override
     public void periodic() {
         // uses the getFrontEstimatedGlobalPose to make a pose sample with the swerve drive
         Optional<EstimatedRobotPose> positionSample = getFrontEstimatedGlobalPose(SwerveDrive.getInstance().getPosition());
+        
         if (positionSample.isPresent()) {
             SwerveDrive.getInstance().addVisionMeasurement(
-                positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp()
+                positionSample.get().estimatedPose.toPose2d(), Timer.getFPGATimestamp(), getEstimationStdDevs()
             );
+
             // System.out.println(positionSample.get().estimatedPose.toPose2d());
         }
     } 
+
+     /**
+     * Calculates new standard deviations This algorithm is a heuristic that creates dynamic standard
+     * deviations based on number of tags, estimation strategy, and distance from the tags.
+     *
+     * @param estimatedPose The estimated pose to guess standard deviations for.
+     * @param targets All targets in this camera frame
+     */
+    private void updateEstimationStdDevs(
+            Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+        if (estimatedPose.isEmpty()) {
+            // No pose input. Default to single-tag std devs
+            curStdDevs = Constants.AprilTagOdometryConstants.kSingleTagStdDevs;
+
+        } else {
+            // Pose present. Start running Heuristic
+            var estStdDevs = Constants.AprilTagOdometryConstants.kSingleTagStdDevs;
+            int numTags = 0;
+            double avgDist = 0;
+
+            // Precalculation - see how many tags we found, and calculate an average-distance metric
+            for (var tgt : targets) {
+                var tagPose = photonFrontPoseEstimator.getFieldTags().getTagPose(tgt.getFiducialId());
+                if (tagPose.isEmpty()) continue;
+                numTags++;
+                avgDist +=
+                        tagPose
+                                .get()
+                                .toPose2d()
+                                .getTranslation()
+                                .getDistance(estimatedPose.get().estimatedPose.toPose2d().getTranslation());
+            }
+
+            if (numTags == 0) {
+                // No tags visible. Default to single-tag std devs
+                curStdDevs = Constants.AprilTagOdometryConstants.kSingleTagStdDevs;
+            } else {
+                // One or more tags visible, run the full heuristic.
+                avgDist /= numTags;
+                // Decrease std devs if multiple targets are visible
+                if (numTags > 1) estStdDevs = Constants.AprilTagOdometryConstants.kMultiTagStdDevs;
+                // Increase std devs based on (average) distance
+                if (numTags == 1 && avgDist > 4)
+                    estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+                else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+                double confidence = .5;
+                estStdDevs = estStdDevs.times(confidence);
+                curStdDevs = estStdDevs;
+            }
+        }
+    }
+
+    /**
+     * Returns the latest standard deviations of the estimated pose from {@link
+     * #getEstimatedGlobalPose()}, for use with {@link
+     * edu.wpi.first.math.estimator.SwerveDrivePoseEstimator SwerveDrivePoseEstimator}. This should
+     * only be used when there are targets visible.
+     */
+    public Matrix<N3, N1> getEstimationStdDevs() {
+        return curStdDevs;
+    }
 }
 
 //WHY DOES THIS NOT WORKKKKKKKKKKKKKKKKKKKKKK -Tanner
