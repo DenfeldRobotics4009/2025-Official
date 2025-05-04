@@ -158,9 +158,9 @@ public class RobotContainer {
         .onTrue(new ResetSwerveOdometry());
     
         // Toggle algae manipulator - operator down dpad
-        // m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
-        //     new L1AlgaeCommand() 
-        // );
+        m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
+            new L1AlgaeCommand() 
+        );
 
         // L1 intake - operator left dpad
         m_controlsSubsystem.getOperatePOVTrigger(90).whileTrue(
@@ -176,6 +176,7 @@ public class RobotContainer {
         m_controlsSubsystem.getOperatePOVTrigger(0).onTrue(
             new ToggleFunnelCommand(m_funnelSubsystem)
         );
+
         //Processor Outtake
         m_controlsSubsystem.getOperatePOVTrigger(180).whileTrue(
             new ProcessorIntakeCommand(m_L1CoraManipulatorSubsystem)
@@ -407,7 +408,7 @@ public class RobotContainer {
 
         // left cage - driver left dpad
         try {
-            m_controlsSubsystem.getDrivePOVTrigger(90).onTrue(
+            m_controlsSubsystem.getDrivePOVTrigger(270).onTrue(
                 AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Left Cage"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
@@ -425,14 +426,14 @@ public class RobotContainer {
 
         // right cage - driver right dpad
         try {
-            m_controlsSubsystem.getDrivePOVTrigger(270).onTrue(
+            m_controlsSubsystem.getDrivePOVTrigger(90).onTrue(
                 AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Right Cage"),
                 Constants.DriveConstants.pathConstraints));
         } catch (FileVersionException | IOException | ParseException e) {
             e.printStackTrace();
         }
 
-        // net score - driver right dpad
+        // net score - driver down dpad
         try {
             m_controlsSubsystem.getDrivePOVTrigger(180).onTrue(
                 AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile("Net Score"),

@@ -1,9 +1,12 @@
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Autos;
 
@@ -15,7 +18,7 @@ public class AutoShuffleboardTab {
     static AutoShuffleboardTab instance;
 
     // Shuffleboard object for selecting autonomous routines
-    SendableChooser<SequentialCommandGroup> autoChooser = new SendableChooser<>();
+    SendableChooser<Command> autoChooser = new SendableChooser<>();
 
     // Tab to display autonomous data
     public static final ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
@@ -40,15 +43,20 @@ public class AutoShuffleboardTab {
      * Constructs auto tab, and initializes autoChooser
      */
     private AutoShuffleboardTab() {
-
-        // Iterate through enum of autos
-        for (Autos autoEnum : Autos.values()) {
-            // Add all enum objects to autoChooser, with name given by enum type
-            // The last added option will remain as default
-            autoChooser.addOption(autoEnum.toString(), autoEnum.getSequence());
-        }
         
-        autoTab.add("Autonomous", autoChooser).withPosition(20, 0).withSize(5, 2);
+        // For convenience a programmer could change this when going to competition.
+        boolean isCompetition = true;
+
+        // Build an auto chooser. This will use Commands.none() as the default option.
+        // As an example, this will only show autos that start with "comp" while at
+        // competition as defined by the programmer
+        autoChooser = AutoBuilder.buildAutoChooserWithOptionsModifier(
+        (stream) -> isCompetition
+            ? stream.filter(auto -> auto.getName().startsWith("comp"))
+            : stream
+        );
+        
+        //autoTab.add("Autonomous", autoChooser).withPosition(20, 0).withSize(5, 2);
     }
 
     /**
@@ -66,7 +74,7 @@ public class AutoShuffleboardTab {
     /**
      * @return currently selected autonomous routine within shuffleboard
      */
-    public SequentialCommandGroup getSelectedAuto() {
+    public Command getSelectedAuto() {
         return autoChooser.getSelected();
     }
 }
