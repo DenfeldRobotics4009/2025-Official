@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.694736842105263,
-        "y": 2.9778
+        "x": 3.5483606557377048,
+        "y": 3.036014344262295
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.412168592794019,
-        "y": 2.5038409245411297
+        "x": 3.2657924064264607,
+        "y": 2.562055268803425
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3.5P 3 End"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": "3.5 and 4 Coral Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 60.483050951918734
+    "rotation": 61.28235906509929
   },
   "useDefaultConstraints": true
 }
