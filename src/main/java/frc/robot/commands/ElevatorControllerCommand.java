@@ -16,7 +16,7 @@ public class ElevatorControllerCommand extends Command{
     }
     @Override
     public void execute() {
-        if(m_elevator.isAtBottom() && m_elevator.getElevatorTarget().equals(ElevatorSubsystem.ElevatorSetpoint.ZERO)){
+        if(m_elevator.getElevatorRelativeEncoderValue() <= 4000 && m_elevator.getElevatorTarget().equals(ElevatorSubsystem.ElevatorSetpoint.ZERO)){
             m_elevator.setWristTarget(ElevatorSubsystem.WristAngle.DOWN);
         }
         //sets the elevator speed with pid and relative encoder values
