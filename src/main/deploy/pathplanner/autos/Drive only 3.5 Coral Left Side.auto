@@ -1,0 +1,55 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 6"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3.5L 7"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "3.5 Coral Autos",
+  "choreoAuto": false
+}

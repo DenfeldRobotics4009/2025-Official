@@ -7,7 +7,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 public class AlgaeRemoveCommand extends Command{
 
-    public AlgaeRemoveCommand(){
+    public AlgaeRemoveCommand(ElevatorSubsystem elevator){
+        final ElevatorSubsystem m_elevator = ElevatorSubsystem.getInstance();
     }
 
     @Override

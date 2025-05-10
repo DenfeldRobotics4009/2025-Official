@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
@@ -50,12 +51,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     public PIDController getElevatorPid() {
         return Elevatorpid;
     }
+    private TrapezoidProfile ElevatorTrapezoidProfile;
+    public TrapezoidProfile getElevatorTrapezoidProfile() {
+        return ElevatorTrapezoidProfile;
+    }
     private PIDController Wristpid;
     public PIDController getWristPid() {
         return Wristpid;
     }
 
     Boolean ERROR = false;
+    public boolean algaecontrolled = false;
     /**
      * 
      * @throws Exception if our motors are not set up correctly in REV client
@@ -80,6 +86,8 @@ public class ElevatorSubsystem extends SubsystemBase {
             ERROR = true;
             //throw new Exception("Evelator Motors not set up");
         }
+
+        TrapezoidProfile trapezoidProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(0.25, 0.1));
         
         //The PID controller setup. 
         //kp is how much to multiply speed by the farther it is away. 
@@ -106,7 +114,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
     }
-
+    public void setShootAlgaeMode(Boolean shootingalgae){
+        algaecontrolled = shootingalgae;
+    }
     public boolean isAtBottom(){
         //bottom is false 
         return !bottomLimitSwitch.get();
@@ -134,7 +144,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         LOW_ALGAE(Constants.ElevatorSubsystemConstants.enumPointLowAlgae),
         P2(Constants.ElevatorSubsystemConstants.enumP2),
         P3(Constants.ElevatorSubsystemConstants.enumP3),
-        P4(Constants.ElevatorSubsystemConstants.enumP4);
+        P4(Constants.ElevatorSubsystemConstants.enumP4),
+        NET(Constants.ElevatorSubsystemConstants.enumNetAlgae);
         double elevatorEncoderValue;
         ElevatorSetpoint(int val){
             this.elevatorEncoderValue = val;
