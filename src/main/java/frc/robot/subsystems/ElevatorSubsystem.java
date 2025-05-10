@@ -61,6 +61,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     Boolean ERROR = false;
+    public boolean algaecontrolled = false;
     /**
      * 
      * @throws Exception if our motors are not set up correctly in REV client
@@ -113,7 +114,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         setWristTarget(WristAngle.DOWN);
         setDefaultCommand(new ElevatorControllerCommand(this));
     }
-
+    public void setShootAlgaeMode(Boolean shootingalgae){
+        algaecontrolled = shootingalgae;
+    }
     public boolean isAtBottom(){
         //bottom is false 
         return !bottomLimitSwitch.get();

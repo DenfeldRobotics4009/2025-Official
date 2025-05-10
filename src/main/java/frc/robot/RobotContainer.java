@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SetElevatorTargetCommand;
 import frc.robot.commands.ShootAlgaeCommand;
+import frc.robot.commands.SlowCoralManiuplatorIntakeCommand;
 import frc.robot.commands.SlowCoralManiuplatorOuttakeCommand;
 import frc.robot.commands.ToggleAlgaeManipulatorCommand;
 import frc.robot.commands.ToggleFunnelCommand;
@@ -212,14 +213,14 @@ public class RobotContainer {
         (new CoralIntakeCommand(m_coralManipulatorSubsystem))
         );
 
-        // manual elevator control - operator left joystick
-        new Trigger(()->{return m_controlsSubsystem.operateController.getLeftY() > 0.5;}).whileTrue(
-            (new SetElevatorOffset(m_ElevatorSubsystem, 5))
-        );
-
-        // manual elevator control - operator right joystick
+        // slow coral outtake - operator right joystick
         new Trigger(()->{return m_controlsSubsystem.operateController.getRightY() > 0.5;}).whileTrue(
             (new SlowCoralManiuplatorOuttakeCommand(m_coralManipulatorSubsystem))
+            );
+
+        // slow coral intake - operator left joystick
+        new Trigger(()->{return m_controlsSubsystem.operateController.getLeftY() > 0.5;}).whileTrue(
+            (new SlowCoralManiuplatorIntakeCommand(m_coralManipulatorSubsystem))
             );
 
         // climber down - operator right bumper
@@ -235,7 +236,7 @@ public class RobotContainer {
         // remove low algae - driver left trigger
         JoystickButton driverStartButton = new JoystickButton(m_controlsSubsystem.driveController, Button.kStart.value);
         new Trigger(() -> {return m_controlsSubsystem.driveController.getLeftTriggerAxis() >= 0.1 && !driverStartButton.getAsBoolean();}).whileTrue(
-        (new AlgaeRemoveCommand())
+        (new AlgaeRemoveCommand(ElevatorSubsystem.getInstance()))
         );
 
         // // remove high algae - driver right trigger
@@ -252,7 +253,7 @@ public class RobotContainer {
 
         // elevator zero/P1 - operator A
         new JoystickButton(m_controlsSubsystem.operateController, Button.kA.value)
-        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.DOWN)); //Zero is the same as L1
+        .onTrue(new SetElevatorTargetCommand(m_ElevatorSubsystem, ElevatorSetpoint.ZERO, WristAngle.MOVING)); //Zero is the same as L1
 
         // elevator P2 - operator B
         new JoystickButton(m_controlsSubsystem.operateController, Button.kB.value)

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ResetSwerveOdometry;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.L1CoraManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
 
@@ -44,12 +45,12 @@ public class Robot extends TimedRobot {
       new Thread(
         () -> {
         UsbCamera camera0 = CameraServer.startAutomaticCapture(0);
-        UsbCamera camera1 = CameraServer.startAutomaticCapture(1);
+        //UsbCamera camera1 = CameraServer.startAutomaticCapture(1);
         camera0.setResolution(640, 480);
-        camera1.setResolution(640, 480);
+        //camera1.setResolution(640, 480);
 
         CvSink cvSink0 = CameraServer.getVideo(camera0);
-        CvSink cvSink1 = CameraServer.getVideo(camera1);
+        //CvSink cvSink1 = CameraServer.getVideo(camera1);
         CvSource outputStream = CameraServer.putVideo("Rectangle", 640, 480);
 
         Mat mat = new Mat();
@@ -59,10 +60,10 @@ public class Robot extends TimedRobot {
             outputStream.notifyError(cvSink0.getError());
             continue;
           }
-          if (cvSink1.grabFrame(mat) == 0) {
-            outputStream.notifyError(cvSink1.getError());
-            continue;
-          }
+          // if (cvSink1.grabFrame(mat) == 0) {
+          //   outputStream.notifyError(cvSink1.getError());
+          //   continue;
+          // }
           Imgproc.rectangle(
             mat, new Point(100, 100), new Point(400, 400), new Scalar(255, 255, 255), 5);
 
@@ -99,7 +100,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    System.out.println(ElevatorSubsystem.getInstance().getElevatorRelativeEncoderValue());
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -127,6 +130,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    ElevatorSubsystem.getInstance().setShootAlgaeMode(false);
     // new ResetSwerveOdometry();
     // new AutoResetOdometry();
   }

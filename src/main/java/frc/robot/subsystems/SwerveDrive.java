@@ -166,14 +166,14 @@ public class SwerveDrive extends SubsystemBase implements DriveSubsystem {
 
     NamedCommands.registerCommand("Elevator LOW ALGAE", new SetElevatorTargetCommand(
       ElevatorSubsystem.getInstance(),
-      ElevatorSetpoint.LOW_ALGAE,
+      ElevatorSubsystem.ElevatorSetpoint.LOW_ALGAE,
       WristAngle.MOVING)
       );
 
     NamedCommands.registerCommand("Coral intake", new CoralIntakeCommand(CoralManipulatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Coral outtake", new CoralManipulatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Toggle funnel", new ToggleFunnelCommand(FunnelSubsystem.getInstance()));
-    NamedCommands.registerCommand("Algae intake", new AlgaeRemoveCommand());
+    NamedCommands.registerCommand("Algae intake", new AlgaeRemoveCommand(ElevatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Shoot Algae", new ShootAlgaeCommand(ElevatorSubsystem.getInstance()));
     NamedCommands.registerCommand("Slow Coral Outtake", new SlowCoralManiuplatorOuttakeCommand(CoralManipulatorSubsystem.getInstance()));
   }

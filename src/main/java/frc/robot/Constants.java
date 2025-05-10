@@ -181,11 +181,11 @@ public final class Constants {
     public static final int L1CoralManipulatorRotationMotorID = 16;
     public static final int L1CoralManipulatorIntakeMotorID = 17;
     public static final double enumManipulatorUP = .25; 
-    public static final double enumManipulatorDOWN = 2.27; //1.0
-    public static final double enumManipulatorOUTTAKE = .8; // .9 algae processer outake
-    public static final double enumManipulatorALGAE = 1;
+    public static final double enumManipulatorDOWN = 2.3; //1.0
+    public static final double enumManipulatorOUTTAKE = .85; // .9 algae processer outake
+    public static final double enumManipulatorALGAE = 1.05;
     public static final double enumManipulatorALGAEUP = 0; //TODO: Find encoder value
-    public static final double enumALGAEOUTTAKE = .7;
+    public static final double enumALGAEOUTTAKE = .8;
     public static final double intakeSpeed = .3;
     public static final double outakeSpeed = -.2;
 
@@ -211,7 +211,7 @@ public final class Constants {
     public static final int enumPointLowAlgae = 300;
     public static final int enumP2 = 3500;
     public static final int enumP3 = 9500;
-    public static final int enumP4 = 9500;
+    public static final int enumP4 = 9600;
     public static final int enumNetAlgae = 10400;
 
     public static int maxHeight = 10500;
@@ -238,10 +238,10 @@ public final class Constants {
     public static final double wristMinAngle = 0.082; //TODO: find actual value
     public static final double wristMaxAngle = 0.467; //TODO: find actual value
 
-    public static final double Wristp = 1.5; //TODO: tune
-    public static final double Wristi = 0; //TODO: tune
+    public static final double Wristp = 3; //TODO: tune
+    public static final double Wristi = 0.05; //TODO: tune
     public static final double Wristd = 0; //TODO: tune
-    public static final double WristF = .15; //TODO: tune
+    public static final double WristF = .12; //TODO: tune
   }
   
 }

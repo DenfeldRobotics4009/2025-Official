@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.CoralManipulatorSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ElevatorControllerCommand extends Command{
@@ -31,7 +32,22 @@ public class ElevatorControllerCommand extends Command{
             elevatorSpeed = Constants.ElevatorSubsystemConstants.ElevatorZeroMotorSpeed;
         }
         //checks to see if the elevator is at the bottom when using feedforward so it doesn't constantly run the motors.
-        m_elevator.runElevatorMotor(elevatorSpeed+(m_elevator.isAtBottom() ? 0 : Constants.ElevatorSubsystemConstants.Elevatorf));
+        if(!m_elevator.algaecontrolled){
+            m_elevator.runElevatorMotor(elevatorSpeed+(m_elevator.isAtBottom() ? 0 : Constants.ElevatorSubsystemConstants.Elevatorf));
+        }else{
+            
+            if(ElevatorSubsystem.getInstance().getWristAbsoluteEncoderValue() >= 0.3) {
+                if (ElevatorSubsystem.getInstance().getElevatorRelativeEncoderValue() >= 6750) {
+                    ElevatorSubsystem.getInstance().runElevatorMotor(-0.25);
+                } else {
+                    CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
+                    ElevatorSubsystem.getInstance().runElevatorMotor(1);
+                }
+            } else {
+                CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
+            }
+        }
+        System.out.println(wristSpeed);
         m_elevator.runWristMotor(wristSpeed);
     }
 

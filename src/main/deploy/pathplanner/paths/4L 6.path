@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.973766447368421,
-        "y": 5.256578947368421
+        "x": 4.015881147540983,
+        "y": 5.2897028688524586
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0398815597737716,
-        "y": 6.02510300243837
+        "x": 3.081996259946334,
+        "y": 6.058226923922407
       },
       "isLocked": false,
       "linkedName": "4L 5 end"
     },
     {
       "anchor": {
-        "x": 1.4864754098360655,
-        "y": 7.243698770491803
+        "x": 1.4145491803278687,
+        "y": 7.291649590163933
       },
       "prevControl": {
-        "x": 1.6592860762139197,
-        "y": 7.06304309361991
+        "x": 1.5873598467057228,
+        "y": 7.11099391329204
       },
       "nextControl": null,
       "isLocked": false,
@@ -52,7 +52,7 @@
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4864754098360655,
-        "y": 7.243698770491803
+        "x": 1.4145491803278687,
+        "y": 7.291649590163933
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.214058240193193,
-        "y": 6.653757695926094
+        "x": 2.142132010684996,
+        "y": 6.701708515598225
       },
       "isLocked": false,
       "linkedName": "4L Coral Station"
     },
     {
       "anchor": {
-        "x": 3.973766447368421,
-        "y": 5.256578947368421
+        "x": 4.015881147540983,
+        "y": 5.2897028688524586
       },
       "prevControl": {
-        "x": 3.4694162590742748,
-        "y": 5.677877233033403
+        "x": 3.511530959246837,
+        "y": 5.71100115451744
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.794396961063628,
+      "minWaypointRelativePos": 0.7013295346628678,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
@@ -52,7 +52,7 @@
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,

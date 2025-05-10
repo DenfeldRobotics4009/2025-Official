@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948927861642797,
-        "y": 5.045726908298346
+        "x": 7.692425312248317,
+        "y": 4.890498644499312
       },
       "isLocked": false,
       "linkedName": "Net Score point"
     },
     {
       "anchor": {
-        "x": 6.317520491803278,
-        "y": 5.277715163934426
+        "x": 6.389446721311475,
+        "y": 5.017277035183376
       },
       "prevControl": {
-        "x": 7.410662357897902,
-        "y": 5.087521418104841
+        "x": 6.639424861357728,
+        "y": 5.013971055900952
       },
       "nextControl": null,
       "isLocked": false,
@@ -52,7 +52,7 @@
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,

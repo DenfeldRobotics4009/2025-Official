@@ -18,32 +18,23 @@ public class ShootAlgaeCommand extends Command{
 
     public ShootAlgaeCommand(ElevatorSubsystem elevator){
         m_elevator = elevator;
-        addRequirements(CoralManipulatorSubsystem.getInstance(), ElevatorSubsystem.getInstance());
+        addRequirements(CoralManipulatorSubsystem.getInstance());
     // Use addRequirements() here to declare subsystem dependencies.
     }
     @Override
     public void execute() {
-        if(ElevatorSubsystem.getInstance().getWristAbsoluteEncoderValue() >= 0.3) {
-            if (ElevatorSubsystem.getInstance().getElevatorRelativeEncoderValue() >= 6750) {
-                ElevatorSubsystem.getInstance().runElevatorMotor(-0.25);
-            } else {
-                CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
-                ElevatorSubsystem.getInstance().runElevatorMotor(1);
-            }
-        } else {
-            CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorCommandConstants.algaeRemovalMotorSpeed);
-        } 
 
         if (ElevatorSubsystem.getInstance().getElevatorRelativeEncoderValue() >= 8500) {
             CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(Constants.CoralManipulatorConstants.coralManipulatorOuttakeMotorSpeed);
         }
 
-        double wristSpeed = m_elevator.getWristPid().calculate(m_elevator.getWristAbsoluteEncoderValue());
-        m_elevator.runWristMotor(wristSpeed);
+        // double wristSpeed = m_elevator.getWristPid().calculate(m_elevator.getWristAbsoluteEncoderValue());
+        // m_elevator.runWristMotor(wristSpeed);
     }
 
     @Override
     public void initialize() {
+        m_elevator.setShootAlgaeMode(true);
         ElevatorSubsystem.getInstance().setWristTarget(WristAngle.NET);
     }
 
@@ -54,6 +45,7 @@ public class ShootAlgaeCommand extends Command{
     @Override
     public void end(boolean interrupted) {
         //sets the elevator and wrist motors to 0 when the command ends
+        m_elevator.setShootAlgaeMode(false);
         m_elevator.runElevatorMotor(0);
         m_elevator.runWristMotor(0);
         CoralManipulatorSubsystem.getInstance().coralManipulatorMotorSpeed(0);

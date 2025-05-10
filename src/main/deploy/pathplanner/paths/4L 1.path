@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.270497105614804,
-        "y": 5.4491179066504465
+        "x": 6.797619517005666,
+        "y": 5.646885055241815
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.349671052631578,
-        "y": 5.0448
+        "x": 5.33452868852459,
+        "y": 5.073924180327869
       },
       "prevControl": {
-        "x": 5.585797446349783,
-        "y": 5.14496679387857
+        "x": 5.53235944439217,
+        "y": 5.226773753545665
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.903731944949128,
+      "minWaypointRelativePos": 0.7943969610636274,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 3.0,
@@ -52,17 +52,17 @@
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 1542.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -121.6410794927014
+    "rotation": -121.641
   },
   "reversed": false,
   "folder": "3.5 and 4 Coral Paths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -118.95099520746682
+    "rotation": -119.99999999999999
   },
   "useDefaultConstraints": false
 }

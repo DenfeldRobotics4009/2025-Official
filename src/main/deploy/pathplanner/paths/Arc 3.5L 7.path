@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4686738470758685,
-        "y": 5.628310969162566
+        "x": 2.6453125,
+        "y": 7.267516447368421
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1767418032786883,
-        "y": 4.246772540983606
+        "x": 5.022532894736842,
+        "y": 5.285444078947369
       },
       "prevControl": {
-        "x": 2.661809757632537,
-        "y": 5.282261157131568
+        "x": 4.618421052631579,
+        "y": 6.4496710526315795
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -119.24882633654694
   },
   "reversed": false,
   "folder": "3.5 and 4 Coral Paths",
