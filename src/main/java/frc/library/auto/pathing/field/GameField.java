@@ -28,7 +28,7 @@ public class GameField extends AprilTagFieldLayout {
         // Copy the given layout, this is the closest wpi gives to a copy constructor.
         super(aprilTagFieldLayout.getTags(), aprilTagFieldLayout.getFieldLength(), aprilTagFieldLayout.getFieldWidth());
         this.fieldMirrorType = fieldMirrorType;
-        SmartDashboard.putData("Field", fieldWidget);
+        // SmartDashboard.putData("Field", fieldWidget);
     }
 
     /**

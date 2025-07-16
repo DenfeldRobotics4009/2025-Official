@@ -20,6 +20,8 @@ import frc.robot.commands.ResetSwerveOdometry;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.L1CoraManipulatorSubsystem;
 import frc.robot.subsystems.SwerveDrive;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -40,6 +42,9 @@ public class Robot extends TimedRobot {
   public Robot() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
 
     m_visionThread =
       new Thread(
