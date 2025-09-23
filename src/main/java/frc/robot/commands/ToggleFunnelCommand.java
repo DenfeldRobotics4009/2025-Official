@@ -15,12 +15,6 @@ public ToggleFunnelCommand(FunnelSubsystem funnel) {
     addRequirements(funnel);
   } 
 
-// ends the command
-    @Override
-    public void end(boolean interrupted) {
-        super.end(interrupted);
-    }
-
     @Override
     public void execute() {
         // when activated makes funnel go up so we can intake
@@ -30,8 +24,16 @@ public ToggleFunnelCommand(FunnelSubsystem funnel) {
     public void initialize() {
     }
 
+    // checks if the command is finished, runs end() if true
     @Override
     public boolean isFinished() {
+        return false;
+    }
+
+    // ends the command
+    @Override
+    public void end(boolean interrupted) {
+        super.end(interrupted);
     }
     
 }

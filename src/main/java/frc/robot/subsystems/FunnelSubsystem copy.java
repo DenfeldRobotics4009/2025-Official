@@ -32,17 +32,19 @@
 //     @Override
 //     public void periodic() {
 //     }
-//     public void setFunnelPiston(boolean pistonOn){
-//         //if the piston is set to on, power the piston
-//         if(pistonOn){
-//             dropPiston.set(DoubleSolenoid.Value.kForward);
-//         }
-//         //if it's not set to on, unpower the piston
-//         else{
-//             dropPiston.set(DoubleSolenoid.Value.kReverse);
-//         }
-//         this.setFunnelPiston = pistonOn;
+        
+//     //power the piston
+//     public void setFunnelPistonOn(){
+//         dropPiston.set(DoubleSolenoid.Value.kForward);
+//         this.setFunnelPiston = true;
 //     }
+
+//     //unpower the piston
+//     public void setFunnelPistonOff(){
+//         dropPiston.set(DoubleSolenoid.Value.kReverse);
+//         this.setFunnelPiston = false;
+//     }
+
 //     public boolean isPistonDeployed(){
 //         return setFunnelPiston;
 //     }

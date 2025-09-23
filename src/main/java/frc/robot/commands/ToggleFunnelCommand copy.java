@@ -24,11 +24,11 @@
 
 //     @Override
 //     public void execute() {
-//           //when activated makes funnel go up so we can intake
-//           if(m_funnelSubsystem.isPistonDeployed()){
-//             m_funnelSubsystem.setFunnelPiston(false);
-//         } else{
-//             m_funnelSubsystem.setFunnelPiston(true);
+//         //when activated makes funnel go up so we can intake
+//         if(m_funnelSubsystem.isPistonDeployed()){
+//             m_funnelSubsystem.setFunnelPistonOff();
+//         } else {
+//             m_funnelSubsystem.setFunnelPistonOn();
 //         }
 //         isDone = true;
 //     }

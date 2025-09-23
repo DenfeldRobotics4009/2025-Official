@@ -64,7 +64,7 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putNumber("Manipulator Motor Encoder Value", m_coralManipulatorSubsystem.getManipulatorMotorEncoder());
     SmartDashboard.putNumber("Manipulator Motor Speed", m_coralManipulatorSubsystem.getCoralManipulatorMotorSpeed());
 
-    SmartDashboard.putBoolean("Funnel piston up", m_funnelSubsystem.getFunnelDropPiston());
+    // SmartDashboard.putBoolean("Funnel piston up", m_funnelSubsystem.getFunnelDropPiston());
 
     SmartDashboard.putNumber("Elevator relative encoder", m_ElevatorSubsystem.getElevatorRelativeEncoderValue());
     SmartDashboard.putNumber("Wrist absolute encoder", m_ElevatorSubsystem.getWristAbsoluteEncoderValue());
