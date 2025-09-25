@@ -24,6 +24,29 @@ public ToggleFunnelCommand(FunnelSubsystem subsystem) {
             m_funnelSubsystem.setFunnelPiston(false);
         } else{
             m_funnelSubsystem.setFunnelPiston(true);
+            boolean Phone = false;
+            if(Phone == false){
+                System.out.println("Hello world im bubba!");
+            }
+            
+            boolean sigma = true;
+            if(sigma == true){
+                System.out.println("You are my sunshine, my only sunshine!");
+            
+            }else {
+                System.out.println("You are not my only sunshine!");
+
+            }
+
+            boolean pizza = false;
+            if(pizza == false){
+                System.out.println("we are very good");
+            }
+            boolean isVeryHappy = true;
+            if(isVeryHappy == true){
+                System.out.println("happy happy happy");
+            }
+
         }
         isDone = true;
     }
