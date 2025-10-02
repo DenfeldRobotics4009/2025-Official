@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class FunnelSubsystem extends SubsystemBase{
 
     //objects
+    DoubleSolenoid dropPiston;
+    public boolean setFunnelPiston;
 
     private static FunnelSubsystem instance;
 
@@ -24,11 +26,26 @@ public class FunnelSubsystem extends SubsystemBase{
     //Constructor
     public FunnelSubsystem() {
         //Pnumatics hub is module 20, and is a REVPH hub. the piston is plugged into 0 and 1 on the REVPH
-        
+        this.dropPiston =  new DoubleSolenoid(20,PneumaticsModuleType.REVPH, 0, 1);
     }
 
     @Override
     public void periodic() {
     }
 
+    //power the piston
+    public void setFunnelPistonOn(){
+        dropPiston.set(DoubleSolenoid.Value.kForward);
+        this.setFunnelPiston = true;
+    }
+
+    //unpower the piston
+    public void setFunnelPistonOff(){
+        dropPiston.set(DoubleSolenoid.Value.kReverse);
+        this.setFunnelPiston = false;
+    }
+
+    public boolean isPistonDeployed(){
+        return setFunnelPiston;
+    }
 } 
