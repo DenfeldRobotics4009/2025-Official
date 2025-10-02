@@ -1,8 +1,6 @@
 package frc.robot;
 
 
-import com.pathplanner.lib.auto.AutoBuilder;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -12,7 +10,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -39,20 +36,21 @@ public class ShuffleBoard extends SubsystemBase {
   public Field2d m_field = new Field2d();
   public PurePursuitSettings config = new PurePursuitSettings(null, Alliance.Blue);
 
-  private final SendableChooser<Command> autoChooser;
+  SendableChooser<SequentialCommandGroup> autoChooser = new SendableChooser<>();
   public static final ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
 
   public ShuffleBoard(PurePursuitSettings config, GameField field) {
-   // Build an auto chooser. This will use Commands.none() as the default option.
-    autoChooser = AutoBuilder.buildAutoChooser();
-
-    // Another option that allows you to specify the default auto by its name
-    // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
-
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    // autoChooser.setDefaultOption("TestAutoBlue", new AutoTestBlue(config, Alliance.Blue, field));
+    // autoChooser.addOption("TestAutoRed", new AutoTestRed(config, Alliance.Blue, field));
+    // autoChooser.addOption("One Piece Cage Auto Red", new OnePieceCageAutoRed(config, Alliance.Blue, field));
+    autoChooser.addOption("Drive Forward Auto", new MoveForwardAuto()); // TODO: test these autos
+    autoChooser.addOption("One Piece Auto", new OnePieceAuto());
+    autoChooser.addOption("One Piece Auto Side", new OnePieceSideAuto());
+    SmartDashboard.putData("Autonomous", autoChooser);
+    // SmartDashboard.putData("Field", m_field);
   }
 
-  public Command getSelectedAuto() {
+  public SequentialCommandGroup getSelectedAuto() {
     return autoChooser.getSelected();
   }
 
@@ -73,13 +71,11 @@ public class ShuffleBoard extends SubsystemBase {
     SmartDashboard.putBoolean("Elevator at bottom", m_ElevatorSubsystem.isAtBottom());
     
     SmartDashboard.putNumber("Odometry Heading", m_swerveDrive.getHeading());
+    SmartDashboard.putNumber("Odometry X", m_swerveDrive.getPosition().getX());
+    SmartDashboard.putNumber("Odometry Y", m_swerveDrive.getPosition().getY());
+
     
     SmartDashboard.putData("Field", m_field);
     m_field.setRobotPose(m_swerveDrive.getPosition().getX(),m_swerveDrive.getPosition().getY(),Rotation2d.fromDegrees(m_swerveDrive.getHeading()));
-
-    // if (m_AprilTagOdometry.bestTarget() != null) {
-    //   SmartDashboard.putNumber("Detected AprilTag Yaw", AprilTagOdometry.getInstance().bestTarget().getYaw());
-    //   SmartDashboard.putData("Alliance", (Sendable) -> DriverStation.getAlliance());
-    // }
   }
 }

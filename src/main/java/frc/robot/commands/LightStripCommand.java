@@ -16,13 +16,11 @@ public class LightStripCommand extends Command{
 
     @Override
     public void execute() {
-        if (BlinkLightStripCommand.isBlinking = false) {
-            if(subsystem.getCoralManipulatorSensor()){
-                subsystem.setLightStripPowered(true);
-            }
-            else if(!subsystem.getCoralManipulatorSensor()){
-                subsystem.setLightStripPowered(false);
-            }
+        if(subsystem.getCoralManipulatorSensor()){
+            subsystem.setLightStripPowered(true);
+        }
+        else if(!subsystem.getCoralManipulatorSensor()){
+            subsystem.setLightStripPowered(false);
         }
     }
 
